@@ -1,0 +1,28 @@
+{
+ "same_camera": {
+  "fellow_rung_used": "fellow_eye_same_visit",
+  "n_fellow_pairs": 272,
+  "median_fellow_plain": 2.85905129517566,
+  "median_fellow_mirrored": 1.2536171199421116,
+  "median_unrelated_opposite_eye_mirrored": 2.3978139456809546,
+  "median_same_eye_other_visit": 1.557412449404215,
+  "dprime_fellow_vs_unrelated_plain": 0.6729679179042491,
+  "dprime_fellow_vs_unrelated_mirrored": 0.9964787428961394
+ },
+ "different_camera": {
+  "fellow_rung_used": "fellow_eye_other_visit",
+  "n_fellow_pairs": 358,
+  "median_fellow_plain": 3.398943659012801,
+  "median_fellow_mirrored": 2.318743522746062,
+  "median_unrelated_opposite_eye_mirrored": 2.8591241778651595,
+  "median_same_eye_other_visit": 2.2709573859140892,
+  "dprime_fellow_vs_unrelated_plain": 0.44602153046299736,
+  "dprime_fellow_vs_unrelated_mirrored": 0.5294212001773976
+ },
+ "camera_time_confound": {
+  "same_eye_pairs_same_camera_median_gap_years": 0.8054794519999999,
+  "same_eye_pairs_different_camera_median_gap_years": 1.7972602739999999,
+  "n_same_camera": 250,
+  "n_different_camera": 398
+ }
+}

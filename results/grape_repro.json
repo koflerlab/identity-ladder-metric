@@ -1,0 +1,368 @@
+{
+ "run": "run-2026-10-23-grape",
+ "table_check": {
+  "csv_rows": 631,
+  "spreadsheet_images": 631,
+  "matched": 631,
+  "only_csv": 0,
+  "only_spreadsheet": 0,
+  "patient_agrees": true,
+  "eye_agrees": true,
+  "visit_agrees": true,
+  "device_agrees": true,
+  "images_on_disk": 631
+ },
+ "configs": {
+  "retfound_released_features": {
+   "n_features": 631,
+   "metrics_pct": {
+    "image_R@1": 38.94,
+    "image_R@10": 56.11,
+    "image_AP": 83.53,
+    "patient_R@1": 54.72,
+    "patient_R@10": 72.64,
+    "patient_AP": 83.6
+   },
+   "published_pct": {
+    "image_R@1": 38.9,
+    "image_R@10": 56.1,
+    "image_AP": 83.5,
+    "patient_R@1": 54.7,
+    "patient_R@10": 72.6,
+    "patient_AP": 83.6
+   },
+   "counts": {
+    "n_images": 565,
+    "n_patients": 106,
+    "n_correct_top1": 220
+   },
+   "image_R@1_ci95_patient_bootstrap": [
+    0.3196906368219875,
+    0.45984323432343227
+   ],
+   "ladder": {
+    "top1_by_rung_and_camera": [
+     {
+      "rung": "fellow_eye_other_visit",
+      "same_camera": false,
+      "n": 5
+     },
+     {
+      "rung": "fellow_eye_other_visit",
+      "same_camera": true,
+      "n": 27
+     },
+     {
+      "rung": "other_patient",
+      "same_camera": false,
+      "n": 31
+     },
+     {
+      "rung": "other_patient",
+      "same_camera": true,
+      "n": 314
+     },
+     {
+      "rung": "same_eye_other_visit",
+      "same_camera": false,
+      "n": 34
+     },
+     {
+      "rung": "same_eye_other_visit",
+      "same_camera": true,
+      "n": 154
+     }
+    ],
+    "correct_top1_fellow_eye": 32,
+    "errors": 345,
+    "errors_same_camera": 314,
+    "pair_distance_by_rung_and_camera": [
+     {
+      "rung": "fellow_eye_other_visit",
+      "same_camera": false,
+      "n": 358,
+      "median": 8.64817059918688,
+      "q25": 5.847870554341701,
+      "q75": 9.647445843510958
+     },
+     {
+      "rung": "fellow_eye_other_visit",
+      "same_camera": true,
+      "n": 250,
+      "median": 4.08380023386562,
+      "q25": 3.244984673677184,
+      "q75": 5.116031046676044
+     },
+     {
+      "rung": "fellow_eye_same_visit",
+      "same_camera": false,
+      "n": 3,
+      "median": 10.139011374847358,
+      "q25": 9.928825822509829,
+      "q75": 10.278962565755414
+     },
+     {
+      "rung": "fellow_eye_same_visit",
+      "same_camera": true,
+      "n": 272,
+      "median": 3.490790310224936,
+      "q25": 2.7867774021139664,
+      "q75": 4.4412846292636186
+     },
+     {
+      "rung": "other_patient",
+      "same_camera": false,
+      "n": 120367,
+      "median": 9.020461246413669,
+      "q25": 7.087987620530525,
+      "q75": 10.120847566520585
+     },
+     {
+      "rung": "other_patient",
+      "same_camera": true,
+      "n": 76867,
+      "median": 6.07646534745823,
+      "q25": 5.126617600950182,
+      "q75": 7.1324279232978345
+     },
+     {
+      "rung": "same_eye_other_visit",
+      "same_camera": false,
+      "n": 398,
+      "median": 8.653477765351358,
+      "q25": 5.574401477923875,
+      "q75": 9.50824920947391
+     },
+     {
+      "rung": "same_eye_other_visit",
+      "same_camera": true,
+      "n": 250,
+      "median": 3.563892881449505,
+      "q25": 2.719531745119756,
+      "q75": 4.68711960781868
+     }
+    ],
+    "decidability": {
+     "same_eye_other_visit vs other_patient (same camera)": 1.564573244212174,
+     "same_eye_other_visit vs other_patient (different camera)": 0.4565154869753461,
+     "fellow_eye_same_visit vs other_patient (same camera)": 1.6100300279031978,
+     "fellow_eye_same_visit vs same_eye_other_visit (same camera)": 0.0049515553913073345,
+     "other_patient same camera vs other_patient different camera": 1.3716361452817905
+    },
+    "camera_confound": {
+     "median other_patient same camera": 6.07646534745823,
+     "median same_eye_other_visit different camera": 8.653477765351358,
+     "median same_eye_other_visit same camera": 3.563892881449505,
+     "n same_eye_other_visit different camera pairs": 398
+    }
+   },
+   "camera_restricted": {
+    "same_camera_gallery": {
+     "queries": 565,
+     "queries_with_own_patient_in_gallery": 354,
+     "R@1_among_queries_with_target": 0.5338983050847458,
+     "R@1_ci95_patient_bootstrap": [
+      0.4460611850917974,
+      0.6228718957713167
+     ]
+    },
+    "different_camera_gallery": {
+     "queries": 565,
+     "queries_with_own_patient_in_gallery": 465,
+     "R@1_among_queries_with_target": 0.22365591397849463,
+     "R@1_ci95_patient_bootstrap": [
+      0.14381949034295366,
+      0.30064531239904374
+     ]
+    }
+   },
+   "agreement_with_released_matches": {
+    "queries_compared": 565,
+    "same_top1": 565
+   },
+   "sensitivity_exclude_by_date_pct": {
+    "image_R@1": 37.52,
+    "image_R@10": 54.34,
+    "image_AP": 83.01,
+    "patient_R@1": 53.77,
+    "patient_R@10": 71.7,
+    "patient_AP": 81.69
+   }
+  },
+  "pixels_16x16": {
+   "n_features": 631,
+   "metrics_pct": {
+    "image_R@1": 25.13,
+    "image_R@10": 36.46,
+    "image_AP": 78.36,
+    "patient_R@1": 42.45,
+    "patient_R@10": 59.43,
+    "patient_AP": 70.55
+   },
+   "published_pct": {
+    "image_R@1": 25.13,
+    "image_R@10": 36.46,
+    "image_AP": 78.36,
+    "patient_R@1": 42.45,
+    "patient_R@10": 59.43,
+    "patient_AP": 70.55
+   },
+   "counts": {
+    "n_images": 565,
+    "n_patients": 106,
+    "n_correct_top1": 142
+   },
+   "image_R@1_ci95_patient_bootstrap": [
+    0.19090514976353126,
+    0.31569896964633803
+   ],
+   "ladder": {
+    "top1_by_rung_and_camera": [
+     {
+      "rung": "other_patient",
+      "same_camera": false,
+      "n": 76
+     },
+     {
+      "rung": "other_patient",
+      "same_camera": true,
+      "n": 347
+     },
+     {
+      "rung": "same_eye_other_visit",
+      "same_camera": false,
+      "n": 43
+     },
+     {
+      "rung": "same_eye_other_visit",
+      "same_camera": true,
+      "n": 99
+     }
+    ],
+    "correct_top1_fellow_eye": 0,
+    "errors": 423,
+    "errors_same_camera": 347,
+    "pair_distance_by_rung_and_camera": [
+     {
+      "rung": "fellow_eye_other_visit",
+      "same_camera": false,
+      "n": 358,
+      "median": 3.398943659012801,
+      "q25": 2.958173378240569,
+      "q75": 3.908793566473261
+     },
+     {
+      "rung": "fellow_eye_other_visit",
+      "same_camera": true,
+      "n": 250,
+      "median": 3.0418123367574497,
+      "q25": 2.5214344492173346,
+      "q75": 3.7301050662769084
+     },
+     {
+      "rung": "fellow_eye_same_visit",
+      "same_camera": false,
+      "n": 3,
+      "median": 2.8919179962899406,
+      "q25": 2.6038788359705762,
+      "q75": 3.323083852086539
+     },
+     {
+      "rung": "fellow_eye_same_visit",
+      "same_camera": true,
+      "n": 272,
+      "median": 2.85905129517566,
+      "q25": 2.323628384037918,
+      "q75": 3.6156852598154225
+     },
+     {
+      "rung": "other_patient",
+      "same_camera": false,
+      "n": 120367,
+      "median": 3.3708266840909644,
+      "q25": 2.648323709211442,
+      "q75": 4.200955309508091
+     },
+     {
+      "rung": "other_patient",
+      "same_camera": true,
+      "n": 76867,
+      "median": 3.024709034947618,
+      "q25": 2.2441533738189148,
+      "q75": 3.907188363845199
+     },
+     {
+      "rung": "same_eye_other_visit",
+      "same_camera": false,
+      "n": 398,
+      "median": 2.2709573859140892,
+      "q25": 1.8312936877763302,
+      "q75": 3.005975192766104
+     },
+     {
+      "rung": "same_eye_other_visit",
+      "same_camera": true,
+      "n": 250,
+      "median": 1.557412449404215,
+      "q25": 0.845106499306558,
+      "q75": 2.436072707785346
+     }
+    ],
+    "decidability": {
+     "same_eye_other_visit vs other_patient (same camera)": 1.1549741359408363,
+     "same_eye_other_visit vs other_patient (different camera)": 0.9460926903552885,
+     "fellow_eye_same_visit vs other_patient (same camera)": 0.13537347806466604,
+     "fellow_eye_same_visit vs same_eye_other_visit (same camera)": 1.200774272957009,
+     "other_patient same camera vs other_patient different camera": 0.2839083484285919
+    },
+    "camera_confound": {
+     "median other_patient same camera": 3.024709034947618,
+     "median same_eye_other_visit different camera": 2.2709573859140892,
+     "median same_eye_other_visit same camera": 1.557412449404215,
+     "n same_eye_other_visit different camera pairs": 398
+    }
+   },
+   "camera_restricted": {
+    "same_camera_gallery": {
+     "queries": 565,
+     "queries_with_own_patient_in_gallery": 354,
+     "R@1_among_queries_with_target": 0.2909604519774011,
+     "R@1_ci95_patient_bootstrap": [
+      0.21363205547601719,
+      0.3678493393655853
+     ]
+    },
+    "different_camera_gallery": {
+     "queries": 565,
+     "queries_with_own_patient_in_gallery": 465,
+     "R@1_among_queries_with_target": 0.14623655913978495,
+     "R@1_ci95_patient_bootstrap": [
+      0.08646781099472436,
+      0.2108326675637036
+     ]
+    }
+   },
+   "sensitivity_exclude_by_date_pct": {
+    "image_R@1": 25.13,
+    "image_R@10": 36.46,
+    "image_AP": 78.36,
+    "patient_R@1": 42.45,
+    "patient_R@10": 59.43,
+    "patient_AP": 70.55
+   }
+  }
+ },
+ "environment": {
+  "python": "3.11.9",
+  "numpy": "1.26.4",
+  "pandas": "2.3.3",
+  "scikit-learn": "1.8.0",
+  "torch": "2.10.0+cpu",
+  "torchvision": "0.25.0+cpu"
+ },
+ "not_attempted": [
+  "Engelmann et al. 2026 ResNet10t (ImageNet) row: needs timm and pretrained weights, not downloaded",
+  "Nebbia et al. 2025 RETFound feature extraction from images: gated weights; released features used instead",
+  "Nebbia et al. 2025 fine-tuned (SimCLR) results: reported only on private datasets"
+ ]
+}

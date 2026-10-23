@@ -1,0 +1,20 @@
+{
+ "retrieved": "2026-10-23",
+ "sources": [
+  {
+   "what": "QTIM-Lab/re_identification",
+   "commit": "50bf2ead64acf63f5071a4d947a11f6d4056070a",
+   "url": "https://github.com/QTIM-Lab/re_identification/tree/50bf2ead64acf63f5071a4d947a11f6d4056070a",
+   "zip_sha256": "4f94d31d29eaf9c8d28fcf092473e08a52e6ae88000d63d21b665568364d4730",
+   "zip_bytes": 2638921,
+   "licence": "none stated in repository"
+  },
+  {
+   "what": "gist justinengelmann/63d5ad32cad4b57bb31627ded9111093",
+   "revision": "37a882f6d132fd65fb4e68038db6fc3a1cd84792",
+   "file_sha256": "ada458312a9a59ece72f2a5d1e52790a49bbeb4649ccb2e8c439118d6d35b05e",
+   "bytes": 3670,
+   "licence": "none stated"
+  }
+ ]
+}
