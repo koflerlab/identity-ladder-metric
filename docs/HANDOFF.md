@@ -1,4 +1,4 @@
-# Handoff — identity-ladder-repro (2026-10-24)
+# Handoff — identity-ladder-metric (2026-10-24)
 
 ## State of the repository
 - Commits: GRAPE fundus reproduction and audit; plans in `docs/`; `a6105d8` SIMON E0 (corrected).

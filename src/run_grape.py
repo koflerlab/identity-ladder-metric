@@ -1,7 +1,7 @@
 """Reproduce GRAPE re-identification (Nebbia et al. 2025; Engelmann et al. 2026) and split it by ladder rung.
 
 Aggregate results -> results/grape_repro.json (versioned with the project).
-Per-image matches (patient-level derived data) -> C:/Projects/data/projects/identity-ladder-repro/<run>/ (not versioned).
+Per-image matches (patient-level derived data) -> C:/Projects/data/projects/identity-ladder-metric/<run>/ (not versioned).
 """
 import json
 import os
@@ -20,7 +20,7 @@ DATA = r"C:\Projects\data\datasets\ophthalmology\grape\figshare-c6406319-v1"
 IMG_DIR = os.path.join(DATA, "raw", "CFPs")
 XLSX = os.path.join(DATA, "downloads", "VF and clinical information.xlsx")
 RUN = "run-2026-10-23-grape"
-PRIVATE = os.path.join(r"C:\Projects\data\projects\identity-ladder-repro", RUN)
+PRIVATE = os.path.join(r"C:\Projects\data\projects\identity-ladder-metric", RUN)
 
 PUBLISHED = {  # Table 2 of Nebbia et al. (RETFound, GRAPE) and Table 1 of Engelmann et al. (16x16 pixels), in %
     "retfound_released_features": {"image_R@1": 38.9, "image_R@10": 56.1, "image_AP": 83.5,
