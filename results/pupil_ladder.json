@@ -1,0 +1,2123 @@
+{
+  "design": {
+    "seeds": [
+      201,
+      202,
+      203
+    ],
+    "n_targets_per_seed": 32,
+    "n_template_per_seed": 40,
+    "n_reference_per_seed": 32,
+    "n_strangers_per_target": 16,
+    "dilation": 1.3,
+    "pool_separation": "Independent people in target, template and reference pools; one left-eye target per person",
+    "mask_pixels": 4096,
+    "pupil_threshold": 0.23,
+    "versions": {
+      "numpy": "1.26.4",
+      "scipy": "1.15.3",
+      "torch": "2.10.0",
+      "torchmetrics": "1.9.0",
+      "inpainting": "0.0.12"
+    },
+    "source_sha256": "b85c4102b9bda981748c0580759bc8f475f8a0c1c70a50699c34f9d84b9ebe7a"
+  },
+  "runs": [
+    {
+      "seed": 201,
+      "scores": {
+        "same_eye_repeat": {
+          "rmse": {
+            "mean_c": 1.0,
+            "mean_raw": 0.009266402572393417
+          },
+          "mse": {
+            "mean_c": 1.0,
+            "mean_raw": 8.588529567532532e-05
+          },
+          "mae": {
+            "mean_c": 1.0,
+            "mean_raw": 0.007393214516923763
+          },
+          "msle": {
+            "mean_c": 1.0,
+            "mean_raw": 4.7292034651036374e-05
+          },
+          "psnr": {
+            "mean_c": 1.0,
+            "mean_raw": 40.23378133773804
+          },
+          "psnr_eps": {
+            "mean_c": 1.0,
+            "mean_raw": 40.23172092437744
+          },
+          "psnr_01": {
+            "mean_c": 1.0,
+            "mean_raw": 40.66273629665375
+          },
+          "psnr_01_eps": {
+            "mean_c": 1.0,
+            "mean_raw": 40.66273760795593
+          },
+          "ssim": {
+            "mean_c": 1.0,
+            "mean_raw": 0.9773347787559032
+          },
+          "pupil_dice": {
+            "mean_c": 1.0,
+            "mean_raw": 0.9989613499178932
+          },
+          "pupil_area_error": {
+            "mean_c": 0.9931640625,
+            "mean_raw": 1.3125
+          },
+          "pupil_boundary_distance": {
+            "mean_c": 1.0,
+            "mean_raw": 0.02114445128275248
+          },
+          "pupil_components_error": {
+            "mean_c": 0.5,
+            "mean_raw": 0.0
+          }
+        },
+        "same_eye_dilated": {
+          "rmse": {
+            "mean_c": 0.0,
+            "mean_raw": 0.21602616552263498
+          },
+          "mse": {
+            "mean_c": 0.0,
+            "mean_raw": 0.046778943156823516
+          },
+          "mae": {
+            "mean_c": 0.0,
+            "mean_raw": 0.12863080692477524
+          },
+          "msle": {
+            "mean_c": 0.0,
+            "mean_raw": 0.02671174582792446
+          },
+          "psnr": {
+            "mean_c": 0.0,
+            "mean_raw": 12.889423042535782
+          },
+          "psnr_eps": {
+            "mean_c": 0.0,
+            "mean_raw": 12.889395624399185
+          },
+          "psnr_01": {
+            "mean_c": 0.0,
+            "mean_raw": 13.320412039756775
+          },
+          "psnr_01_eps": {
+            "mean_c": 0.0,
+            "mean_raw": 13.320412635803223
+          },
+          "ssim": {
+            "mean_c": 0.0,
+            "mean_raw": 0.3851564275100827
+          },
+          "pupil_dice": {
+            "mean_c": 0.005859375,
+            "mean_raw": 0.7387098173372579
+          },
+          "pupil_area_error": {
+            "mean_c": 0.0,
+            "mean_raw": 765.28125
+          },
+          "pupil_boundary_distance": {
+            "mean_c": 0.0,
+            "mean_raw": 5.456183874108046
+          },
+          "pupil_components_error": {
+            "mean_c": 0.5,
+            "mean_raw": 0.0
+          }
+        },
+        "other_eye": {
+          "rmse": {
+            "mean_c": 0.84375,
+            "mean_raw": 0.06623809121083468
+          },
+          "mse": {
+            "mean_c": 0.84375,
+            "mean_raw": 0.004572506877593696
+          },
+          "mae": {
+            "mean_c": 0.837890625,
+            "mean_raw": 0.037710622884333134
+          },
+          "msle": {
+            "mean_c": 0.84375,
+            "mean_raw": 0.0024376131514145527
+          },
+          "psnr": {
+            "mean_c": 0.84375,
+            "mean_raw": 23.320523381233215
+          },
+          "psnr_eps": {
+            "mean_c": 0.84375,
+            "mean_raw": 23.320488214492798
+          },
+          "psnr_01": {
+            "mean_c": 0.84375,
+            "mean_raw": 23.75150442123413
+          },
+          "psnr_01_eps": {
+            "mean_c": 0.84375,
+            "mean_raw": 23.751505255699158
+          },
+          "ssim": {
+            "mean_c": 0.84375,
+            "mean_raw": 0.7836431190371513
+          },
+          "pupil_dice": {
+            "mean_c": 0.8203125,
+            "mean_raw": 0.9508396150115717
+          },
+          "pupil_area_error": {
+            "mean_c": 0.8125,
+            "mean_raw": 64.65625
+          },
+          "pupil_boundary_distance": {
+            "mean_c": 0.822265625,
+            "mean_raw": 0.9028003086206281
+          },
+          "pupil_components_error": {
+            "mean_c": 0.5,
+            "mean_raw": 0.0
+          }
+        },
+        "population_mean": {
+          "rmse": {
+            "mean_c": 0.83984375,
+            "mean_raw": 0.06915452959947288
+          },
+          "mse": {
+            "mean_c": 0.83984375,
+            "mean_raw": 0.005302771773131099
+          },
+          "mae": {
+            "mean_c": 0.849609375,
+            "mean_raw": 0.03911381174111739
+          },
+          "msle": {
+            "mean_c": 0.845703125,
+            "mean_raw": 0.0030121820091153495
+          },
+          "psnr": {
+            "mean_c": 0.83984375,
+            "mean_raw": 23.232502102851868
+          },
+          "psnr_eps": {
+            "mean_c": 0.83984375,
+            "mean_raw": 23.232503652572632
+          },
+          "psnr_01": {
+            "mean_c": 0.83984375,
+            "mean_raw": 23.66351956129074
+          },
+          "psnr_01_eps": {
+            "mean_c": 0.83984375,
+            "mean_raw": 23.663520991802216
+          },
+          "ssim": {
+            "mean_c": 0.884765625,
+            "mean_raw": 0.7935463804751635
+          },
+          "pupil_dice": {
+            "mean_c": 0.720703125,
+            "mean_raw": 0.9253549668317943
+          },
+          "pupil_area_error": {
+            "mean_c": 0.69921875,
+            "mean_raw": 142.15625
+          },
+          "pupil_boundary_distance": {
+            "mean_c": 0.72265625,
+            "mean_raw": 1.3424303669709272
+          },
+          "pupil_components_error": {
+            "mean_c": 0.5,
+            "mean_raw": 0.0
+          }
+        },
+        "blurred_stranger": {
+          "rmse": {
+            "mean_c": 0.70703125,
+            "mean_raw": 0.08136202360037714
+          },
+          "mse": {
+            "mean_c": 0.70703125,
+            "mean_raw": 0.007151946621888783
+          },
+          "mae": {
+            "mean_c": 0.572265625,
+            "mean_raw": 0.049810968805104494
+          },
+          "msle": {
+            "mean_c": 0.697265625,
+            "mean_raw": 0.004066515284648631
+          },
+          "psnr": {
+            "mean_c": 0.70703125,
+            "mean_raw": 21.647594809532166
+          },
+          "psnr_eps": {
+            "mean_c": 0.70703125,
+            "mean_raw": 21.647595793008804
+          },
+          "psnr_01": {
+            "mean_c": 0.70703125,
+            "mean_raw": 22.07861191034317
+          },
+          "psnr_01_eps": {
+            "mean_c": 0.70703125,
+            "mean_raw": 22.078613191843033
+          },
+          "ssim": {
+            "mean_c": 0.703125,
+            "mean_raw": 0.7367753628641367
+          },
+          "pupil_dice": {
+            "mean_c": 0.560546875,
+            "mean_raw": 0.9002434792889232
+          },
+          "pupil_area_error": {
+            "mean_c": 0.5625,
+            "mean_raw": 181.40625
+          },
+          "pupil_boundary_distance": {
+            "mean_c": 0.55859375,
+            "mean_raw": 1.7272608947354402
+          },
+          "pupil_components_error": {
+            "mean_c": 0.5,
+            "mean_raw": 0.0
+          }
+        },
+        "stranger": {
+          "rmse": {
+            "mean_c": 0.5,
+            "mean_raw": 0.10248280618543504
+          },
+          "mse": {
+            "mean_c": 0.5,
+            "mean_raw": 0.011733527260503251
+          },
+          "mae": {
+            "mean_c": 0.5,
+            "mean_raw": 0.05533955718783545
+          },
+          "msle": {
+            "mean_c": 0.5,
+            "mean_raw": 0.006455850317138356
+          },
+          "psnr": {
+            "mean_c": 0.5,
+            "mean_raw": 19.876323914155364
+          },
+          "psnr_eps": {
+            "mean_c": 0.5,
+            "mean_raw": 19.876308638602495
+          },
+          "psnr_01": {
+            "mean_c": 0.5,
+            "mean_raw": 20.307324800640345
+          },
+          "psnr_01_eps": {
+            "mean_c": 0.5,
+            "mean_raw": 20.307325774803758
+          },
+          "ssim": {
+            "mean_c": 0.5,
+            "mean_raw": 0.6770813389448449
+          },
+          "pupil_dice": {
+            "mean_c": 0.5,
+            "mean_raw": 0.8951019358454266
+          },
+          "pupil_area_error": {
+            "mean_c": 0.5,
+            "mean_raw": 199.81640625
+          },
+          "pupil_boundary_distance": {
+            "mean_c": 0.5,
+            "mean_raw": 1.8304977432829745
+          },
+          "pupil_components_error": {
+            "mean_c": 0.5,
+            "mean_raw": 0.0
+          }
+        }
+      },
+      "same_eye_dilated_matched_c": {
+        "rmse": 0.291015625,
+        "mse": 0.291015625,
+        "mae": 0.310546875,
+        "msle": 0.291015625,
+        "psnr": 0.291015625,
+        "psnr_eps": 0.291015625,
+        "psnr_01": 0.291015625,
+        "psnr_01_eps": 0.291015625,
+        "ssim": 0.294921875,
+        "pupil_dice": 0.2998046875,
+        "pupil_area_error": 0.2998046875,
+        "pupil_boundary_distance": 0.291015625,
+        "pupil_components_error": 0.5
+      },
+      "first_case_scores": {
+        "same_eye_repeat": {
+          "raw": {
+            "ssim": 0.977250874042511,
+            "mse": 9.173394937533885e-05,
+            "rmse": 0.00957778375595808,
+            "msle": 4.8908652388490736e-05,
+            "mae": 0.007667040918022394,
+            "psnr": 39.92121124267578,
+            "psnr_eps": 39.91826248168945,
+            "psnr_01": 40.374698638916016,
+            "psnr_01_eps": 40.374698638916016,
+            "pupil_dice": 0.998324958123953,
+            "pupil_area_error": 3.0,
+            "pupil_boundary_distance": 0.031914893617021274,
+            "pupil_components_error": 0.0
+          },
+          "c": {
+            "rmse": 1.0,
+            "mse": 1.0,
+            "mae": 1.0,
+            "msle": 1.0,
+            "psnr": 1.0,
+            "psnr_eps": 1.0,
+            "psnr_01": 1.0,
+            "psnr_01_eps": 1.0,
+            "ssim": 1.0,
+            "pupil_dice": 1.0,
+            "pupil_area_error": 0.9375,
+            "pupil_boundary_distance": 1.0,
+            "pupil_components_error": 0.5
+          }
+        },
+        "same_eye_dilated": {
+          "raw": {
+            "ssim": 0.41572296619415283,
+            "mse": 0.040430717170238495,
+            "rmse": 0.20107391476631165,
+            "msle": 0.022853782400488853,
+            "mae": 0.1155223697423935,
+            "psnr": 13.476546287536621,
+            "psnr_eps": 13.476449012756348,
+            "psnr_01": 13.93288516998291,
+            "psnr_01_eps": 13.93288516998291,
+            "pupil_dice": 0.7358024691358025,
+            "pupil_area_error": 642.0,
+            "pupil_boundary_distance": 5.050014712956095,
+            "pupil_components_error": 0.0
+          },
+          "c": {
+            "rmse": 0.0,
+            "mse": 0.0,
+            "mae": 0.0,
+            "msle": 0.0,
+            "psnr": 0.0,
+            "psnr_eps": 0.0,
+            "psnr_01": 0.0,
+            "psnr_01_eps": 0.0,
+            "ssim": 0.0,
+            "pupil_dice": 0.0,
+            "pupil_area_error": 0.0,
+            "pupil_boundary_distance": 0.0,
+            "pupil_components_error": 0.5
+          }
+        },
+        "other_eye": {
+          "raw": {
+            "ssim": 0.8163694739341736,
+            "mse": 0.002850928343832493,
+            "rmse": 0.05339408665895462,
+            "msle": 0.0014810304855927825,
+            "mae": 0.032804280519485474,
+            "psnr": 24.99373435974121,
+            "psnr_eps": 24.993701934814453,
+            "psnr_01": 25.450136184692383,
+            "psnr_01_eps": 25.450136184692383,
+            "pupil_dice": 0.9627507163323782,
+            "pupil_area_error": 43.0,
+            "pupil_boundary_distance": 0.6247348349877483,
+            "pupil_components_error": 0.0
+          },
+          "c": {
+            "rmse": 0.875,
+            "mse": 0.875,
+            "mae": 1.0,
+            "msle": 0.875,
+            "psnr": 0.875,
+            "psnr_eps": 0.875,
+            "psnr_01": 0.875,
+            "psnr_01_eps": 0.875,
+            "ssim": 0.875,
+            "pupil_dice": 0.875,
+            "pupil_area_error": 0.6875,
+            "pupil_boundary_distance": 0.875,
+            "pupil_components_error": 0.5
+          }
+        },
+        "population_mean": {
+          "raw": {
+            "ssim": 0.7978102564811707,
+            "mse": 0.004433272406458855,
+            "rmse": 0.0665828213095665,
+            "msle": 0.002222480485215783,
+            "mae": 0.036280348896980286,
+            "psnr": 23.076318740844727,
+            "psnr_eps": 23.07632064819336,
+            "psnr_01": 23.53275489807129,
+            "psnr_01_eps": 23.53275489807129,
+            "pupil_dice": 0.9479334406870639,
+            "pupil_area_error": 75.0,
+            "pupil_boundary_distance": 0.8926118372922749,
+            "pupil_components_error": 0.0
+          },
+          "c": {
+            "rmse": 0.6875,
+            "mse": 0.6875,
+            "mae": 0.75,
+            "msle": 0.75,
+            "psnr": 0.6875,
+            "psnr_eps": 0.6875,
+            "psnr_01": 0.6875,
+            "psnr_01_eps": 0.6875,
+            "ssim": 0.8125,
+            "pupil_dice": 0.75,
+            "pupil_area_error": 0.625,
+            "pupil_boundary_distance": 0.8125,
+            "pupil_components_error": 0.5
+          }
+        },
+        "blurred_stranger": {
+          "raw": {
+            "ssim": 0.786117672920227,
+            "mse": 0.0031215292401611805,
+            "rmse": 0.055870648473501205,
+            "msle": 0.001589559717103839,
+            "mae": 0.038573261350393295,
+            "psnr": 24.59988784790039,
+            "psnr_eps": 24.599891662597656,
+            "psnr_01": 25.056324005126953,
+            "psnr_01_eps": 25.056325912475586,
+            "pupil_dice": 0.9575200918484501,
+            "pupil_area_error": 46.0,
+            "pupil_boundary_distance": 0.7253532054089449,
+            "pupil_components_error": 0.0
+          },
+          "c": {
+            "rmse": 0.875,
+            "mse": 0.875,
+            "mae": 0.625,
+            "msle": 0.875,
+            "psnr": 0.875,
+            "psnr_eps": 0.875,
+            "psnr_01": 0.875,
+            "psnr_01_eps": 0.875,
+            "ssim": 0.8125,
+            "pupil_dice": 0.875,
+            "pupil_area_error": 0.6875,
+            "pupil_boundary_distance": 0.875,
+            "pupil_components_error": 0.5
+          }
+        },
+        "stranger": {
+          "raw": {
+            "ssim": 0.7797743082046509,
+            "mse": 0.002634501550346613,
+            "rmse": 0.05132739618420601,
+            "msle": 0.0013241572305560112,
+            "mae": 0.033867985010147095,
+            "psnr": 25.336591720581055,
+            "psnr_eps": 25.336580276489258,
+            "psnr_01": 25.793014526367188,
+            "psnr_01_eps": 25.79301643371582,
+            "pupil_dice": 0.9702643171806168,
+            "pupil_area_error": 28.0,
+            "pupil_boundary_distance": 0.519144825794136,
+            "pupil_components_error": 0.0
+          },
+          "c": {
+            "rmse": 0.96875,
+            "mse": 0.96875,
+            "mae": 0.96875,
+            "msle": 0.96875,
+            "psnr": 0.96875,
+            "psnr_eps": 0.96875,
+            "psnr_01": 0.96875,
+            "psnr_01_eps": 0.96875,
+            "ssim": 0.78125,
+            "pupil_dice": 0.96875,
+            "pupil_area_error": 0.78125,
+            "pupil_boundary_distance": 0.90625,
+            "pupil_components_error": 0.5
+          }
+        }
+      },
+      "runtime_s": 11.05
+    },
+    {
+      "seed": 202,
+      "scores": {
+        "same_eye_repeat": {
+          "rmse": {
+            "mean_c": 1.0,
+            "mean_raw": 0.009288954111980274
+          },
+          "mse": {
+            "mean_c": 1.0,
+            "mean_raw": 8.62961603615986e-05
+          },
+          "mae": {
+            "mean_c": 1.0,
+            "mean_raw": 0.007404390751617029
+          },
+          "msle": {
+            "mean_c": 1.0,
+            "mean_raw": 4.7207705392793287e-05
+          },
+          "psnr": {
+            "mean_c": 1.0,
+            "mean_raw": 40.22116267681122
+          },
+          "psnr_eps": {
+            "mean_c": 1.0,
+            "mean_raw": 40.21967828273773
+          },
+          "psnr_01": {
+            "mean_c": 1.0,
+            "mean_raw": 40.641236782073975
+          },
+          "psnr_01_eps": {
+            "mean_c": 1.0,
+            "mean_raw": 40.641239047050476
+          },
+          "ssim": {
+            "mean_c": 1.0,
+            "mean_raw": 0.9775734972208738
+          },
+          "pupil_dice": {
+            "mean_c": 1.0,
+            "mean_raw": 0.9987697435146282
+          },
+          "pupil_area_error": {
+            "mean_c": 0.998046875,
+            "mean_raw": 1.25
+          },
+          "pupil_boundary_distance": {
+            "mean_c": 1.0,
+            "mean_raw": 0.02435466975053898
+          },
+          "pupil_components_error": {
+            "mean_c": 0.5,
+            "mean_raw": 0.0
+          }
+        },
+        "same_eye_dilated": {
+          "rmse": {
+            "mean_c": 0.00390625,
+            "mean_raw": 0.21348612755537033
+          },
+          "mse": {
+            "mean_c": 0.00390625,
+            "mean_raw": 0.04571149172261357
+          },
+          "mae": {
+            "mean_c": 0.00390625,
+            "mean_raw": 0.12647160957567394
+          },
+          "msle": {
+            "mean_c": 0.00390625,
+            "mean_raw": 0.026053408335428685
+          },
+          "psnr": {
+            "mean_c": 0.00390625,
+            "mean_raw": 13.004208385944366
+          },
+          "psnr_eps": {
+            "mean_c": 0.00390625,
+            "mean_raw": 13.004180669784546
+          },
+          "psnr_01": {
+            "mean_c": 0.00390625,
+            "mean_raw": 13.42574068903923
+          },
+          "psnr_01_eps": {
+            "mean_c": 0.00390625,
+            "mean_raw": 13.425741314888
+          },
+          "ssim": {
+            "mean_c": 0.005859375,
+            "mean_raw": 0.389692067168653
+          },
+          "pupil_dice": {
+            "mean_c": 0.001953125,
+            "mean_raw": 0.7383185345531047
+          },
+          "pupil_area_error": {
+            "mean_c": 0.001953125,
+            "mean_raw": 743.71875
+          },
+          "pupil_boundary_distance": {
+            "mean_c": 0.001953125,
+            "mean_raw": 5.379541978524925
+          },
+          "pupil_components_error": {
+            "mean_c": 0.5,
+            "mean_raw": 0.0
+          }
+        },
+        "other_eye": {
+          "rmse": {
+            "mean_c": 0.71875,
+            "mean_raw": 0.07071856362745166
+          },
+          "mse": {
+            "mean_c": 0.71875,
+            "mean_raw": 0.00515960233315127
+          },
+          "mae": {
+            "mean_c": 0.71484375,
+            "mean_raw": 0.03945424169069156
+          },
+          "msle": {
+            "mean_c": 0.71484375,
+            "mean_raw": 0.002764202217804268
+          },
+          "psnr": {
+            "mean_c": 0.71875,
+            "mean_raw": 22.727029740810394
+          },
+          "psnr_eps": {
+            "mean_c": 0.71875,
+            "mean_raw": 22.727015256881714
+          },
+          "psnr_01": {
+            "mean_c": 0.71875,
+            "mean_raw": 23.148575007915497
+          },
+          "psnr_01_eps": {
+            "mean_c": 0.71875,
+            "mean_raw": 23.14857578277588
+          },
+          "ssim": {
+            "mean_c": 0.703125,
+            "mean_raw": 0.771828742697835
+          },
+          "pupil_dice": {
+            "mean_c": 0.69921875,
+            "mean_raw": 0.9446703770337227
+          },
+          "pupil_area_error": {
+            "mean_c": 0.712890625,
+            "mean_raw": 76.34375
+          },
+          "pupil_boundary_distance": {
+            "mean_c": 0.701171875,
+            "mean_raw": 0.9898747136495469
+          },
+          "pupil_components_error": {
+            "mean_c": 0.5,
+            "mean_raw": 0.0
+          }
+        },
+        "population_mean": {
+          "rmse": {
+            "mean_c": 0.818359375,
+            "mean_raw": 0.06703107617795467
+          },
+          "mse": {
+            "mean_c": 0.818359375,
+            "mean_raw": 0.004958879486366641
+          },
+          "mae": {
+            "mean_c": 0.806640625,
+            "mean_raw": 0.038564961636438966
+          },
+          "msle": {
+            "mean_c": 0.779296875,
+            "mean_raw": 0.0028009080906485906
+          },
+          "psnr": {
+            "mean_c": 0.818359375,
+            "mean_raw": 23.46783185005188
+          },
+          "psnr_eps": {
+            "mean_c": 0.818359375,
+            "mean_raw": 23.46783220767975
+          },
+          "psnr_01": {
+            "mean_c": 0.818359375,
+            "mean_raw": 23.889392137527466
+          },
+          "psnr_01_eps": {
+            "mean_c": 0.818359375,
+            "mean_raw": 23.88939332962036
+          },
+          "ssim": {
+            "mean_c": 0.861328125,
+            "mean_raw": 0.797501165419817
+          },
+          "pupil_dice": {
+            "mean_c": 0.607421875,
+            "mean_raw": 0.9263761209558297
+          },
+          "pupil_area_error": {
+            "mean_c": 0.5400390625,
+            "mean_raw": 141.90625
+          },
+          "pupil_boundary_distance": {
+            "mean_c": 0.607421875,
+            "mean_raw": 1.2920458628079348
+          },
+          "pupil_components_error": {
+            "mean_c": 0.5,
+            "mean_raw": 0.0
+          }
+        },
+        "blurred_stranger": {
+          "rmse": {
+            "mean_c": 0.65234375,
+            "mean_raw": 0.07956450537312776
+          },
+          "mse": {
+            "mean_c": 0.65234375,
+            "mean_raw": 0.006760459320503287
+          },
+          "mae": {
+            "mean_c": 0.49609375,
+            "mean_raw": 0.04780695110093802
+          },
+          "msle": {
+            "mean_c": 0.658203125,
+            "mean_raw": 0.003629255217674654
+          },
+          "psnr": {
+            "mean_c": 0.65234375,
+            "mean_raw": 21.81793838739395
+          },
+          "psnr_eps": {
+            "mean_c": 0.65234375,
+            "mean_raw": 21.81793910264969
+          },
+          "psnr_01": {
+            "mean_c": 0.65234375,
+            "mean_raw": 22.23949885368347
+          },
+          "psnr_01_eps": {
+            "mean_c": 0.65234375,
+            "mean_raw": 22.23949944972992
+          },
+          "ssim": {
+            "mean_c": 0.62890625,
+            "mean_raw": 0.7401145715266466
+          },
+          "pupil_dice": {
+            "mean_c": 0.5419921875,
+            "mean_raw": 0.9197276267677621
+          },
+          "pupil_area_error": {
+            "mean_c": 0.5380859375,
+            "mean_raw": 145.0625
+          },
+          "pupil_boundary_distance": {
+            "mean_c": 0.53515625,
+            "mean_raw": 1.4124821542684813
+          },
+          "pupil_components_error": {
+            "mean_c": 0.5,
+            "mean_raw": 0.0
+          }
+        },
+        "stranger": {
+          "rmse": {
+            "mean_c": 0.5,
+            "mean_raw": 0.0913855587496073
+          },
+          "mse": {
+            "mean_c": 0.5,
+            "mean_raw": 0.009266248367339358
+          },
+          "mae": {
+            "mean_c": 0.5,
+            "mean_raw": 0.04951972128037596
+          },
+          "msle": {
+            "mean_c": 0.5,
+            "mean_raw": 0.005068148268264849
+          },
+          "psnr": {
+            "mean_c": 0.5,
+            "mean_raw": 20.814336067065597
+          },
+          "psnr_eps": {
+            "mean_c": 0.5,
+            "mean_raw": 20.814308879897
+          },
+          "psnr_01": {
+            "mean_c": 0.5,
+            "mean_raw": 21.2358684707433
+          },
+          "psnr_01_eps": {
+            "mean_c": 0.5,
+            "mean_raw": 21.235869565978646
+          },
+          "ssim": {
+            "mean_c": 0.5,
+            "mean_raw": 0.7117972449632362
+          },
+          "pupil_dice": {
+            "mean_c": 0.5,
+            "mean_raw": 0.9147586670388976
+          },
+          "pupil_area_error": {
+            "mean_c": 0.5,
+            "mean_raw": 160.375
+          },
+          "pupil_boundary_distance": {
+            "mean_c": 0.5,
+            "mean_raw": 1.505009100969303
+          },
+          "pupil_components_error": {
+            "mean_c": 0.5,
+            "mean_raw": 0.0
+          }
+        }
+      },
+      "same_eye_dilated_matched_c": {
+        "rmse": 0.529296875,
+        "mse": 0.529296875,
+        "mae": 0.537109375,
+        "msle": 0.53125,
+        "psnr": 0.529296875,
+        "psnr_eps": 0.529296875,
+        "psnr_01": 0.529296875,
+        "psnr_01_eps": 0.529296875,
+        "ssim": 0.505859375,
+        "pupil_dice": 0.5419921875,
+        "pupil_area_error": 0.5419921875,
+        "pupil_boundary_distance": 0.541015625,
+        "pupil_components_error": 0.5
+      },
+      "first_case_scores": {
+        "same_eye_repeat": {
+          "raw": {
+            "ssim": 0.9767138361930847,
+            "mse": 8.849381265463307e-05,
+            "rmse": 0.009407115168869495,
+            "msle": 4.8995178076438606e-05,
+            "mae": 0.007462974172085524,
+            "psnr": 40.1130485534668,
+            "psnr_eps": 40.11272430419922,
+            "psnr_01": 40.53086853027344,
+            "psnr_01_eps": 40.5308723449707,
+            "pupil_dice": 0.9976990335941095,
+            "pupil_area_error": 1.0,
+            "pupil_boundary_distance": 0.04807692307692308,
+            "pupil_components_error": 0.0
+          },
+          "c": {
+            "rmse": 1.0,
+            "mse": 1.0,
+            "mae": 1.0,
+            "msle": 1.0,
+            "psnr": 1.0,
+            "psnr_eps": 1.0,
+            "psnr_01": 1.0,
+            "psnr_01_eps": 1.0,
+            "ssim": 1.0,
+            "pupil_dice": 1.0,
+            "pupil_area_error": 1.0,
+            "pupil_boundary_distance": 1.0,
+            "pupil_components_error": 0.5
+          }
+        },
+        "same_eye_dilated": {
+          "raw": {
+            "ssim": 0.3728688955307007,
+            "mse": 0.04731816053390503,
+            "rmse": 0.217527374625206,
+            "msle": 0.026984063908457756,
+            "mae": 0.12988394498825073,
+            "psnr": 12.831597328186035,
+            "psnr_eps": 12.831574440002441,
+            "psnr_01": 13.249720573425293,
+            "psnr_01_eps": 13.24972152709961,
+            "pupil_dice": 0.7380224260958206,
+            "pupil_area_error": 771.0,
+            "pupil_boundary_distance": 5.518000921008195,
+            "pupil_components_error": 0.0
+          },
+          "c": {
+            "rmse": 0.0,
+            "mse": 0.0,
+            "mae": 0.0,
+            "msle": 0.0,
+            "psnr": 0.0,
+            "psnr_eps": 0.0,
+            "psnr_01": 0.0,
+            "psnr_01_eps": 0.0,
+            "ssim": 0.0,
+            "pupil_dice": 0.0,
+            "pupil_area_error": 0.0,
+            "pupil_boundary_distance": 0.0,
+            "pupil_components_error": 0.5
+          }
+        },
+        "other_eye": {
+          "raw": {
+            "ssim": 0.8245427012443542,
+            "mse": 0.0019756352994590998,
+            "rmse": 0.0444481186568737,
+            "msle": 0.0009827857138589025,
+            "mae": 0.029992062598466873,
+            "psnr": 26.624784469604492,
+            "psnr_eps": 26.624784469604492,
+            "psnr_01": 27.042930603027344,
+            "psnr_01_eps": 27.042932510375977,
+            "pupil_dice": 0.9769411764705882,
+            "pupil_area_error": 47.0,
+            "pupil_boundary_distance": 0.46329969535415083,
+            "pupil_components_error": 0.0
+          },
+          "c": {
+            "rmse": 1.0,
+            "mse": 1.0,
+            "mae": 1.0,
+            "msle": 1.0,
+            "psnr": 1.0,
+            "psnr_eps": 1.0,
+            "psnr_01": 1.0,
+            "psnr_01_eps": 1.0,
+            "ssim": 0.875,
+            "pupil_dice": 1.0,
+            "pupil_area_error": 0.75,
+            "pupil_boundary_distance": 1.0,
+            "pupil_components_error": 0.5
+          }
+        },
+        "population_mean": {
+          "raw": {
+            "ssim": 0.8389182686805725,
+            "mse": 0.0025294057559221983,
+            "rmse": 0.050293199717998505,
+            "msle": 0.001551435561850667,
+            "mae": 0.03154277428984642,
+            "psnr": 25.551666259765625,
+            "psnr_eps": 25.551666259765625,
+            "psnr_01": 25.969812393188477,
+            "psnr_01_eps": 25.96981430053711,
+            "pupil_dice": 0.9326781326781327,
+            "pupil_area_error": 137.0,
+            "pupil_boundary_distance": 1.1870319940364205,
+            "pupil_components_error": 0.0
+          },
+          "c": {
+            "rmse": 0.9375,
+            "mse": 0.9375,
+            "mae": 0.9375,
+            "msle": 0.875,
+            "psnr": 0.9375,
+            "psnr_eps": 0.9375,
+            "psnr_01": 0.9375,
+            "psnr_01_eps": 0.9375,
+            "ssim": 1.0,
+            "pupil_dice": 0.4375,
+            "pupil_area_error": 0.4375,
+            "pupil_boundary_distance": 0.4375,
+            "pupil_components_error": 0.5
+          }
+        },
+        "blurred_stranger": {
+          "raw": {
+            "ssim": 0.7185783982276917,
+            "mse": 0.007315020076930523,
+            "rmse": 0.08552788943052292,
+            "msle": 0.0035667114425450563,
+            "mae": 0.04818376898765564,
+            "psnr": 20.939697265625,
+            "psnr_eps": 20.939697265625,
+            "psnr_01": 21.357845306396484,
+            "psnr_01_eps": 21.35784339904785,
+            "pupil_dice": 0.9418907198612315,
+            "pupil_area_error": 134.0,
+            "pupil_boundary_distance": 1.1522886233377982,
+            "pupil_components_error": 0.0
+          },
+          "c": {
+            "rmse": 0.3125,
+            "mse": 0.3125,
+            "mae": 0.25,
+            "msle": 0.375,
+            "psnr": 0.3125,
+            "psnr_eps": 0.3125,
+            "psnr_01": 0.3125,
+            "psnr_01_eps": 0.3125,
+            "ssim": 0.3125,
+            "pupil_dice": 0.5,
+            "pupil_area_error": 0.4375,
+            "pupil_boundary_distance": 0.4375,
+            "pupil_components_error": 0.5
+          }
+        },
+        "stranger": {
+          "raw": {
+            "ssim": 0.6563409566879272,
+            "mse": 0.010538620874285698,
+            "rmse": 0.10265778750181198,
+            "msle": 0.00577030424028635,
+            "mae": 0.0553213506937027,
+            "psnr": 19.354013442993164,
+            "psnr_eps": 19.354015350341797,
+            "psnr_01": 19.77216148376465,
+            "psnr_01_eps": 19.77216339111328,
+            "pupil_dice": 0.9087866108786611,
+            "pupil_area_error": 218.0,
+            "pupil_boundary_distance": 1.737030794323398,
+            "pupil_components_error": 0.0
+          },
+          "c": {
+            "rmse": 0.15625,
+            "mse": 0.15625,
+            "mae": 0.15625,
+            "msle": 0.15625,
+            "psnr": 0.15625,
+            "psnr_eps": 0.15625,
+            "psnr_01": 0.15625,
+            "psnr_01_eps": 0.15625,
+            "ssim": 0.15625,
+            "pupil_dice": 0.21875,
+            "pupil_area_error": 0.15625,
+            "pupil_boundary_distance": 0.15625,
+            "pupil_components_error": 0.5
+          }
+        }
+      },
+      "runtime_s": 13.01
+    },
+    {
+      "seed": 203,
+      "scores": {
+        "same_eye_repeat": {
+          "rmse": {
+            "mean_c": 1.0,
+            "mean_raw": 0.009285423206165433
+          },
+          "mse": {
+            "mean_c": 1.0,
+            "mean_raw": 8.62323743149318e-05
+          },
+          "mae": {
+            "mean_c": 1.0,
+            "mean_raw": 0.007417299493681639
+          },
+          "msle": {
+            "mean_c": 1.0,
+            "mean_raw": 4.718550894722284e-05
+          },
+          "psnr": {
+            "mean_c": 1.0,
+            "mean_raw": 40.21878528594971
+          },
+          "psnr_eps": {
+            "mean_c": 1.0,
+            "mean_raw": 40.21696853637695
+          },
+          "psnr_01": {
+            "mean_c": 1.0,
+            "mean_raw": 40.6446328163147
+          },
+          "psnr_01_eps": {
+            "mean_c": 1.0,
+            "mean_raw": 40.64463436603546
+          },
+          "ssim": {
+            "mean_c": 1.0,
+            "mean_raw": 0.9772590342909098
+          },
+          "pupil_dice": {
+            "mean_c": 1.0,
+            "mean_raw": 0.9987868177788611
+          },
+          "pupil_area_error": {
+            "mean_c": 0.994140625,
+            "mean_raw": 1.375
+          },
+          "pupil_boundary_distance": {
+            "mean_c": 1.0,
+            "mean_raw": 0.024494688147631692
+          },
+          "pupil_components_error": {
+            "mean_c": 0.5,
+            "mean_raw": 0.0
+          }
+        },
+        "same_eye_dilated": {
+          "rmse": {
+            "mean_c": 0.0078125,
+            "mean_raw": 0.2117137275636196
+          },
+          "mse": {
+            "mean_c": 0.0078125,
+            "mean_raw": 0.04505741980392486
+          },
+          "mae": {
+            "mean_c": 0.009765625,
+            "mean_raw": 0.12509746523573995
+          },
+          "msle": {
+            "mean_c": 0.0078125,
+            "mean_raw": 0.025687525398097932
+          },
+          "psnr": {
+            "mean_c": 0.0078125,
+            "mean_raw": 13.080456405878067
+          },
+          "psnr_eps": {
+            "mean_c": 0.0078125,
+            "mean_raw": 13.080438554286957
+          },
+          "psnr_01": {
+            "mean_c": 0.0078125,
+            "mean_raw": 13.508103728294373
+          },
+          "psnr_01_eps": {
+            "mean_c": 0.0078125,
+            "mean_raw": 13.50810432434082
+          },
+          "ssim": {
+            "mean_c": 0.01171875,
+            "mean_raw": 0.3980976575985551
+          },
+          "pupil_dice": {
+            "mean_c": 0.01171875,
+            "mean_raw": 0.738329982737499
+          },
+          "pupil_area_error": {
+            "mean_c": 0.0078125,
+            "mean_raw": 735.03125
+          },
+          "pupil_boundary_distance": {
+            "mean_c": 0.0078125,
+            "mean_raw": 5.342325392352314
+          },
+          "pupil_components_error": {
+            "mean_c": 0.5,
+            "mean_raw": 0.0
+          }
+        },
+        "other_eye": {
+          "rmse": {
+            "mean_c": 0.748046875,
+            "mean_raw": 0.0704870728077367
+          },
+          "mse": {
+            "mean_c": 0.748046875,
+            "mean_raw": 0.0052160966079100035
+          },
+          "mae": {
+            "mean_c": 0.755859375,
+            "mean_raw": 0.039664023206569254
+          },
+          "msle": {
+            "mean_c": 0.74609375,
+            "mean_raw": 0.0027914472921111155
+          },
+          "psnr": {
+            "mean_c": 0.748046875,
+            "mean_raw": 22.831806898117065
+          },
+          "psnr_eps": {
+            "mean_c": 0.748046875,
+            "mean_raw": 22.831767141819
+          },
+          "psnr_01": {
+            "mean_c": 0.748046875,
+            "mean_raw": 23.25943237543106
+          },
+          "psnr_01_eps": {
+            "mean_c": 0.748046875,
+            "mean_raw": 23.259433209896088
+          },
+          "ssim": {
+            "mean_c": 0.751953125,
+            "mean_raw": 0.7676719035953283
+          },
+          "pupil_dice": {
+            "mean_c": 0.740234375,
+            "mean_raw": 0.9439940431420657
+          },
+          "pupil_area_error": {
+            "mean_c": 0.755859375,
+            "mean_raw": 75.34375
+          },
+          "pupil_boundary_distance": {
+            "mean_c": 0.751953125,
+            "mean_raw": 0.9929405570203691
+          },
+          "pupil_components_error": {
+            "mean_c": 0.5,
+            "mean_raw": 0.0
+          }
+        },
+        "population_mean": {
+          "rmse": {
+            "mean_c": 0.724609375,
+            "mean_raw": 0.07833080692216754
+          },
+          "mse": {
+            "mean_c": 0.724609375,
+            "mean_raw": 0.0065920915876631625
+          },
+          "mae": {
+            "mean_c": 0.716796875,
+            "mean_raw": 0.04398754652356729
+          },
+          "msle": {
+            "mean_c": 0.732421875,
+            "mean_raw": 0.0036222841445123777
+          },
+          "psnr": {
+            "mean_c": 0.724609375,
+            "mean_raw": 22.039908170700073
+          },
+          "psnr_eps": {
+            "mean_c": 0.724609375,
+            "mean_raw": 22.039909183979034
+          },
+          "psnr_01": {
+            "mean_c": 0.724609375,
+            "mean_raw": 22.467573821544647
+          },
+          "psnr_01_eps": {
+            "mean_c": 0.724609375,
+            "mean_raw": 22.467575073242188
+          },
+          "ssim": {
+            "mean_c": 0.78125,
+            "mean_raw": 0.7590857595205307
+          },
+          "pupil_dice": {
+            "mean_c": 0.619140625,
+            "mean_raw": 0.916021788227311
+          },
+          "pupil_area_error": {
+            "mean_c": 0.56640625,
+            "mean_raw": 167.0625
+          },
+          "pupil_boundary_distance": {
+            "mean_c": 0.61328125,
+            "mean_raw": 1.4642595797484272
+          },
+          "pupil_components_error": {
+            "mean_c": 0.5,
+            "mean_raw": 0.0
+          }
+        },
+        "blurred_stranger": {
+          "rmse": {
+            "mean_c": 0.576171875,
+            "mean_raw": 0.08973094786051661
+          },
+          "mse": {
+            "mean_c": 0.576171875,
+            "mean_raw": 0.008850912825437263
+          },
+          "mae": {
+            "mean_c": 0.4609375,
+            "mean_raw": 0.05398237216286361
+          },
+          "msle": {
+            "mean_c": 0.546875,
+            "mean_raw": 0.004980456786142895
+          },
+          "psnr": {
+            "mean_c": 0.576171875,
+            "mean_raw": 20.916184812784195
+          },
+          "psnr_eps": {
+            "mean_c": 0.576171875,
+            "mean_raw": 20.916185826063156
+          },
+          "psnr_01": {
+            "mean_c": 0.576171875,
+            "mean_raw": 21.343850672245026
+          },
+          "psnr_01_eps": {
+            "mean_c": 0.576171875,
+            "mean_raw": 21.34385174512863
+          },
+          "ssim": {
+            "mean_c": 0.58203125,
+            "mean_raw": 0.7095395270735025
+          },
+          "pupil_dice": {
+            "mean_c": 0.3974609375,
+            "mean_raw": 0.8868079192082783
+          },
+          "pupil_area_error": {
+            "mean_c": 0.4365234375,
+            "mean_raw": 212.1875
+          },
+          "pupil_boundary_distance": {
+            "mean_c": 0.404296875,
+            "mean_raw": 1.9378706950546292
+          },
+          "pupil_components_error": {
+            "mean_c": 0.5,
+            "mean_raw": 0.0
+          }
+        },
+        "stranger": {
+          "rmse": {
+            "mean_c": 0.5,
+            "mean_raw": 0.10048699454637244
+          },
+          "mse": {
+            "mean_c": 0.5,
+            "mean_raw": 0.011345666162014822
+          },
+          "mae": {
+            "mean_c": 0.5,
+            "mean_raw": 0.054459700015286217
+          },
+          "msle": {
+            "mean_c": 0.5,
+            "mean_raw": 0.006233780818433843
+          },
+          "psnr": {
+            "mean_c": 0.5,
+            "mean_raw": 20.069563234224916
+          },
+          "psnr_eps": {
+            "mean_c": 0.5,
+            "mean_raw": 20.069533789530396
+          },
+          "psnr_01": {
+            "mean_c": 0.5,
+            "mean_raw": 20.497198786586523
+          },
+          "psnr_01_eps": {
+            "mean_c": 0.5,
+            "mean_raw": 20.497199585661292
+          },
+          "ssim": {
+            "mean_c": 0.5,
+            "mean_raw": 0.6831890979083255
+          },
+          "pupil_dice": {
+            "mean_c": 0.5,
+            "mean_raw": 0.8991713026620829
+          },
+          "pupil_area_error": {
+            "mean_c": 0.5,
+            "mean_raw": 192.849609375
+          },
+          "pupil_boundary_distance": {
+            "mean_c": 0.5,
+            "mean_raw": 1.7717359781331044
+          },
+          "pupil_components_error": {
+            "mean_c": 0.5,
+            "mean_raw": 0.0
+          }
+        }
+      },
+      "same_eye_dilated_matched_c": {
+        "rmse": 0.52734375,
+        "mse": 0.52734375,
+        "mae": 0.537109375,
+        "msle": 0.529296875,
+        "psnr": 0.52734375,
+        "psnr_eps": 0.52734375,
+        "psnr_01": 0.52734375,
+        "psnr_01_eps": 0.52734375,
+        "ssim": 0.49609375,
+        "pupil_dice": 0.5302734375,
+        "pupil_area_error": 0.5302734375,
+        "pupil_boundary_distance": 0.529296875,
+        "pupil_components_error": 0.5
+      },
+      "first_case_scores": {
+        "same_eye_repeat": {
+          "raw": {
+            "ssim": 0.9773277044296265,
+            "mse": 8.437674114247784e-05,
+            "rmse": 0.009185681119561195,
+            "msle": 4.710904249805026e-05,
+            "mae": 0.007378621958196163,
+            "psnr": 40.26789474487305,
+            "psnr_eps": 40.26180648803711,
+            "psnr_01": 40.737770080566406,
+            "psnr_01_eps": 40.737770080566406,
+            "pupil_dice": 0.9995782370307887,
+            "pupil_area_error": 1.0,
+            "pupil_boundary_distance": 0.009259259259259259,
+            "pupil_components_error": 0.0
+          },
+          "c": {
+            "rmse": 1.0,
+            "mse": 1.0,
+            "mae": 1.0,
+            "msle": 1.0,
+            "psnr": 1.0,
+            "psnr_eps": 1.0,
+            "psnr_01": 1.0,
+            "psnr_01_eps": 1.0,
+            "ssim": 1.0,
+            "pupil_dice": 1.0,
+            "pupil_area_error": 1.0,
+            "pupil_boundary_distance": 1.0,
+            "pupil_components_error": 0.5
+          }
+        },
+        "same_eye_dilated": {
+          "raw": {
+            "ssim": 0.3675578236579895,
+            "mse": 0.050616201013326645,
+            "rmse": 0.2249804437160492,
+            "msle": 0.029029328376054764,
+            "mae": 0.1363934725522995,
+            "psnr": 12.481148719787598,
+            "psnr_eps": 12.481142044067383,
+            "psnr_01": 12.957103729248047,
+            "psnr_01_eps": 12.957104682922363,
+            "pupil_dice": 0.7373988799004356,
+            "pupil_area_error": 844.0,
+            "pupil_boundary_distance": 5.754002099521383,
+            "pupil_components_error": 0.0
+          },
+          "c": {
+            "rmse": 0.0,
+            "mse": 0.0,
+            "mae": 0.0,
+            "msle": 0.0,
+            "psnr": 0.0,
+            "psnr_eps": 0.0,
+            "psnr_01": 0.0,
+            "psnr_01_eps": 0.0,
+            "ssim": 0.0,
+            "pupil_dice": 0.0,
+            "pupil_area_error": 0.0,
+            "pupil_boundary_distance": 0.0,
+            "pupil_components_error": 0.5
+          }
+        },
+        "other_eye": {
+          "raw": {
+            "ssim": 0.7807502150535583,
+            "mse": 0.005701933987438679,
+            "rmse": 0.0755111500620842,
+            "msle": 0.003082054667174816,
+            "mae": 0.04028739780187607,
+            "psnr": 21.963851928710938,
+            "psnr_eps": 21.963815689086914,
+            "psnr_01": 22.439777374267578,
+            "psnr_01_eps": 22.439777374267578,
+            "pupil_dice": 0.9454397394136808,
+            "pupil_area_error": 86.0,
+            "pupil_boundary_distance": 1.0624485046925267,
+            "pupil_components_error": 0.0
+          },
+          "c": {
+            "rmse": 0.625,
+            "mse": 0.625,
+            "mae": 0.625,
+            "msle": 0.625,
+            "psnr": 0.625,
+            "psnr_eps": 0.625,
+            "psnr_01": 0.625,
+            "psnr_01_eps": 0.625,
+            "ssim": 0.75,
+            "pupil_dice": 0.5625,
+            "pupil_area_error": 0.6875,
+            "pupil_boundary_distance": 0.5625,
+            "pupil_components_error": 0.5
+          }
+        },
+        "population_mean": {
+          "raw": {
+            "ssim": 0.786844789981842,
+            "mse": 0.005012914072722197,
+            "rmse": 0.07080193608999252,
+            "msle": 0.0030252723954617977,
+            "mae": 0.04037622734904289,
+            "psnr": 22.523134231567383,
+            "psnr_eps": 22.523134231567383,
+            "psnr_01": 22.999095916748047,
+            "psnr_01_eps": 22.99909782409668,
+            "pupil_dice": 0.9133425034387895,
+            "pupil_area_error": 189.0,
+            "pupil_boundary_distance": 1.5708569075722325,
+            "pupil_components_error": 0.0
+          },
+          "c": {
+            "rmse": 0.6875,
+            "mse": 0.6875,
+            "mae": 0.625,
+            "msle": 0.625,
+            "psnr": 0.6875,
+            "psnr_eps": 0.6875,
+            "psnr_01": 0.6875,
+            "psnr_01_eps": 0.6875,
+            "ssim": 0.8125,
+            "pupil_dice": 0.375,
+            "pupil_area_error": 0.375,
+            "pupil_boundary_distance": 0.375,
+            "pupil_components_error": 0.5
+          }
+        },
+        "blurred_stranger": {
+          "raw": {
+            "ssim": 0.7621080875396729,
+            "mse": 0.005811489187180996,
+            "rmse": 0.07623312622308731,
+            "msle": 0.0034419225994497538,
+            "mae": 0.046571966260671616,
+            "psnr": 21.881160736083984,
+            "psnr_eps": 21.881162643432617,
+            "psnr_01": 22.35712432861328,
+            "psnr_01_eps": 22.35712432861328,
+            "pupil_dice": 0.9103448275862069,
+            "pupil_area_error": 195.0,
+            "pupil_boundary_distance": 1.6216675926810025,
+            "pupil_components_error": 0.0
+          },
+          "c": {
+            "rmse": 0.5625,
+            "mse": 0.5625,
+            "mae": 0.4375,
+            "msle": 0.5625,
+            "psnr": 0.5625,
+            "psnr_eps": 0.5625,
+            "psnr_01": 0.5625,
+            "psnr_01_eps": 0.5625,
+            "ssim": 0.625,
+            "pupil_dice": 0.375,
+            "pupil_area_error": 0.375,
+            "pupil_boundary_distance": 0.375,
+            "pupil_components_error": 0.5
+          }
+        },
+        "stranger": {
+          "raw": {
+            "ssim": 0.757134199142456,
+            "mse": 0.006659151054918766,
+            "rmse": 0.08160362392663956,
+            "msle": 0.0036146307829767466,
+            "mae": 0.042281001806259155,
+            "psnr": 21.289905548095703,
+            "psnr_eps": 21.28984832763672,
+            "psnr_01": 21.765810012817383,
+            "psnr_01_eps": 21.765811920166016,
+            "pupil_dice": 0.9387755102040817,
+            "pupil_area_error": 116.0,
+            "pupil_boundary_distance": 1.1272812792114422,
+            "pupil_components_error": 0.0
+          },
+          "c": {
+            "rmse": 0.53125,
+            "mse": 0.53125,
+            "mae": 0.53125,
+            "msle": 0.53125,
+            "psnr": 0.53125,
+            "psnr_eps": 0.53125,
+            "psnr_01": 0.53125,
+            "psnr_01_eps": 0.53125,
+            "ssim": 0.53125,
+            "pupil_dice": 0.53125,
+            "pupil_area_error": 0.53125,
+            "pupil_boundary_distance": 0.53125,
+            "pupil_components_error": 0.5
+          }
+        }
+      },
+      "runtime_s": 9.78
+    }
+  ],
+  "limits": [
+    "Synthetic 2D eyes with illustrative, non-biologically-calibrated parameters.",
+    "Pupil dilation is acquisition/physiology variation, not identity loss.",
+    "Pupil shapes are connected by construction; topology may be uninformative.",
+    "All ranges are min/max over three cohort means, not confidence intervals.",
+    "Same-eye repeat and mean are compared to normal-pupil stranger references; dilation-matched references are also reported.",
+    "Known pupil center, no estimated registration, illumination/occlusion/real iris segmentation not validated."
+  ],
+  "summary": {
+    "same_eye_repeat": {
+      "rmse": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "mse": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "mae": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "msle": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "psnr": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "psnr_eps": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "psnr_01": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "psnr_01_eps": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "ssim": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "pupil_dice": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "pupil_area_error": {
+        "mean": 0.9951171875,
+        "min": 0.9931640625,
+        "max": 0.998046875
+      },
+      "pupil_boundary_distance": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "pupil_components_error": {
+        "mean": 0.5,
+        "min": 0.5,
+        "max": 0.5
+      }
+    },
+    "same_eye_dilated": {
+      "rmse": {
+        "mean": 0.00390625,
+        "min": 0.0,
+        "max": 0.0078125
+      },
+      "mse": {
+        "mean": 0.00390625,
+        "min": 0.0,
+        "max": 0.0078125
+      },
+      "mae": {
+        "mean": 0.004557291666666667,
+        "min": 0.0,
+        "max": 0.009765625
+      },
+      "msle": {
+        "mean": 0.00390625,
+        "min": 0.0,
+        "max": 0.0078125
+      },
+      "psnr": {
+        "mean": 0.00390625,
+        "min": 0.0,
+        "max": 0.0078125
+      },
+      "psnr_eps": {
+        "mean": 0.00390625,
+        "min": 0.0,
+        "max": 0.0078125
+      },
+      "psnr_01": {
+        "mean": 0.00390625,
+        "min": 0.0,
+        "max": 0.0078125
+      },
+      "psnr_01_eps": {
+        "mean": 0.00390625,
+        "min": 0.0,
+        "max": 0.0078125
+      },
+      "ssim": {
+        "mean": 0.005859375,
+        "min": 0.0,
+        "max": 0.01171875
+      },
+      "pupil_dice": {
+        "mean": 0.006510416666666667,
+        "min": 0.001953125,
+        "max": 0.01171875
+      },
+      "pupil_area_error": {
+        "mean": 0.0032552083333333335,
+        "min": 0.0,
+        "max": 0.0078125
+      },
+      "pupil_boundary_distance": {
+        "mean": 0.0032552083333333335,
+        "min": 0.0,
+        "max": 0.0078125
+      },
+      "pupil_components_error": {
+        "mean": 0.5,
+        "min": 0.5,
+        "max": 0.5
+      }
+    },
+    "other_eye": {
+      "rmse": {
+        "mean": 0.7701822916666666,
+        "min": 0.71875,
+        "max": 0.84375
+      },
+      "mse": {
+        "mean": 0.7701822916666666,
+        "min": 0.71875,
+        "max": 0.84375
+      },
+      "mae": {
+        "mean": 0.76953125,
+        "min": 0.71484375,
+        "max": 0.837890625
+      },
+      "msle": {
+        "mean": 0.7682291666666666,
+        "min": 0.71484375,
+        "max": 0.84375
+      },
+      "psnr": {
+        "mean": 0.7701822916666666,
+        "min": 0.71875,
+        "max": 0.84375
+      },
+      "psnr_eps": {
+        "mean": 0.7701822916666666,
+        "min": 0.71875,
+        "max": 0.84375
+      },
+      "psnr_01": {
+        "mean": 0.7701822916666666,
+        "min": 0.71875,
+        "max": 0.84375
+      },
+      "psnr_01_eps": {
+        "mean": 0.7701822916666666,
+        "min": 0.71875,
+        "max": 0.84375
+      },
+      "ssim": {
+        "mean": 0.7662760416666666,
+        "min": 0.703125,
+        "max": 0.84375
+      },
+      "pupil_dice": {
+        "mean": 0.7532552083333334,
+        "min": 0.69921875,
+        "max": 0.8203125
+      },
+      "pupil_area_error": {
+        "mean": 0.7604166666666666,
+        "min": 0.712890625,
+        "max": 0.8125
+      },
+      "pupil_boundary_distance": {
+        "mean": 0.7584635416666666,
+        "min": 0.701171875,
+        "max": 0.822265625
+      },
+      "pupil_components_error": {
+        "mean": 0.5,
+        "min": 0.5,
+        "max": 0.5
+      }
+    },
+    "population_mean": {
+      "rmse": {
+        "mean": 0.7942708333333334,
+        "min": 0.724609375,
+        "max": 0.83984375
+      },
+      "mse": {
+        "mean": 0.7942708333333334,
+        "min": 0.724609375,
+        "max": 0.83984375
+      },
+      "mae": {
+        "mean": 0.791015625,
+        "min": 0.716796875,
+        "max": 0.849609375
+      },
+      "msle": {
+        "mean": 0.7858072916666666,
+        "min": 0.732421875,
+        "max": 0.845703125
+      },
+      "psnr": {
+        "mean": 0.7942708333333334,
+        "min": 0.724609375,
+        "max": 0.83984375
+      },
+      "psnr_eps": {
+        "mean": 0.7942708333333334,
+        "min": 0.724609375,
+        "max": 0.83984375
+      },
+      "psnr_01": {
+        "mean": 0.7942708333333334,
+        "min": 0.724609375,
+        "max": 0.83984375
+      },
+      "psnr_01_eps": {
+        "mean": 0.7942708333333334,
+        "min": 0.724609375,
+        "max": 0.83984375
+      },
+      "ssim": {
+        "mean": 0.8424479166666666,
+        "min": 0.78125,
+        "max": 0.884765625
+      },
+      "pupil_dice": {
+        "mean": 0.6490885416666666,
+        "min": 0.607421875,
+        "max": 0.720703125
+      },
+      "pupil_area_error": {
+        "mean": 0.6018880208333334,
+        "min": 0.5400390625,
+        "max": 0.69921875
+      },
+      "pupil_boundary_distance": {
+        "mean": 0.6477864583333334,
+        "min": 0.607421875,
+        "max": 0.72265625
+      },
+      "pupil_components_error": {
+        "mean": 0.5,
+        "min": 0.5,
+        "max": 0.5
+      }
+    },
+    "blurred_stranger": {
+      "rmse": {
+        "mean": 0.6451822916666666,
+        "min": 0.576171875,
+        "max": 0.70703125
+      },
+      "mse": {
+        "mean": 0.6451822916666666,
+        "min": 0.576171875,
+        "max": 0.70703125
+      },
+      "mae": {
+        "mean": 0.509765625,
+        "min": 0.4609375,
+        "max": 0.572265625
+      },
+      "msle": {
+        "mean": 0.6341145833333334,
+        "min": 0.546875,
+        "max": 0.697265625
+      },
+      "psnr": {
+        "mean": 0.6451822916666666,
+        "min": 0.576171875,
+        "max": 0.70703125
+      },
+      "psnr_eps": {
+        "mean": 0.6451822916666666,
+        "min": 0.576171875,
+        "max": 0.70703125
+      },
+      "psnr_01": {
+        "mean": 0.6451822916666666,
+        "min": 0.576171875,
+        "max": 0.70703125
+      },
+      "psnr_01_eps": {
+        "mean": 0.6451822916666666,
+        "min": 0.576171875,
+        "max": 0.70703125
+      },
+      "ssim": {
+        "mean": 0.6380208333333334,
+        "min": 0.58203125,
+        "max": 0.703125
+      },
+      "pupil_dice": {
+        "mean": 0.5,
+        "min": 0.3974609375,
+        "max": 0.560546875
+      },
+      "pupil_area_error": {
+        "mean": 0.5123697916666666,
+        "min": 0.4365234375,
+        "max": 0.5625
+      },
+      "pupil_boundary_distance": {
+        "mean": 0.4993489583333333,
+        "min": 0.404296875,
+        "max": 0.55859375
+      },
+      "pupil_components_error": {
+        "mean": 0.5,
+        "min": 0.5,
+        "max": 0.5
+      }
+    },
+    "stranger": {
+      "rmse": {
+        "mean": 0.5,
+        "min": 0.5,
+        "max": 0.5
+      },
+      "mse": {
+        "mean": 0.5,
+        "min": 0.5,
+        "max": 0.5
+      },
+      "mae": {
+        "mean": 0.5,
+        "min": 0.5,
+        "max": 0.5
+      },
+      "msle": {
+        "mean": 0.5,
+        "min": 0.5,
+        "max": 0.5
+      },
+      "psnr": {
+        "mean": 0.5,
+        "min": 0.5,
+        "max": 0.5
+      },
+      "psnr_eps": {
+        "mean": 0.5,
+        "min": 0.5,
+        "max": 0.5
+      },
+      "psnr_01": {
+        "mean": 0.5,
+        "min": 0.5,
+        "max": 0.5
+      },
+      "psnr_01_eps": {
+        "mean": 0.5,
+        "min": 0.5,
+        "max": 0.5
+      },
+      "ssim": {
+        "mean": 0.5,
+        "min": 0.5,
+        "max": 0.5
+      },
+      "pupil_dice": {
+        "mean": 0.5,
+        "min": 0.5,
+        "max": 0.5
+      },
+      "pupil_area_error": {
+        "mean": 0.5,
+        "min": 0.5,
+        "max": 0.5
+      },
+      "pupil_boundary_distance": {
+        "mean": 0.5,
+        "min": 0.5,
+        "max": 0.5
+      },
+      "pupil_components_error": {
+        "mean": 0.5,
+        "min": 0.5,
+        "max": 0.5
+      }
+    }
+  },
+  "dilation_matched_summary": {
+    "rmse": {
+      "mean": 0.44921875,
+      "min": 0.291015625,
+      "max": 0.529296875
+    },
+    "mse": {
+      "mean": 0.44921875,
+      "min": 0.291015625,
+      "max": 0.529296875
+    },
+    "mae": {
+      "mean": 0.4615885416666667,
+      "min": 0.310546875,
+      "max": 0.537109375
+    },
+    "msle": {
+      "mean": 0.4505208333333333,
+      "min": 0.291015625,
+      "max": 0.53125
+    },
+    "psnr": {
+      "mean": 0.44921875,
+      "min": 0.291015625,
+      "max": 0.529296875
+    },
+    "psnr_eps": {
+      "mean": 0.44921875,
+      "min": 0.291015625,
+      "max": 0.529296875
+    },
+    "psnr_01": {
+      "mean": 0.44921875,
+      "min": 0.291015625,
+      "max": 0.529296875
+    },
+    "psnr_01_eps": {
+      "mean": 0.44921875,
+      "min": 0.291015625,
+      "max": 0.529296875
+    },
+    "ssim": {
+      "mean": 0.4322916666666667,
+      "min": 0.294921875,
+      "max": 0.505859375
+    },
+    "pupil_dice": {
+      "mean": 0.4573567708333333,
+      "min": 0.2998046875,
+      "max": 0.5419921875
+    },
+    "pupil_area_error": {
+      "mean": 0.4573567708333333,
+      "min": 0.2998046875,
+      "max": 0.5419921875
+    },
+    "pupil_boundary_distance": {
+      "mean": 0.4537760416666667,
+      "min": 0.291015625,
+      "max": 0.541015625
+    },
+    "pupil_components_error": {
+      "mean": 0.5,
+      "min": 0.5,
+      "max": 0.5
+    }
+  }
+}
