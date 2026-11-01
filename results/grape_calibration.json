@@ -1,0 +1,346 @@
+{
+ "reference": "unrelated-patient pairs with the same unordered camera pair and eye relation",
+ "visit_definition": "acquisition date (Interval Years)",
+ "note": "all GRAPE images (631), not only the patients with more than one visit; no L0 rung in GRAPE",
+ "feature_spaces": {
+  "retfound_released": {
+   "n_images": 631,
+   "fellow_eye_other_visit | different camera": {
+    "n_pairs": 361,
+    "n_patients": 70,
+    "mean_c_auc": 0.7371124172540933,
+    "mean_c_ci95_patient_bootstrap": [
+     0.6889483091808406,
+     0.7816505278853084
+    ],
+    "median_c": 0.8488102953430238,
+    "tolerance_curve": {
+     "c>=0.5": 0.7839335180055401,
+     "c>=0.9": 0.3988919667590028,
+     "c>=0.95": 0.296398891966759,
+     "c>=0.99": 0.12188365650969529
+    }
+   },
+   "fellow_eye_other_visit | same camera": {
+    "n_pairs": 246,
+    "n_patients": 63,
+    "mean_c_auc": 0.8389316367788583,
+    "mean_c_ci95_patient_bootstrap": [
+     0.79062784821477,
+     0.8797551310150805
+    ],
+    "median_c": 0.9395283437193835,
+    "tolerance_curve": {
+     "c>=0.5": 0.8861788617886179,
+     "c>=0.9": 0.6016260162601627,
+     "c>=0.95": 0.47560975609756095,
+     "c>=0.99": 0.2886178861788618
+    }
+   },
+   "fellow_eye_same_visit | same camera": {
+    "n_pairs": 276,
+    "n_patients": 119,
+    "mean_c_auc": 0.9073177641182423,
+    "mean_c_ci95_patient_bootstrap": [
+     0.8827973949046279,
+     0.9304370747883228
+    ],
+    "median_c": 0.9940714915866775,
+    "tolerance_curve": {
+     "c>=0.5": 0.9311594202898551,
+     "c>=0.9": 0.7971014492753623,
+     "c>=0.95": 0.7355072463768116,
+     "c>=0.99": 0.5688405797101449
+    }
+   },
+   "same_eye_other_visit | different camera": {
+    "n_pairs": 398,
+    "n_patients": 83,
+    "mean_c_auc": 0.7768993987131865,
+    "mean_c_ci95_patient_bootstrap": [
+     0.7353626561951745,
+     0.8116101163837786
+    ],
+    "median_c": 0.873546889878787,
+    "tolerance_curve": {
+     "c>=0.5": 0.8366834170854272,
+     "c>=0.9": 0.4472361809045226,
+     "c>=0.95": 0.3241206030150754,
+     "c>=0.99": 0.17839195979899497
+    }
+   },
+   "same_eye_other_visit | same camera": {
+    "n_pairs": 250,
+    "n_patients": 71,
+    "mean_c_auc": 0.8725920903229744,
+    "mean_c_ci95_patient_bootstrap": [
+     0.8316669851209298,
+     0.9058036291390854
+    ],
+    "median_c": 0.9751097920915404,
+    "tolerance_curve": {
+     "c>=0.5": 0.912,
+     "c>=0.9": 0.688,
+     "c>=0.95": 0.584,
+     "c>=0.99": 0.408
+    }
+   },
+   "same_eye_c_by_gap_and_camera": {
+    "1-2y | different camera": {
+     "n_pairs": 138,
+     "mean_c": 0.7787608703210107
+    },
+    "1-2y | same camera": {
+     "n_pairs": 89,
+     "mean_c": 0.8673502034378545
+    },
+    "<1y | different camera": {
+     "n_pairs": 82,
+     "mean_c": 0.8340112226882521
+    },
+    "<1y | same camera": {
+     "n_pairs": 150,
+     "mean_c": 0.875185102413911
+    },
+    ">2y | different camera": {
+     "n_pairs": 178,
+     "mean_c": 0.7491462939500679
+    },
+    ">2y | same camera": {
+     "n_pairs": 11,
+     "mean_c": 0.8796444647898071
+    }
+   },
+   "same_eye_c_vs_gap_spearman": {
+    "different camera": -0.25048891476775,
+    "same camera": -0.132192677335786
+   }
+  },
+  "pixels_16x16": {
+   "n_images": 631,
+   "fellow_eye_other_visit | different camera": {
+    "n_pairs": 361,
+    "n_patients": 70,
+    "mean_c_auc": 0.6182939880637832,
+    "mean_c_ci95_patient_bootstrap": [
+     0.576829712787339,
+     0.6607038540792151
+    ],
+    "median_c": 0.6577967516209796,
+    "tolerance_curve": {
+     "c>=0.5": 0.6648199445983379,
+     "c>=0.9": 0.1772853185595568,
+     "c>=0.95": 0.11357340720221606,
+     "c>=0.99": 0.036011080332409975
+    }
+   },
+   "fellow_eye_other_visit | same camera": {
+    "n_pairs": 246,
+    "n_patients": 63,
+    "mean_c_auc": 0.6252904519779828,
+    "mean_c_ci95_patient_bootstrap": [
+     0.5678416278972361,
+     0.6805557654636162
+    ],
+    "median_c": 0.7029236868186323,
+    "tolerance_curve": {
+     "c>=0.5": 0.6422764227642277,
+     "c>=0.9": 0.25203252032520324,
+     "c>=0.95": 0.15447154471544716,
+     "c>=0.99": 0.06097560975609756
+    }
+   },
+   "fellow_eye_same_visit | same camera": {
+    "n_pairs": 276,
+    "n_patients": 119,
+    "mean_c_auc": 0.6921673978346047,
+    "mean_c_ci95_patient_bootstrap": [
+     0.6456866387233711,
+     0.7361614540476835
+    ],
+    "median_c": 0.7793203044945993,
+    "tolerance_curve": {
+     "c>=0.5": 0.7210144927536232,
+     "c>=0.9": 0.358695652173913,
+     "c>=0.95": 0.26811594202898553,
+     "c>=0.99": 0.10507246376811594
+    }
+   },
+   "same_eye_other_visit | different camera": {
+    "n_pairs": 398,
+    "n_patients": 83,
+    "mean_c_auc": 0.6688392519481494,
+    "mean_c_ci95_patient_bootstrap": [
+     0.628342097212297,
+     0.7030557046167312
+    ],
+    "median_c": 0.7367410738770361,
+    "tolerance_curve": {
+     "c>=0.5": 0.7110552763819096,
+     "c>=0.9": 0.2562814070351759,
+     "c>=0.95": 0.18090452261306533,
+     "c>=0.99": 0.10552763819095477
+    }
+   },
+   "same_eye_other_visit | same camera": {
+    "n_pairs": 250,
+    "n_patients": 71,
+    "mean_c_auc": 0.7136885330555275,
+    "mean_c_ci95_patient_bootstrap": [
+     0.6556309783172616,
+     0.7658384828293943
+    ],
+    "median_c": 0.8173937633462863,
+    "tolerance_curve": {
+     "c>=0.5": 0.724,
+     "c>=0.9": 0.46,
+     "c>=0.95": 0.368,
+     "c>=0.99": 0.276
+    }
+   },
+   "same_eye_c_by_gap_and_camera": {
+    "1-2y | different camera": {
+     "n_pairs": 138,
+     "mean_c": 0.6773877074145348
+    },
+    "1-2y | same camera": {
+     "n_pairs": 89,
+     "mean_c": 0.7190724796997269
+    },
+    "<1y | different camera": {
+     "n_pairs": 82,
+     "mean_c": 0.7135126005238547
+    },
+    "<1y | same camera": {
+     "n_pairs": 150,
+     "mean_c": 0.7164172144416142
+    },
+    ">2y | different camera": {
+     "n_pairs": 178,
+     "mean_c": 0.6416319405011326
+    },
+    ">2y | same camera": {
+     "n_pairs": 11,
+     "mean_c": 0.6329182185785528
+    }
+   },
+   "same_eye_c_vs_gap_spearman": {
+    "different camera": -0.1689141816305102,
+    "same camera": -0.04736148596362734
+   }
+  },
+  "pixels_16x16_fellow_eye_flipped": {
+   "n_images": 631,
+   "fellow_eye_other_visit | different camera": {
+    "n_pairs": 361,
+    "n_patients": 70,
+    "mean_c_auc": 0.6521297307559648,
+    "mean_c_ci95_patient_bootstrap": [
+     0.6141797279941337,
+     0.6918611355992066
+    ],
+    "median_c": 0.7306301369863014,
+    "tolerance_curve": {
+     "c>=0.5": 0.7008310249307479,
+     "c>=0.9": 0.22437673130193905,
+     "c>=0.95": 0.13573407202216067,
+     "c>=0.99": 0.04986149584487535
+    }
+   },
+   "fellow_eye_other_visit | same camera": {
+    "n_pairs": 246,
+    "n_patients": 63,
+    "mean_c_auc": 0.6943713708560784,
+    "mean_c_ci95_patient_bootstrap": [
+     0.6408999016189022,
+     0.7445497665524046
+    ],
+    "median_c": 0.800068613249981,
+    "tolerance_curve": {
+     "c>=0.5": 0.7113821138211383,
+     "c>=0.9": 0.35365853658536583,
+     "c>=0.95": 0.2886178861788618,
+     "c>=0.99": 0.13414634146341464
+    }
+   },
+   "fellow_eye_same_visit | same camera": {
+    "n_pairs": 276,
+    "n_patients": 119,
+    "mean_c_auc": 0.8103780993953116,
+    "mean_c_ci95_patient_bootstrap": [
+     0.7747402252251487,
+     0.8434989606614084
+    ],
+    "median_c": 0.9511702370968971,
+    "tolerance_curve": {
+     "c>=0.5": 0.8514492753623188,
+     "c>=0.9": 0.5688405797101449,
+     "c>=0.95": 0.5036231884057971,
+     "c>=0.99": 0.2898550724637681
+    }
+   },
+   "same_eye_other_visit | different camera": {
+    "n_pairs": 398,
+    "n_patients": 83,
+    "mean_c_auc": 0.6688392519481494,
+    "mean_c_ci95_patient_bootstrap": [
+     0.628342097212297,
+     0.7030557046167312
+    ],
+    "median_c": 0.7367410738770361,
+    "tolerance_curve": {
+     "c>=0.5": 0.7110552763819096,
+     "c>=0.9": 0.2562814070351759,
+     "c>=0.95": 0.18090452261306533,
+     "c>=0.99": 0.10552763819095477
+    }
+   },
+   "same_eye_other_visit | same camera": {
+    "n_pairs": 250,
+    "n_patients": 71,
+    "mean_c_auc": 0.7136885330555275,
+    "mean_c_ci95_patient_bootstrap": [
+     0.6556309783172616,
+     0.7658384828293943
+    ],
+    "median_c": 0.8173937633462863,
+    "tolerance_curve": {
+     "c>=0.5": 0.724,
+     "c>=0.9": 0.46,
+     "c>=0.95": 0.368,
+     "c>=0.99": 0.276
+    }
+   },
+   "same_eye_c_by_gap_and_camera": {
+    "1-2y | different camera": {
+     "n_pairs": 138,
+     "mean_c": 0.6773877074145348
+    },
+    "1-2y | same camera": {
+     "n_pairs": 89,
+     "mean_c": 0.7190724796997269
+    },
+    "<1y | different camera": {
+     "n_pairs": 82,
+     "mean_c": 0.7135126005238547
+    },
+    "<1y | same camera": {
+     "n_pairs": 150,
+     "mean_c": 0.7164172144416142
+    },
+    ">2y | different camera": {
+     "n_pairs": 178,
+     "mean_c": 0.6416319405011326
+    },
+    ">2y | same camera": {
+     "n_pairs": 11,
+     "mean_c": 0.6329182185785528
+    }
+   },
+   "same_eye_c_vs_gap_spearman": {
+    "different camera": -0.1689141816305102,
+    "same camera": -0.04736148596362734
+   }
+  }
+ }
+}

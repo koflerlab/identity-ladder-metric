@@ -1,0 +1,406 @@
+{
+ "method": "integro-differential segmentation, rubber sheet 16x128, 1D log-Gabor, 2-bit phase, Hamming distance min over +-6 shifts; red channel for colour images",
+ "reference": "unrelated-person pairs in the same sensor and eye condition",
+ "primary": "UTIRIS_NIR (segmentation is reliable in NIR); visible-light subsets are secondary because classical segmentation passes QC for a minority of visible-light images",
+ "UTIRIS_NIR": {
+  "excluded_eye_label_conflicts": 15,
+  "n_images": 778,
+  "segmentation_qc_pass": 0.9408740359897172,
+  "flipped_qc_pass": 0.9408740359897172,
+  "qc_median_among_segmented": {
+   "pupil_iris_ratio": 0.4180171478192808,
+   "centre_offset": 0.051236764624481075,
+   "valid_bits": 0.5849609375
+  },
+  "median_hamming": {
+   "fellow_eye_same_sensor": 0.3650580942630768,
+   "other_person": 0.4064609408378601,
+   "same_eye_same_sensor": 0.18018394708633423
+  },
+  "decidability_vs_other_person": {
+   "fellow_eye_same_sensor": 0.6027900229377015,
+   "same_eye_same_sensor": 2.1966534202964905
+  },
+  "calibrated_fellow_eye_flipped": {
+   "fellow_eye_same_sensor": {
+    "n_pairs": 1789,
+    "n_people": 75,
+    "mean_c_auc": 0.6773130755884802,
+    "mean_c_ci95_person_bootstrap": [
+     0.6354694595124547,
+     0.7175202024090988
+    ],
+    "tolerance_curve": {
+     "c>=0.5": 0.7518166573504751,
+     "c>=0.9": 0.24874231414197875,
+     "c>=0.95": 0.15539407490218,
+     "c>=0.99": 0.05477920626048072
+    }
+   },
+   "same_eye_same_sensor": {
+    "n_pairs": 1453,
+    "n_people": 76,
+    "mean_c_auc": 0.9125265754089392,
+    "mean_c_ci95_person_bootstrap": [
+     0.8888351774853258,
+     0.9378794571208605
+    ],
+    "tolerance_curve": {
+     "c>=0.5": 0.9284239504473503,
+     "c>=0.9": 0.8217481073640743,
+     "c>=0.95": 0.7894012388162422,
+     "c>=0.99": 0.6579490708878183
+    }
+   }
+  },
+  "calibrated_fellow_eye_plain": {
+   "fellow_eye_same_sensor": {
+    "n_pairs": 1789,
+    "n_people": 75,
+    "mean_c_auc": 0.6684463381315663,
+    "mean_c_ci95_person_bootstrap": [
+     0.62161184536253,
+     0.7097059224337764
+    ],
+    "tolerance_curve": {
+     "c>=0.5": 0.7216321967579653,
+     "c>=0.9": 0.27836780324203464,
+     "c>=0.95": 0.18390162101732813,
+     "c>=0.99": 0.0737842370039128
+    }
+   },
+   "same_eye_same_sensor": {
+    "n_pairs": 1453,
+    "n_people": 76,
+    "mean_c_auc": 0.9125265754089392,
+    "mean_c_ci95_person_bootstrap": [
+     0.8888351774853258,
+     0.9378794571208605
+    ],
+    "tolerance_curve": {
+     "c>=0.5": 0.9284239504473503,
+     "c>=0.9": 0.8217481073640743,
+     "c>=0.95": 0.7894012388162422,
+     "c>=0.99": 0.6579490708878183
+    }
+   }
+  },
+  "note": "median_hamming and decidability use unflipped codes; calibrated scores use a reference matched on sensor pair and eye relation. Iris-code degrees of freedom are far below Daugman's, so this code cannot test his fellow-eye result."
+ },
+ "UTIRIS_VIS_secondary": {
+  "n_images": 806,
+  "segmentation_qc_pass": 0.46898263027295284,
+  "flipped_qc_pass": 0.46898263027295284,
+  "qc_median_among_segmented": {
+   "pupil_iris_ratio": 0.46197119940044673,
+   "centre_offset": 0.0855052779373584,
+   "valid_bits": 0.58203125
+  },
+  "median_hamming": {
+   "fellow_eye_same_sensor": 0.4245763123035431,
+   "other_person": 0.4335443079471588,
+   "same_eye_same_sensor": 0.23582622408866882
+  },
+  "decidability_vs_other_person": {
+   "fellow_eye_same_sensor": 0.2691318763896124,
+   "same_eye_same_sensor": 2.1044005555399496
+  },
+  "calibrated_fellow_eye_flipped": {
+   "fellow_eye_same_sensor": {
+    "n_pairs": 654,
+    "n_people": 54,
+    "mean_c_auc": 0.6652742825059407,
+    "mean_c_ci95_person_bootstrap": [
+     0.5953924084009455,
+     0.7342569327690888
+    ],
+    "tolerance_curve": {
+     "c>=0.5": 0.7079510703363915,
+     "c>=0.9": 0.2782874617737003,
+     "c>=0.95": 0.17737003058103976,
+     "c>=0.99": 0.06116207951070336
+    }
+   },
+   "same_eye_same_sensor": {
+    "n_pairs": 544,
+    "n_people": 55,
+    "mean_c_auc": 0.9058920286904817,
+    "mean_c_ci95_person_bootstrap": [
+     0.8715757278476157,
+     0.9373326026313753
+    ],
+    "tolerance_curve": {
+     "c>=0.5": 0.9191176470588235,
+     "c>=0.9": 0.8125,
+     "c>=0.95": 0.75,
+     "c>=0.99": 0.6544117647058824
+    }
+   }
+  },
+  "calibrated_fellow_eye_plain": {
+   "fellow_eye_same_sensor": {
+    "n_pairs": 654,
+    "n_people": 54,
+    "mean_c_auc": 0.5781912364222581,
+    "mean_c_ci95_person_bootstrap": [
+     0.5088014680001622,
+     0.64430518975948
+    ],
+    "tolerance_curve": {
+     "c>=0.5": 0.6146788990825688,
+     "c>=0.9": 0.16972477064220184,
+     "c>=0.95": 0.0963302752293578,
+     "c>=0.99": 0.04281345565749235
+    }
+   },
+   "same_eye_same_sensor": {
+    "n_pairs": 544,
+    "n_people": 55,
+    "mean_c_auc": 0.9058920286904817,
+    "mean_c_ci95_person_bootstrap": [
+     0.8715757278476157,
+     0.9373326026313753
+    ],
+    "tolerance_curve": {
+     "c>=0.5": 0.9191176470588235,
+     "c>=0.9": 0.8125,
+     "c>=0.95": 0.75,
+     "c>=0.99": 0.6544117647058824
+    }
+   }
+  },
+  "note": "median_hamming and decidability use unflipped codes; calibrated scores use a reference matched on sensor pair and eye relation. Iris-code degrees of freedom are far below Daugman's, so this code cannot test his fellow-eye result."
+ },
+ "UTIRIS_NIR_vs_VIS_secondary": {
+  "n_images": 1584,
+  "segmentation_qc_pass": 0.7007575757575758,
+  "flipped_qc_pass": 0.7007575757575758,
+  "qc_median_among_segmented": {
+   "pupil_iris_ratio": 0.42964108738856877,
+   "centre_offset": 0.06286480278006745,
+   "valid_bits": 0.583984375
+  },
+  "median_hamming": {
+   "fellow_eye_other_sensor": 0.42212674021720886,
+   "fellow_eye_same_sensor": 0.3844221234321594,
+   "other_person": 0.42020726203918457,
+   "same_eye_other_sensor": 0.4165424406528473,
+   "same_eye_same_sensor": 0.1923736035823822
+  },
+  "decidability_vs_other_person": {
+   "fellow_eye_other_sensor": 0.015762662120361457,
+   "fellow_eye_same_sensor": 0.5959416693185519,
+   "same_eye_other_sensor": 0.1151756904133035,
+   "same_eye_same_sensor": 2.2259969289387307
+  },
+  "calibrated_fellow_eye_flipped": {
+   "fellow_eye_other_sensor": {
+    "n_pairs": 1797,
+    "n_people": 70,
+    "mean_c_auc": 0.530167499419991,
+    "mean_c_ci95_person_bootstrap": [
+     0.479403326981025,
+     0.5836632035872501
+    ],
+    "tolerance_curve": {
+     "c>=0.5": 0.5325542570951586,
+     "c>=0.9": 0.13689482470784642,
+     "c>=0.95": 0.08569838619922092,
+     "c>=0.99": 0.036171396772398445
+    }
+   },
+   "fellow_eye_same_sensor": {
+    "n_pairs": 2443,
+    "n_people": 78,
+    "mean_c_auc": 0.674090246822217,
+    "mean_c_ci95_person_bootstrap": [
+     0.6366005194866229,
+     0.7143092583992764
+    ],
+    "tolerance_curve": {
+     "c>=0.5": 0.7400736799017601,
+     "c>=0.9": 0.2566516577977896,
+     "c>=0.95": 0.16127711829717561,
+     "c>=0.99": 0.05648792468276709
+    }
+   },
+   "same_eye_other_sensor": {
+    "n_pairs": 1812,
+    "n_people": 69,
+    "mean_c_auc": 0.5705498318370104,
+    "mean_c_ci95_person_bootstrap": [
+     0.5168951628882827,
+     0.6246260120641807
+    ],
+    "tolerance_curve": {
+     "c>=0.5": 0.57560706401766,
+     "c>=0.9": 0.18543046357615894,
+     "c>=0.95": 0.10375275938189846,
+     "c>=0.99": 0.030353200883002206
+    }
+   },
+   "same_eye_same_sensor": {
+    "n_pairs": 1997,
+    "n_people": 77,
+    "mean_c_auc": 0.9107192677400154,
+    "mean_c_ci95_person_bootstrap": [
+     0.8888057339800878,
+     0.9316289783212858
+    ],
+    "tolerance_curve": {
+     "c>=0.5": 0.9258888332498748,
+     "c>=0.9": 0.8192288432648973,
+     "c>=0.95": 0.7786680020030045,
+     "c>=0.99": 0.656985478217326
+    }
+   }
+  },
+  "calibrated_fellow_eye_plain": {
+   "fellow_eye_other_sensor": {
+    "n_pairs": 1797,
+    "n_people": 70,
+    "mean_c_auc": 0.5254631705086761,
+    "mean_c_ci95_person_bootstrap": [
+     0.4716843448622561,
+     0.5786858836805221
+    ],
+    "tolerance_curve": {
+     "c>=0.5": 0.528658875904285,
+     "c>=0.9": 0.1419031719532554,
+     "c>=0.95": 0.08347245409015025,
+     "c>=0.99": 0.02949360044518642
+    }
+   },
+   "fellow_eye_same_sensor": {
+    "n_pairs": 2443,
+    "n_people": 78,
+    "mean_c_auc": 0.6442847185990703,
+    "mean_c_ci95_person_bootstrap": [
+     0.6019434150878653,
+     0.6870472700332085
+    ],
+    "tolerance_curve": {
+     "c>=0.5": 0.6930004093327875,
+     "c>=0.9": 0.2492836676217765,
+     "c>=0.95": 0.16045845272206305,
+     "c>=0.99": 0.06549324600900532
+    }
+   },
+   "same_eye_other_sensor": {
+    "n_pairs": 1812,
+    "n_people": 69,
+    "mean_c_auc": 0.5705498318370104,
+    "mean_c_ci95_person_bootstrap": [
+     0.5168951628882827,
+     0.6246260120641807
+    ],
+    "tolerance_curve": {
+     "c>=0.5": 0.57560706401766,
+     "c>=0.9": 0.18543046357615894,
+     "c>=0.95": 0.10375275938189846,
+     "c>=0.99": 0.030353200883002206
+    }
+   },
+   "same_eye_same_sensor": {
+    "n_pairs": 1997,
+    "n_people": 77,
+    "mean_c_auc": 0.9107192677400154,
+    "mean_c_ci95_person_bootstrap": [
+     0.8888057339800878,
+     0.9316289783212858
+    ],
+    "tolerance_curve": {
+     "c>=0.5": 0.9258888332498748,
+     "c>=0.9": 0.8192288432648973,
+     "c>=0.95": 0.7786680020030045,
+     "c>=0.99": 0.656985478217326
+    }
+   }
+  },
+  "note": "median_hamming and decidability use unflipped codes; calibrated scores use a reference matched on sensor pair and eye relation. Iris-code degrees of freedom are far below Daugman's, so this code cannot test his fellow-eye result."
+ },
+ "UPOL_secondary": {
+  "n_images": 384,
+  "segmentation_qc_pass": 0.22135416666666666,
+  "flipped_qc_pass": 0.22135416666666666,
+  "qc_median_among_segmented": {
+   "pupil_iris_ratio": 0.30631581877915426,
+   "centre_offset": 0.06891984408916402,
+   "valid_bits": 0.572265625
+  },
+  "median_hamming": {
+   "fellow_eye_same_sensor": 0.4375,
+   "other_person": 0.44383150339126587,
+   "same_eye_same_sensor": 0.09718557447195053
+  },
+  "decidability_vs_other_person": {
+   "fellow_eye_same_sensor": 0.254376618466204,
+   "same_eye_same_sensor": 4.714787324639045
+  },
+  "calibrated_fellow_eye_flipped": {
+   "fellow_eye_same_sensor": {
+    "n_pairs": 101,
+    "n_people": 13,
+    "mean_c_auc": 0.6580470950320839,
+    "mean_c_ci95_person_bootstrap": [
+     0.5204245397103727,
+     0.7852097529762325
+    ],
+    "tolerance_curve": {
+     "c>=0.5": 0.7326732673267327,
+     "c>=0.9": 0.22772277227722773,
+     "c>=0.95": 0.13861386138613863,
+     "c>=0.99": 0.0297029702970297
+    }
+   },
+   "same_eye_same_sensor": {
+    "n_pairs": 77,
+    "n_people": 18,
+    "mean_c_auc": 0.9677672653369155,
+    "mean_c_ci95_person_bootstrap": [
+     0.9188868773931015,
+     1.0
+    ],
+    "tolerance_curve": {
+     "c>=0.5": 0.961038961038961,
+     "c>=0.9": 0.961038961038961,
+     "c>=0.95": 0.948051948051948,
+     "c>=0.99": 0.935064935064935
+    }
+   }
+  },
+  "calibrated_fellow_eye_plain": {
+   "fellow_eye_same_sensor": {
+    "n_pairs": 101,
+    "n_people": 13,
+    "mean_c_auc": 0.5632182573096018,
+    "mean_c_ci95_person_bootstrap": [
+     0.4044351301699085,
+     0.7428005776048545
+    ],
+    "tolerance_curve": {
+     "c>=0.5": 0.6039603960396039,
+     "c>=0.9": 0.21782178217821782,
+     "c>=0.95": 0.09900990099009901,
+     "c>=0.99": 0.0297029702970297
+    }
+   },
+   "same_eye_same_sensor": {
+    "n_pairs": 77,
+    "n_people": 18,
+    "mean_c_auc": 0.9677672653369155,
+    "mean_c_ci95_person_bootstrap": [
+     0.9188868773931015,
+     1.0
+    ],
+    "tolerance_curve": {
+     "c>=0.5": 0.961038961038961,
+     "c>=0.9": 0.961038961038961,
+     "c>=0.95": 0.948051948051948,
+     "c>=0.99": 0.935064935064935
+    }
+   }
+  },
+  "note": "median_hamming and decidability use unflipped codes; calibrated scores use a reference matched on sensor pair and eye relation. Iris-code degrees of freedom are far below Daugman's, so this code cannot test his fellow-eye result."
+ }
+}

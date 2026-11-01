@@ -1,0 +1,379 @@
+{
+ "run": "run-2026-11-01-image-ladder-v2",
+ "n_scans": {
+  "SIMON": 95,
+  "IXI": 89,
+  "QTIM": 34
+ },
+ "qc": {
+  "rule": "brain correlation with the template below 0.5 (absolute floor) or below median - 4 MAD (the MAD rule is reported but binds only if it is stricter than the floor)",
+  "excluded_registration_failures": 12,
+  "failed_extraction": 2,
+  "failure_types": [
+   "FloatingPointError"
+  ],
+  "excluded_by_dataset": {
+   "IXI": 10,
+   "SIMON": 4
+  },
+  "excluded_simon_series": {
+   "Sag_CUBE_T1": 2,
+   "Core-3D-T1w": 1,
+   "Sag_CUBE_DIR_WM_Null": 1
+  },
+  "median_template_corr_by_dataset": {
+   "IXI": 0.664,
+   "QTIM": 0.644,
+   "SIMON": 0.675
+  },
+  "strip_setting_counts": {
+   "0": 180,
+   "1": 24,
+   "2": 26
+  }
+ },
+ "simon_within_session_pairs": {
+  "same_protocol": 25,
+  "other_sequence": 9
+ },
+ "feature_grid": {
+  "voxel_mm": 6,
+  "n_brain_voxels": 8698
+ },
+ "features": {
+  "intensity": {
+   "rungs": {
+    "L0_same_session": {
+     "n_pairs": 25,
+     "median": 15.614471281831532,
+     "q25": 13.443273699648067,
+     "q75": 18.766338944912263
+    },
+    "L0x_same_session_other_sequence": {
+     "n_pairs": 9,
+     "median": 26.010539766203184,
+     "q25": 19.86595352660247,
+     "q75": 30.096793213142924
+    },
+    "L1L2_other_scanner_other_protocol": {
+     "n_pairs": 3333,
+     "median": 31.617998717065447,
+     "q25": 26.0769932529256,
+     "q75": 39.5678830657909
+    },
+    "L1L2_other_scanner_same_protocol": {
+     "n_pairs": 855,
+     "median": 20.324959478476284,
+     "q25": 17.899880532401866,
+     "q75": 24.33254347028072
+    },
+    "L1L2_same_scanner_other_protocol": {
+     "n_pairs": 152,
+     "median": 30.414606031778167,
+     "q25": 25.360722399336808,
+     "q75": 36.11513255964532
+    },
+    "L1L2_same_scanner_same_protocol": {
+     "n_pairs": 91,
+     "median": 18.410995237121107,
+     "q25": 15.637184544969303,
+     "q75": 26.540067850052196
+    },
+    "L2_same_person_later_visit": {
+     "n_pairs": 11,
+     "median": 23.30088346587172,
+     "q25": 19.721272335307937,
+     "q75": 23.83057106962184
+    },
+    "L3_cotwin_zygosity_unknown": {
+     "n_pairs": 5,
+     "median": 30.890324770252647,
+     "q25": 30.143708757171854,
+     "q75": 31.0961157363038
+    },
+    "L4_cross_dataset": {
+     "n_pairs": 14711,
+     "median": 41.95037504215743,
+     "q25": 38.897582475593154,
+     "q75": 45.867346126555674
+    },
+    "L4_other_centre": {
+     "n_pairs": 2632,
+     "median": 43.21899934021042,
+     "q25": 40.071431301062525,
+     "q75": 46.89494528682447
+    },
+    "L4_same_centre": {
+     "n_pairs": 1284,
+     "median": 34.410769301190385,
+     "q25": 31.27113248401585,
+     "q75": 38.41534898246829
+    },
+    "L4_unrelated": {
+     "n_pairs": 545,
+     "median": 32.45627372662732,
+     "q25": 30.927821115388994,
+     "q75": 34.14690715395986
+    }
+   },
+   "contrasts": {
+    "L0_same_session < L0x_same_session_other_sequence": {
+     "auc": 0.8488888888888889,
+     "dprime": 0.9623363302270125
+    },
+    "L0_same_session < L1L2_same_scanner_same_protocol": {
+     "auc": 0.6698901098901099,
+     "dprime": 0.3680307995144783
+    },
+    "L1L2_same_scanner_same_protocol < L1L2_same_scanner_other_protocol": {
+     "auc": 0.8030653556969346,
+     "dprime": 1.236936204698734
+    },
+    "L1L2_same_scanner_same_protocol < L1L2_other_scanner_same_protocol": {
+     "auc": 0.5813765182186235,
+     "dprime": 0.14323710807244894
+    },
+    "L1L2_other_scanner_same_protocol < L1L2_other_scanner_other_protocol": {
+     "auc": 0.8646619047869699,
+     "dprime": 1.4008307930642319
+    },
+    "L1L2_other_scanner_other_protocol < L4_other_centre": {
+     "auc": 0.8124127382343097,
+     "dprime": 1.1636730951989487
+    },
+    "L2_same_person_later_visit < L4_unrelated": {
+     "auc": 0.9966638865721434,
+     "dprime": 3.2983525552652666
+    },
+    "L3_cotwin_zygosity_unknown < L4_unrelated": {
+     "auc": 0.7115596330275229,
+     "dprime": 0.8021227365160516
+    },
+    "L2_same_person_later_visit < L3_cotwin_zygosity_unknown": {
+     "auc": 1.0,
+     "dprime": 3.278600605170116
+    },
+    "L4_same_centre < L4_other_centre": {
+     "auc": 0.8938300713007414,
+     "dprime": 1.7464206746475999
+    }
+   },
+   "simon_distance_vs_gap_spearman": {
+    "L1L2_other_scanner_other_protocol": 0.054546739741551206,
+    "L1L2_other_scanner_same_protocol": -0.10354410998487741,
+    "L1L2_same_scanner_other_protocol": -0.06992298430121058,
+    "L1L2_same_scanner_same_protocol": 0.05473471261227384
+   },
+   "separation_ratio_L4_other_centre_over_simon_other_scanner": 1.4583063991381553,
+   "qtim_identification": {
+    "queries": 11,
+    "gallery_size": 22,
+    "rank1": 0.9090909090909091,
+    "chance": 0.045454545454545456
+   },
+   "mirror": {
+    "QTIM": {
+     "n_scans": 34,
+     "median_within_scan_mirror_descriptive": 19.389522552490234,
+     "median_mirror_same_person_other_scan": 21.207895278930664,
+     "median_same_half_same_person_other_scan": 14.749826431274414,
+     "n_same_person_scan_pairs": 22,
+     "median_mirror_other_person": 22.55770492553711,
+     "median_same_half_other_person": 22.412513732910156,
+     "auc_mirror_same_person_below_other_person": 0.7643388429752066,
+     "auc_same_half_same_person_below_other_person": 0.9927272727272727
+    },
+    "IXI": {
+     "n_scans": 89,
+     "median_within_scan_mirror_descriptive": 20.476734161376953,
+     "median_mirror_other_person": 27.773784637451172,
+     "median_same_half_other_person": 27.29973602294922
+    },
+    "SIMON": {
+     "n_scans": 95,
+     "median_within_scan_mirror_descriptive": 22.339881896972656,
+     "median_mirror_same_person_other_scan": 25.064441680908203,
+     "median_same_half_same_person_other_scan": 19.100685119628906,
+     "n_same_person_scan_pairs": 8930,
+     "cross_protocol_auc_mirror_same_person_below_IXI": 0.766612816816252,
+     "cross_protocol_auc_same_half_same_person_below_IXI": 0.857368758786885
+    }
+   }
+  },
+  "geometry": {
+   "rungs": {
+    "L0_same_session": {
+     "n_pairs": 25,
+     "median": 7.3561868015438625,
+     "q25": 6.504170814094032,
+     "q75": 9.200363928274687
+    },
+    "L0x_same_session_other_sequence": {
+     "n_pairs": 9,
+     "median": 16.430782007949574,
+     "q25": 7.89998628073785,
+     "q75": 17.66021425278697
+    },
+    "L1L2_other_scanner_other_protocol": {
+     "n_pairs": 3333,
+     "median": 18.41168493274079,
+     "q25": 13.576435523652675,
+     "q75": 26.290408956526058
+    },
+    "L1L2_other_scanner_same_protocol": {
+     "n_pairs": 855,
+     "median": 10.201913000440639,
+     "q25": 8.83850011714783,
+     "q75": 12.184718623321707
+    },
+    "L1L2_same_scanner_other_protocol": {
+     "n_pairs": 152,
+     "median": 15.993552372730415,
+     "q25": 13.472920989994604,
+     "q75": 21.072578173941515
+    },
+    "L1L2_same_scanner_same_protocol": {
+     "n_pairs": 91,
+     "median": 8.927172578362688,
+     "q25": 7.413999902816493,
+     "q75": 12.902157627106028
+    },
+    "L2_same_person_later_visit": {
+     "n_pairs": 11,
+     "median": 13.879695271867956,
+     "q25": 11.896442891498712,
+     "q75": 15.925067999411457
+    },
+    "L3_cotwin_zygosity_unknown": {
+     "n_pairs": 5,
+     "median": 16.652305844113076,
+     "q25": 15.80357965292051,
+     "q75": 17.285695756507995
+    },
+    "L4_cross_dataset": {
+     "n_pairs": 14711,
+     "median": 23.52561256875916,
+     "q25": 20.981997816847507,
+     "q75": 27.72921080550848
+    },
+    "L4_other_centre": {
+     "n_pairs": 2632,
+     "median": 20.69327940832699,
+     "q25": 18.8219567661901,
+     "q75": 22.6381207982293
+    },
+    "L4_same_centre": {
+     "n_pairs": 1284,
+     "median": 16.368231660715203,
+     "q25": 14.525149501611299,
+     "q75": 18.413112578504773
+    },
+    "L4_unrelated": {
+     "n_pairs": 545,
+     "median": 19.844317642293138,
+     "q25": 17.870401508777164,
+     "q75": 22.129670529925974
+    }
+   },
+   "contrasts": {
+    "L0_same_session < L0x_same_session_other_sequence": {
+     "auc": 0.7822222222222223,
+     "dprime": 0.9799489167924105
+    },
+    "L0_same_session < L1L2_same_scanner_same_protocol": {
+     "auc": 0.6589010989010989,
+     "dprime": 0.4337719947113431
+    },
+    "L1L2_same_scanner_same_protocol < L1L2_same_scanner_other_protocol": {
+     "auc": 0.8479612492770388,
+     "dprime": 1.4474560114873558
+    },
+    "L1L2_same_scanner_same_protocol < L1L2_other_scanner_same_protocol": {
+     "auc": 0.6019664545980336,
+     "dprime": 0.20063125713131877
+    },
+    "L1L2_other_scanner_same_protocol < L1L2_other_scanner_other_protocol": {
+     "auc": 0.8912101736489438,
+     "dprime": 1.6148091935227806
+    },
+    "L1L2_other_scanner_other_protocol < L4_other_centre": {
+     "auc": 0.5781466444516792,
+     "dprime": 0.1288284224349387
+    },
+    "L2_same_person_later_visit < L4_unrelated": {
+     "auc": 0.932443703085905,
+     "dprime": 2.1097986356732883
+    },
+    "L3_cotwin_zygosity_unknown < L4_unrelated": {
+     "auc": 0.8664220183486239,
+     "dprime": 1.5613237176878754
+    },
+    "L2_same_person_later_visit < L3_cotwin_zygosity_unknown": {
+     "auc": 0.8181818181818182,
+     "dprime": 1.2568740467212445
+    },
+    "L4_same_centre < L4_other_centre": {
+     "auc": 0.8439201441165052,
+     "dprime": 1.292788049439091
+    }
+   },
+   "simon_distance_vs_gap_spearman": {
+    "L1L2_other_scanner_other_protocol": 0.06923490058048481,
+    "L1L2_other_scanner_same_protocol": -0.10715670567594798,
+    "L1L2_same_scanner_other_protocol": -0.04975384566861475,
+    "L1L2_same_scanner_same_protocol": 0.11174870999553055
+   },
+   "separation_ratio_L4_other_centre_over_simon_other_scanner": 1.274484037760433,
+   "qtim_identification": {
+    "queries": 11,
+    "gallery_size": 22,
+    "rank1": 0.9090909090909091,
+    "chance": 0.045454545454545456
+   },
+   "mirror": {
+    "QTIM": {
+     "n_scans": 34,
+     "median_within_scan_mirror_descriptive": 10.396747589111328,
+     "median_mirror_same_person_other_scan": 12.177553176879883,
+     "median_same_half_same_person_other_scan": 8.438910484313965,
+     "n_same_person_scan_pairs": 22,
+     "median_mirror_other_person": 14.490813255310059,
+     "median_same_half_other_person": 13.503840446472168,
+     "auc_mirror_same_person_below_other_person": 0.7610743801652893,
+     "auc_same_half_same_person_below_other_person": 0.9335537190082644
+    },
+    "IXI": {
+     "n_scans": 89,
+     "median_within_scan_mirror_descriptive": 8.327621459960938,
+     "median_mirror_other_person": 13.687532424926758,
+     "median_same_half_other_person": 13.799585342407227
+    },
+    "SIMON": {
+     "n_scans": 95,
+     "median_within_scan_mirror_descriptive": 9.283784866333008,
+     "median_mirror_same_person_other_scan": 12.423978805541992,
+     "median_same_half_same_person_other_scan": 10.32077693939209,
+     "n_same_person_scan_pairs": 8930,
+     "cross_protocol_auc_mirror_same_person_below_IXI": 0.6774327296278366,
+     "cross_protocol_auc_same_half_same_person_below_IXI": 0.7519544548803593
+    }
+   }
+  }
+ },
+ "environment": {
+  "python": "3.11.9",
+  "numpy": "1.26.4",
+  "pandas": "2.3.3",
+  "antspyx": "0.6.3",
+  "nilearn": "0.13.1",
+  "scipy": "1.15.3"
+ },
+ "caveats": [
+  "SIMON is one person: its rungs are within-person; L4 comes from IXI and QTIM",
+  "L4_cross_dataset mixes person and protocol differences and is reported only for completeness",
+  "QTIM family pairs are 2 families of same-sex, same-age co-twins with unknown zygosity: descriptive only",
+  "SIMON rungs cover IR-GRE contrasts only: QC removed every CUBE/DIR/Core-3D T1 scan",
+  "pairwise AUCs treat dependent pairs as independent and have no confidence intervals",
+  "QTIM is adolescent (12-16 y, then about 3.5 y later): its L2 includes development"
+ ]
+}
