@@ -26,25 +26,39 @@ RUNG_LABEL = {"L0_same_sitting": "same sitting", "L0_retest": "other day", "L1_d
               "mirror_same_sitting": "other side", "MZ": "MZ co-twin", "DZ": "DZ co-twin"}
 
 
+# paper: two-column IEEE width, caption in LaTeX; display: large standalone copy with its provenance caption
+STYLES = {"paper": dict(size=(7.0, 2.25), wspace=0.42, font=7, small=6, title=7, legend=5.6, anchor=1.06, lw=1.2, dot=14, mark=16, dpi=200),
+          "display": dict(size=(13.6, 5.6), wspace=0.47, font=11, small=10, title=13, legend=10, anchor=1.10, lw=2, dot=35, mark=44, dpi=180)}
+
+
 def main():
     r = json.load(open(RES, encoding="utf-8"))
-    fig, (a, b) = plt.subplots(1, 2, figsize=(7.0, 2.25), gridspec_kw={"width_ratios": [1, 1.15], "wspace": 0.42})
+    draw(r, "paper", HERE)
+    draw(r, "display", os.path.join(HERE, "..", "..", "results", "figures"))
+
+
+def draw(r, style, dest):
+    st = STYLES[style]
+    plt.rcParams["font.size"] = st["font"]
+    fig, (a, b) = plt.subplots(1, 2, figsize=st["size"], gridspec_kw={"width_ratios": [1, 1.15], "wspace": st["wspace"]})
+    if style == "display":
+        fig.subplots_adjust(top=.77, bottom=.20, left=.07, right=.985)
     rho = np.linspace(0, 1.3, 300)
     for D, col in ((8, BLUE), (32, ORANGE)):
-        a.plot(rho, psi(rho, D), color=col, lw=1.2, label=f"theory, D = {D}", zorder=2)
+        a.plot(rho, psi(rho, D), color=col, lw=st["lw"], label=f"theory, D = {D}", zorder=2)
         for name in ("base", "low_h"):
             v = r["vectors"][f"{name}_D{D}"]
             pts = [(x["rho_theory"], x["c_sim"]) for k, x in v.items() if k in RUNG_LABEL]
-            a.scatter(*zip(*pts), s=14, facecolor=col, edgecolor="white", linewidth=0.6, zorder=3,
+            a.scatter(*zip(*pts), s=st["dot"], facecolor=col, edgecolor="white", linewidth=0.6, zorder=3,
                       label=f"simulation, D = {D}" if name == "base" else None)
     a.axvline(0.5, color=MUTED, lw=0.6, ls=(0, (2, 2)), zorder=1)
-    a.text(0.53, 0.43, "population-mean fill\n(no identity), Prop. 5", color=MUTED, fontsize=6, va="top")
+    a.text(0.53, 0.43, "population-mean limit\nunder the Gaussian model", color=MUTED, fontsize=st["small"], va="top")
     a.axhline(0.5, color=GRID, lw=0.6, zorder=0)
-    a.text(1.28, 0.52, "strangers", color=MUTED, fontsize=6, ha="right", va="bottom")
+    a.text(1.28, 0.52, "strangers", color=MUTED, fontsize=st["small"], ha="right", va="bottom")
     a.set_xlim(0, 1.3); a.set_ylim(0, 1.03)
     a.set_xlabel(r"variance ratio $\rho_r = v_r / v_{\mathrm{ref}}$"); a.set_ylabel("mean calibrated score $c$")
-    a.set_title("(a) closed form vs simulation", fontsize=7, loc="left", color=INK)
-    a.legend(frameon=False, fontsize=6, loc="lower left", handlelength=1.5)
+    a.set_title("(a) Closed form vs simulation", fontsize=st["title"], loc="left", color=INK)
+    a.legend(frameon=False, fontsize=st["legend"], loc="lower left", handlelength=1.5)
     for s in ("top", "right"):
         a.spines[s].set_visible(False)
 
@@ -56,20 +70,25 @@ def main():
     for metric, col, dy in (("rmse", BLUE, 0.2), ("ssim", ORANGE, -0.07)):
         for cfg, filled, lab in ((cfg_hi, True, "contrast 1"), (cfg_lo, False, "contrast 0.1")):
             xs = [cfg[metric].get(k, {"mean_c": np.nan})["mean_c"] for k, _ in rows]
-            b.scatter(xs, y + dy - (0 if filled else 0.13), s=16, marker="o" if filled else "D", facecolor=col if filled else "white", edgecolor=col,
+            b.scatter(xs, y + dy - (0 if filled else 0.13), s=st["mark"], marker="o" if filled else "D", facecolor=col if filled else "white", edgecolor=col,
                       linewidth=0.9, zorder=3, label=f"{metric.upper()}, {lab}")
     b.axvline(0.5, color=MUTED, lw=0.6, ls=(0, (2, 2)), zorder=1)
-    b.text(0.51, -0.62, "stranger", color=MUTED, fontsize=6, va="center")
+    b.text(0.51, -0.62, "stranger", color=MUTED, fontsize=st["small"], va="center")
     b.set_ylim(-0.85, len(rows) - 0.5)
     b.set_yticks(y); b.set_yticklabels([lab for _, lab in rows])
     b.set_xlim(-0.02, 1.02); b.set_xlabel("mean $c$ of the fill against stranger fills")
-    b.set_title("(b) synthetic tissue, official BraTS metrics", fontsize=7, loc="left", color=INK)
+    b.set_title("(b) Synthetic tissue, corrected intensity model", fontsize=st["title"], loc="left", color=INK)
     b.grid(axis="x", color=GRID, lw=0.5); b.set_axisbelow(True)
-    b.legend(frameon=False, fontsize=5.6, loc="lower left", bbox_to_anchor=(0.0, 1.06), ncol=2, handletextpad=0.3, columnspacing=0.8)
+    b.legend(frameon=False, fontsize=st["legend"], loc="lower left", bbox_to_anchor=(0.0, st["anchor"]), ncol=2, handletextpad=0.3, columnspacing=0.8)
     for s in ("top", "right"):
         b.spines[s].set_visible(False)
-    fig.savefig(os.path.join(HERE, "fig_ladder.pdf"), bbox_inches="tight")
-    fig.savefig(os.path.join(HERE, "fig_ladder.png"), bbox_inches="tight", dpi=200)
+    if style == "display":
+        fig.text(.5, .04, f"Rebuilt from the current saved results/toy_ladder.json; seed {r['seed']}. Panel (b): LOW_H; 120 targets; 32 x 32 mask.\n"
+                 "RMSE and SSIM are highlighted here; all nine package outputs are in the companion figure. Single-seed estimates, no uncertainty bars.",
+                 ha="center", fontsize=st["small"])
+    fig.savefig(os.path.join(dest, "fig_ladder.pdf"), bbox_inches="tight")
+    fig.savefig(os.path.join(dest, "fig_ladder.png"), bbox_inches="tight", dpi=st["dpi"])
+    plt.close(fig)
 
 
 if __name__ == "__main__":
