@@ -74,7 +74,9 @@ def dice(a, b):
     return float(2 * (a & b).sum() / max(a.sum() + b.sum(), 1))
 
 
-def run(s, rng, n_fam=60, n_targets=120, n_str=16, amp=1.0, prior_scale=1.0):
+def run(s, rng, n_fam=60, n_targets=120, n_str=16, amp=1.0, prior_scale=1.0, return_rows=False):
+    if n_fam < 2 or not 1 <= n_str < n_fam or not 1 <= n_targets <= 2 * n_fam:
+        raise ValueError("Need distinct targets and 1 <= n_str < n_fam")
     acq, lab, zyg = people(s, n_fam, rng, amp, prior_scale)
     keys = [(f, t, "L", "S0", 0) for f in range(n_fam) for t in range(2)]
     total = np.sum([acq[k] for k in keys], axis=0)
@@ -97,6 +99,8 @@ def run(s, rng, n_fam=60, n_targets=120, n_str=16, amp=1.0, prior_scale=1.0):
             row[k] = {"dice": dice(seg, oracle), "accuracy": float((seg == oracle)[MASK].mean()), **topo(seg), **panel(im, truth, MASK)}
             row[k].update({f"topo_err_{q}": abs(row[k][q] - ot[q]) for q in TOPO})
         row["_truth_topo"] = ot
+        row["_family"] = f
+        row["_zygosity"] = zyg[f]
         rows.append(row)
     lower = {"rmse", "mse", "mae", "msle"} | {f"topo_err_{q}" for q in TOPO}
     metrics = ("dice", "accuracy", "rmse", "mse", "mae", "msle", "psnr", "psnr_eps", "psnr_01", "psnr_01_eps", "ssim") + tuple(f"topo_err_{q}" for q in TOPO)
@@ -119,7 +123,7 @@ def run(s, rng, n_fam=60, n_targets=120, n_str=16, amp=1.0, prior_scale=1.0):
     out["topology_abs_error_vs_oracle"] = {k: {q: float(np.mean([abs(r[k][q] - t[q]) for r, t in zip(rows, tr) if k in r])) for q in TOPO}
                                            for k in rows[0] if not k.startswith("_") and k != "stranger_1"}
     out["oracle_topology_mean"] = {q: float(np.mean([t[q] for t in tr])) for q in TOPO}
-    return out
+    return (out, rows) if return_rows else out
 
 
 def main():
