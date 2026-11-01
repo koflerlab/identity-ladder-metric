@@ -296,8 +296,8 @@ repository holds code, aggregate results and synthetic figures only.
 - Seed ranges in the reports are min/max of seed means, not confidence intervals.
 - Real-image demonstrations so far are one MRI and one iris case. No BraTS data, winner models or FastSurfer runs
   yet.
-- The ISBI 2027 draft in `paper/isbi2027/overleaf` is paused, and its text is not yet updated to the corrected
-  results.
+- The ISBI 2027 draft in `paper/isbi2027/overleaf` was rebuilt on 1 Nov 2026 around the regression-to-the-mean
+  result. It is a draft: the FastSurfer statement and funding still need confirmation.
 
 ## Related documents
 
