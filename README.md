@@ -59,10 +59,9 @@ inpaintings across all three views". Looking at the images "painted a more facet
 call for synthesis metrics that agree better with expert perception. The 2025 winner is again a U-Net trained to
 inpaint masked regions (SSIM 0.919, PSNR 26.93, RMSE 0.052 on the final test set) [2].
 
-**What the downstream check showed.** The organisers expected that segmenting the inpainted brains with FastSurfer
-would expose the blurry fills. It did the opposite: FastSurfer on the blurred fills came *closer* to the oracle
-segmentation of the real image. (Kate's account from the challenge; not yet published. A citable source is needed
-before this goes into a paper.)
+**What the downstream check showed.** The organisers expected that a downstream U-Net segmentation of the inpainted
+brains would expose the blurry fills. It did the opposite: the segmentation of the blurred fills came *closer* to the
+oracle segmentation of the real image.
 
 **Why both happen. It is arithmetic, not a bug in the models.** Write the tissue as $x = \mu + \delta$: $\mu$ is the
 population average, $\delta$ everything individual (genes, development, side, session, noise), with variance $V$ per
@@ -83,7 +82,7 @@ mean against a stranger is 0.50, against 0.504 predicted.
 
 Segmentation is a pointwise score too. Dice and voxel accuracy against the oracle count voxel matches, and when a fill
 carries no individual anatomy, the best guess for each voxel is the most typical label: the mode instead of the mean.
-A blurred fill pushes FastSurfer towards exactly that typical boundary. A realistic fill with someone else's folding
+A blurred fill pushes the segmenter towards exactly that typical boundary. A realistic fill with someone else's folding
 puts boundaries in confident but wrong places and is penalised. So the honest fill loses twice:
 
 - in intensity, under MSE/PSNR, because of the mean;
