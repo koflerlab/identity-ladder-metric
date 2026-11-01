@@ -9,17 +9,17 @@ fail.
 
 The idea is a ladder of pairs with known amounts of shared identity:
 
-| Rung | Pair | What is different between the two images |
-|---|---|---|
-| L0 | same person, same session | acquisition noise only |
-| L0' | same person, another day | noise, session (positioning, shim) |
-| L1 * | same person, other scanner or protocol | noise, session, scanner |
-| L2 | same person, years later | noise, session, ageing |
-| bilateral | same person, other hemisphere or other eye, same session | noise, side-specific development |
-| MZ | monozygotic co-twin (same genome) | individual development, side, session |
-| DZ / sibling | dizygotic co-twin or sibling (half the genome on average) | half the genome, development, side, session |
-| L4 | unrelated person | everything |
-| population mean | the average of other people, no individual at all | the whole individual part |
+| Rung | Pair | What is different between the two images | Example with face photos |
+|---|---|---|---|
+| L0 | same person, same session | acquisition noise only | two shots a second apart |
+| L0' | same person, another day | noise, session (positioning, shim) | the same person the next day |
+| L1 * | same person, other scanner or protocol | noise, session, scanner | the same person on another phone camera |
+| L2 | same person, years later | noise, session, ageing | a photo ten years later |
+| bilateral | same person, other hemisphere or other eye, same session | noise, side-specific development | left half of the face against the mirrored right half |
+| MZ | monozygotic co-twin (same genome) | individual development, side, session | the identical twin |
+| DZ / sibling | dizygotic co-twin or sibling (half the genome on average) | half the genome, development, side, session | a brother or sister |
+| L4 | unrelated person | everything | a stranger |
+| population mean | the average of other people, no individual at all | the whole individual part | the "average face" blended from many people |
 
 \* domain shift: the scanner or protocol changes, so strangers are matched on the same scanner pair.
 
