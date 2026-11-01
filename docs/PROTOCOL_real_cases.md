@@ -95,8 +95,8 @@ Secondary (descriptive, both sets unless stated):
 - **C9** Label space (the first n_L targets of set S in seeded order, D9): c under Dice, accuracy and topology for the
   mean, the sibling and the other hemisphere. Preceded by the blur sweep of D8 (target blurred inside the box at
   sigma 1, 2, 3, 4 mm, Dice against the oracle).
-- **C10** BraTS challenge models (D11): the fills of BraTS23_1, BraTS24_1 and BraTS23_3 on the first n_B targets of
-  set S, in the target's BraTS space, scored like every other fill: all nine metrics, c against the 16 strangers,
+- **C10** BraTS challenge models (D11): the fills of BraTS23_1, BraTS24_1 and BraTS23_3 (`force_cpu=True`, at most
+  20 minutes per fill, n_B by the D11 budget) on the first n_B targets of set S, in the target's BraTS space, scored like every other fill: all nine metrics, c against the 16 strangers,
   distance to the mean and target projection, placed against the sibling and the population mean of the same
   targets.
 
@@ -137,7 +137,11 @@ Secondary (descriptive, both sets unless stated):
 - n is at most 49 (set S) and 23 (set R) before QC. One box location in the primary, fixed before any data because
   the ordering of relatives is reported to vary by region.
 - The challenge models (C10) see healthy young adults from one scanner, not the glioma patients they were trained on:
-  a domain shift for them. Only the three CPU-compatible models run; the others need a GPU.
+  a domain shift for them. Only the three CPU models run (Kate's decision, 2026-11-01): BraTS23_1, BraTS24_1 and
+  BraTS23_3. Not tested, so the result does not cover the full leaderboard: BraTS23_2 (Durrer, diffusion),
+  BraTS24_2 (Ferreira), BraTS24_3 (Durrer), BraTS25_1A (Zhang), BraTS25_1B (Ferreira), BraTS25_2 (Ha), BraTS26_1
+  (Komurcu), BraTS26_2A (Hung), BraTS26_2B (Cap), BraTS26_3 (Persson), BraTS26_4A (Danese) and BraTS26_4B
+  (Karimaghaloo). Model list as checked by the parent session from `brats` 0.1.14; not re-verified here.
 - No realism measure (FID or Fréchet distances with medical features): too few fills for them (D12).
 - Only aggregate results enter the repository. No participant ID, image or per-case table is published.
 
@@ -147,8 +151,8 @@ Secondary (descriptive, both sets unless stated):
    Should the paper and the README show one real case (a cropped box, no face), or only aggregate plots?
 2. Is "certain non-twin sibling" the right relative for the paper, with co-twins left out?
 3. Label space on a subset sized by the CPU budget (D9), at least 5 targets: acceptable for the deadline?
-4. The BraTS model arm (C10): yes to pulling the three CPU-compatible model images and the preprocessing pipeline
-   (sizes to be stated before the download)?
+4. The BraTS model arm (C10): scope decided ("CPU models only"). Still open: yes to pulling the three model images
+   and the preprocessing pipeline (sizes to be stated before the download)?
 
 ## Amendments
 

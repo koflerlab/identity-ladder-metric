@@ -163,8 +163,9 @@ BraTS23_1, BraTS24_1 and BraTS23_3 can run here. Not re-verified in this session
 
 - Why: on healthy QTIM brains with our own box, the ground truth is real tissue, so no Synapse data is needed, and
   the challenge models' fills become rows next to repeat, other hemisphere, sibling, stranger and population mean.
-- Models:
-  - the three CPU-compatible ones (proposed); the 12 GPU-only models are listed as not run.
+- Models: decided by Kate on 2026-11-01 ("CPU models only"): BraTS23_1 (Zhang, 2023 rank 1), BraTS24_1 (Zhang,
+  2024 rank 1) and BraTS23_3 (Huo, 2023 rank 3), run with `force_cpu=True` on this machine. The 12 GPU-only
+  entries (the diffusion models and every 2025 and 2026 entry) are out of scope and named as not tested.
 - Preprocessing: the BraTS pipeline of the same package (`brats[preprocessing]`: registration and skull stripping
   as the models expect) on each target scan.
 - Evaluation space:
@@ -176,8 +177,14 @@ BraTS23_1, BraTS24_1 and BraTS23_3 can run here. Not re-verified in this session
 - Input: the target T1n with the box voided, as in the challenge.
 - Scoring: all nine metrics, c against the same 16 strangers brought into that space, distance to the mean and
   target projection; label space only if the D9 budget allows.
-- Targets: the first n_B targets of set S in seeded order; n_B from the measured time per inference with a budget of
-  4 hours per model, at least 5.
+- CPU budget per fill: one inference (one target, one model) may take at most 20 minutes of wall time; one at a
+  time, with all 8 cores. The time per fill is measured on the first target of set S for each model before the
+  others are run (timing is not a result).
+  - first fill within 20 minutes: n_B = min(49, floor(4 hours / measured time per fill)) targets for that model, in
+    the seeded order of set S, at least 5.
+  - first fill over 20 minutes, or n_B below 5: the model is reported as not feasible on this machine, with its
+    measured time, and not run further.
+  - a later fill over 20 minutes is stopped and counted as timed out for its model, never replaced.
 - Failure: a failed inference is retried once, then counted for its model, never replaced.
 - Limits: QTIM scanner and healthy young adults against BraTS training data (glioma patients, many centres): a
   domain shift for the models, reported as such. Pulling the model images is a download that needs Kate's yes, with
