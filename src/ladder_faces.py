@@ -4,8 +4,8 @@ Faces are drawn, not photographed: no real person appears. Each face is built fr
 the tissue model, z = sqrt(h) * genotype + sqrt(1 - h) * development, so a sibling shares half the genotype, a
 stranger shares nothing, and the population mean is the pixel average of many drawn people. Session (pose, light,
 shirt), camera (colour cast, blur) and ageing are applied on top. RMSE to the person inside a box over one brow and
-eye (the analogue of an inpainting mask) is printed under each column; the bilateral image is the mirrored photo, so
-its box holds the other eye and only side-specific development differs.
+eye (the analogue of an inpainting mask) is printed under each column; for the other side the box sits on the other
+eye of the same photo and is mirrored before comparison, so only side-specific development differs.
 Output: results/figures/identity_ladder_faces.{png,pdf}.
 """
 import os
@@ -193,8 +193,9 @@ def face_box(img):
     return img[int(y0 * h):int(y1 * h), int(x0 * w):int(x1 * w)]
 
 
-def rmse(a, b):
-    return float(np.sqrt(np.mean((face_box(a) - face_box(b)) ** 2)))
+def rmse(a, b, other_side=False):
+    """RMSE inside BOX; with other_side, b's box sits on the other eye and is mirrored onto a's box."""
+    return float(np.sqrt(np.mean((face_box(a) - face_box(b[:, ::-1] if other_side else b)) ** 2)))
 
 
 def median_draw(make, top, rng, k=None):
@@ -223,7 +224,7 @@ def build(seed=SEED):
          noisy(camera(render(p, {"shirt": SHIRTS[2], "rot": -1})), rng)),
         ("L2", "same person,\nyears later", "noise, session,\nageing",
          noisy(render(p, {"shirt": SHIRTS[3], "rot": 1}, age=0.8), rng)),
-        ("bilateral", "same person,\nother side", "side-specific\ndevelopment", noisy(clean[:, ::-1], rng)),
+        ("bilateral", "same person,\nother side", "side-specific\ndevelopment", noisy(clean, rng)),
         ("MZ", "identical twin\n(same genome)", "development,\nside, session", median_draw(
             lambda r: noisy(render(traits({"g": person["g"], "e": r.standard_normal(len(TRAITS))}),
                                    {"shirt": SHIRTS[4], "rot": -1}), r), top, rng)),
@@ -250,10 +251,12 @@ def main():
         mean = rung.startswith("population")
         colour = ORANGE if mean else INK
         key = rung.replace("\n", " ")
+        other_side = rung == "bilateral"
         for i, im in enumerate((top, img)):
             ax = fig.add_subplot(gs[i, j])
             ax.imshow(im, interpolation="lanczos")
-            ax.add_patch(plt.Rectangle((x0 * w, y0 * h), (x1 - x0) * w, (y1 - y0) * h, fill=False, ls=(0, (2, 2)),
+            bx = (1 - x1) * w if (other_side and i == 1) else x0 * w  # the other eye in the lower image
+            ax.add_patch(plt.Rectangle((bx, y0 * h), (x1 - x0) * w, (y1 - y0) * h, fill=False, ls=(0, (2, 2)),
                                        lw=0.9, ec=ORANGE if mean else "#33322f"))
             ax.set_xticks([])
             ax.set_yticks([])
@@ -262,7 +265,7 @@ def main():
                 sp.set_linewidth(1.6 if (mean and i == 1) else 0.6)
             if j == 0:
                 ax.set_ylabel("the person" if i == 0 else "compared with", fontsize=9.5, color=MUTED)
-        errors[key] = rmse(top, img)
+        errors[key] = rmse(top, img, other_side)
         pos = gs[0, j].get_position(fig)
         xc = (pos.x0 + pos.x1) / 2
         fig.text(xc, 0.785, rung, ha="center", va="bottom", fontsize=11.5, fontweight="bold", color=colour,
