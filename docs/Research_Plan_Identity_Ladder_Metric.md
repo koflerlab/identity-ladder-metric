@@ -264,6 +264,8 @@ Several fields have had to judge a distance between objects that differ between 
 9. **Harmonisation fitted on tissue outside the mask** and checked on held-out tissue [98].
 10. **A synthetic test suite** with degenerate and tiny masks [97], and a flag for z far below the L0 floor [82], with the floor re-estimated on current scanners, because modern measurements can routinely beat an outdated predicted precision [83].
 
+11. **Population-mean negative control (Kate's requirement, 1 Nov 2026).** Distance to the population mean must be an explicit part of evaluating Identity Ladder, alongside target similarity and the biological rungs. For target x, candidate y and an independently estimated population reference mu, report d(x,y), d(y,mu) and d(x,mu) in the same representation, anatomical region and acquisition setting. A known identity-free population mean must not pass as evidence of retaining the target's individuality merely because it beats strangers on fidelity. The target-to-mean distance is needed to distinguish loss of individual deviation from a genuinely population-typical target. This is a required validation control; its normalization, thresholds and incorporation into a final score are not yet established. Large distance from the mean is not evidence of identity: noise, artefacts and unrelated tissue must also be tested. Keep the mean reference disjoint from the target and its family, with registration and preprocessing fixed independently of the hidden target region.
+
 ## 9. Falsifiable hypotheses
 
 - **H1:** σ_L0 < σ_L1 for every structure and pipeline (cf. [4]).
@@ -280,7 +282,7 @@ Every baseline is one cell of a grid, feature space × comparison metric, so tha
 - **Feature spaces:** F0, a nuisance-only control (global mean and SD of intensity); F1, raw pixels or voxels; F2, handcrafted domain features (iris code, minutiae, vessel graph, regional volumes); F3, generic pretrained encoders; F4, domain foundation models; F5, identity-trained matchers.
 - **Comparison metrics by family:** pixel fidelity (MSE, RMSE, MAE, MSLE, PSNR, normalised cross-correlation, mutual information); structural and perceptual (SSIM, MS-SSIM, LPIPS, DISTS); distribution-level (FID, KID, MMD), which score populations rather than pairs; identity scores (embedding cosine, iris-code Hamming distance, matcher scores); biometric operating metrics (EER, FMR at a fixed FNMR, d′, ROC AUC, rank-1); reliability (ICC, within-subject coefficient of variation, repeatability coefficient, Dice between re-scans); identifiability (fingerprinting rank-1, differential identifiability, discriminability, I2C2); relatedness (MZ and DZ correlations, heritability, kinship-verification accuracy); normalised scores (z against a reference, cohort score normalisation, the two-anchor S of Section 8.3, and c(d) = P(d_stranger > d) with a stranger reference matched on the pair's nuisance condition). Which family is the standard in which field is being confirmed against sources.
 
-**The ladder exam.** Each cell is scored on seven tests.
+**The ladder exam.** Each cell is scored on eight tests (T8 added on 1 November 2026).
 
 - **T1, order:** L0 < L1 < L4 and L2 < L4 must hold, because the same person is closer than a stranger. The positions of L3 and of the mirror rung are measured, not graded. Scored by the AUC between adjacent rungs and the number of inversions.
 - **T2, anchors:** the values at L0 and at L4 across devices, datasets, mask sizes and modalities.
@@ -289,6 +291,8 @@ Every baseline is one cell of a grid, feature space × comparison metric, so tha
 - **T5, known answer:** synthetic degradations (blur, noise, compression, intensity gain, sub-pixel shift) move the score monotonically within the L0–L1 band; an identity swap lands at L4; donor-swap fills order re-scan < twin < stranger (Section 7.4).
 - **T6, comparability:** one rung gives one value across modalities, for example the fellow eye in iris and in fundus.
 - **T7, consequences:** whether the ranking of methods (inpainting, face avatars derived from MRI) changes between a baseline and the ladder (H6).
+- **T8, population-mean null (required; not yet implemented as a combined score):** test the raw independent mean, blurred mean, visible-tissue intensity-fitted mean and spread-restored mean as identity-negative controls, alongside unrelated tissue and noise. Report both candidate-to-mean and target-to-mean distances next to target-to-candidate similarity. Proposed diagnostic: a controlled shrinkage path y_lambda = mu + lambda (x - mu), from lambda=1 (the target) to lambda=0 (the mean), in a representation where this interpolation is meaningful. This path deliberately uses the known target as a diagnostic, not as an inpainting algorithm. Check loss of target-specific deviations without rewarding arbitrary departures from the mean. A target indistinguishable from mu at repeat-measurement resolution must be flagged as low-information for this control, not automatically rejected as non-individual. Passing T8 requires separating known template controls from repeat observations on held-out cases; thresholds and a final combined score remain open.
+
 
 **Hypotheses on baselines.**
 
