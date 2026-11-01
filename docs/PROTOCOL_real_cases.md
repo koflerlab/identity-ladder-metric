@@ -93,7 +93,12 @@ Secondary (descriptive, both sets unless stated):
 - **C8** All nine metrics: mean c of every fill under every metric; Kendall tau of the within-target ranking of each
   metric against RMSE.
 - **C9** Label space (the first n_L targets of set S in seeded order, D9): c under Dice, accuracy and topology for the
-  mean, the sibling and the other hemisphere.
+  mean, the sibling and the other hemisphere. Preceded by the blur sweep of D8 (target blurred inside the box at
+  sigma 1, 2, 3, 4 mm, Dice against the oracle).
+- **C10** BraTS challenge models (D11): the fills of BraTS23_1, BraTS24_1 and BraTS23_3 on the first n_B targets of
+  set S, in the target's BraTS space, scored like every other fill: all nine metrics, c against the 16 strangers,
+  distance to the mean and target projection, placed against the sibling and the population mean of the same
+  targets.
 
 ## Prespecified interpretation
 
@@ -103,6 +108,9 @@ Secondary (descriptive, both sets unless stated):
 - Kate's question ("is the sibling phenotypically closer than the mean?") is answered "the sibling carries individual
   anatomy, yet RMSE ranks it behind the mean" only if both labels hold.
 - Two primary claims; both are reported whatever the outcome; no correction beyond stating that there are two.
+- C9 is interpreted only if the blur sweep shows that the segmenter sees blur: the 95% interval of the mean Dice drop
+  from the unblurred target to the 3 mm blur lies above 0. Otherwise label space is reported as uninformative for
+  that segmenter, not as evidence for or against the bias.
 - Every other claim is descriptive and gets no label. Thresholds are this protocol's own conventions, fixed now.
 
 ## Sensitivity analyses (reported apart, never replacing the primary)
@@ -126,7 +134,11 @@ Secondary (descriptive, both sets unless stated):
 - Siblings are certain non-twin siblings, so the sibling rung includes an age difference of 1 to 7 years. Co-twins
   are not used: their zygosity is not public.
 - The segmenter is FastSurfer or SynthSeg, not the challenge's own downstream U-Net.
-- n is at most 49 (set S) and 23 (set R) before QC. One box location in the primary.
+- n is at most 49 (set S) and 23 (set R) before QC. One box location in the primary, fixed before any data because
+  the ordering of relatives is reported to vary by region.
+- The challenge models (C10) see healthy young adults from one scanner, not the glioma patients they were trained on:
+  a domain shift for them. Only the three CPU-compatible models run; the others need a GPU.
+- No realism measure (FID or Fréchet distances with medical features): too few fills for them (D12).
 - Only aggregate results enter the repository. No participant ID, image or per-case table is published.
 
 ## Open decisions for Kate before freezing
@@ -135,11 +147,14 @@ Secondary (descriptive, both sets unless stated):
    Should the paper and the README show one real case (a cropped box, no face), or only aggregate plots?
 2. Is "certain non-twin sibling" the right relative for the paper, with co-twins left out?
 3. Label space on a subset sized by the CPU budget (D9), at least 5 targets: acceptable for the deadline?
+4. The BraTS model arm (C10): yes to pulling the three CPU-compatible model images and the preprocessing pipeline
+   (sizes to be stated before the download)?
 
 ## Amendments
 
 Amendment 1 (planned, before any fill is scored): scan manifest hash after download; measured registration and
-segmentation times; the segmenter chosen by the D8 rule and n_L by the D9 rule; QC exclusion counts with reasons.
+segmentation times; the segmenter chosen by the D8 rule and n_L by the D9 rule; QC exclusion counts with reasons;
+`brats` package version, model image digests, time per inference and n_B (D11).
 
 Any other change is a dated amendment made before the affected results are seen; a change made after is labelled
 post hoc and does not replace the prespecified analysis.

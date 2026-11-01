@@ -2,7 +2,7 @@
 
 ## Status, 1 Nov late evening (real-case protocol)
 - Done and pushed: `docs/DATASETS.md`, `docs/DECISION_TREES.md`, DRAFT `docs/PROTOCOL_real_cases.md`, `src/real_cases_select.py` (selection from metadata only; ID list private in the data root, SHA-256 in the protocol). No image read, no real-data result computed.
-- Waiting for Kate: approve the protocol and answer its three open decisions (real-case figures in a public repo; non-twin siblings only; label space on a CPU-sized subset). Only then: download the 244 T1w scans under the data-root lock, update the `siblings-mri` registry entry (licence CC0 from `dataset_description.json`), write `src/real_cases.py` with the hash guard and manifest, Amendment 1, run.
+- Waiting for Kate: approve the protocol and answer its four open decisions (real-case figures in a public repo; non-twin siblings only; label space on a CPU-sized subset; pulling the BraTS model images). Only then: download the 244 T1w scans under the data-root lock, update the `siblings-mri` registry entry (licence CC0 from `dataset_description.json`), write `src/real_cases.py` with the hash guard and manifest, Amendment 1, run.
 - QTIM facts that changed the plan: one T1w per session (no L0); acquisition orientation (coronal/sagittal) is a nuisance with an artefact; zygosity only under a data transfer agreement.
 - Also done today in this session: README ladder picture with drawn faces (`src/ladder_faces.py`); ISBI draft moved from MZ/DZ to sibling, U-Net downstream check, Fig. 1 redrawn, layout fixed.
 

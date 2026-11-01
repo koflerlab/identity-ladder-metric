@@ -64,6 +64,9 @@ see `docs/DATASETS.md`):
     donor.
   - several locations (frontal, temporal, occipital, each mirrored): sensitivity.
   - random placements: rejected for the primary, because a score could then depend on a lucky location.
+  - The ordering of relatives against strangers is reported to depend on the region (`docs/REPRODUCTION_BACKLOG.md`,
+    theme 5, T5-05 and T5-09), so the primary region is fixed here, before any data. Sensitivity boxes are
+    reported region by region, never pooled into the primary and never used to choose it.
 - Size:
   - 32 x 32 x 24 mm (proposed): about the size of the earlier 32 x 32 mm patch, extended in depth.
   - 16 mm and 40 mm cubes: sensitivity (the share of individual detail inside the mask changes with size).
@@ -117,6 +120,14 @@ see `docs/DATASETS.md`):
 - Oracle: the same segmenter on the real target scan, as in the challenge.
 - Scores inside the box: Dice per label for labels with at least 50 voxels in the oracle box, their mean, voxel
   accuracy, and Euler number and component count of cortical grey matter.
+- Uninformative or biased? Deep-learning segmenters are reported to be robust to degraded input (backlog T3-02,
+  T3-07), so a downstream check can fail to penalise blur because it does not see blur at all, not because it
+  favours the mean. Branch test, a blur sweep on every label-space target: the real target blurred inside the box
+  with a Gaussian of sigma 1, 2, 3 and 4 mm, segmented, Dice against the oracle.
+  - Dice falls with sigma (the 95% interval of the drop from no blur to 3 mm lies above 0): the segmenter sees blur;
+    label-space results are interpreted (a mean that still scores well is a bias of the metric).
+  - Dice does not fall: the segmenter is insensitive here; label space is reported as uninformative for it, not as
+    evidence for or against the bias.
 - Failure: a crash or empty output is retried once. A fill that still fails is counted as failed for its rung, never
   replaced. If more than 10% of fills fail, the whole label analysis switches to the other segmenter, and both
   failure counts are reported.
@@ -142,3 +153,41 @@ see `docs/DATASETS.md`):
   run when an input hash differs, and a `manifest.json` with protocol, code and input hashes, git commit, seed and
   package versions. icml-repro uses trackio only to publish per-claim logbook pages for the ICML challenge; nothing
   here is published that way.
+
+## D11. BraTS challenge models as an extra arm
+
+Facts as checked by the parent session from the `brats` 0.1.14 package (Apache-2.0, Docker backend) on 2026-11-01:
+15 inpainting algorithms from 2023 to 2026; `Inpainter(...).infer_single(t1n=<voided T1n>, mask=<mask>,
+output_file=...)`; the orchestrator refuses any algorithm not marked CPU-compatible, so without a GPU only
+BraTS23_1, BraTS24_1 and BraTS23_3 can run here. Not re-verified in this session.
+
+- Why: on healthy QTIM brains with our own box, the ground truth is real tissue, so no Synapse data is needed, and
+  the challenge models' fills become rows next to repeat, other hemisphere, sibling, stranger and population mean.
+- Models:
+  - the three CPU-compatible ones (proposed); the 12 GPU-only models are listed as not run.
+- Preprocessing: the BraTS pipeline of the same package (`brats[preprocessing]`: registration and skull stripping
+  as the models expect) on each target scan.
+- Evaluation space:
+  - the target's BraTS space (proposed). Every other fill (donors, mean, shrinkage) is brought there with exactly one
+    resampling (composed transforms), so all fills pass through the same number of interpolations; the box is
+    mapped there with nearest neighbour.
+  - our template space with the model output resampled back: rejected; it adds an interpolation, a smoothing, to
+    the model fills only.
+- Input: the target T1n with the box voided, as in the challenge.
+- Scoring: all nine metrics, c against the same 16 strangers brought into that space, distance to the mean and
+  target projection; label space only if the D9 budget allows.
+- Targets: the first n_B targets of set S in seeded order; n_B from the measured time per inference with a budget of
+  4 hours per model, at least 5.
+- Failure: a failed inference is retried once, then counted for its model, never replaced.
+- Limits: QTIM scanner and healthy young adults against BraTS training data (glioma patients, many centres): a
+  domain shift for the models, reported as such. Pulling the model images is a download that needs Kate's yes, with
+  sizes stated.
+- Next, not in this protocol: FastSurfer-LIT (backlog T3-01) and fastWDM3D (T2-09), the most direct published
+  inpainting comparators.
+
+## D12. Realism measures
+
+- Fréchet-type distances with medical feature extractors, or FID: rejected as a fix here. Their value depends on
+  the feature extractor and they are biased at small sample sizes (backlog T6-02, T6-03); n here is at most 49.
+- Instead: distance to the mean and target projection (D10, `PROTOCOL_real_cases.md`), which need no sample of
+  fills.
