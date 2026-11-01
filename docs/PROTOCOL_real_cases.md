@@ -224,6 +224,18 @@ analysis next to it; it does not replace the primary.
   RMSE curves are reported descriptively (Proposition 1 already predicts that smoothing a stranger lowers its RMSE).
 - The D8 rule stays: label-space claims (C9, A1.2) are interpreted only if the truth's Dice falls with blur.
 
+**A1.5 Clarifications (2026-11-01, 21:20 +04, before any label-space or expanded result).**
+
+- Budget: the frozen C9 runs as written, on the parietal box with its own D9 budget of 8 hours. A1.2 has a separate
+  budget of 8 hours, split equally over its three boxes (parietal, deep grey matter, ventricles), all on the A1.1
+  design. A box whose n_L by the D9 formula is below 5 is reported as not run, and the A1.2 label is then not
+  assigned. The time per volume in the D9 formula may be measured as throughput with several segmentations in
+  parallel.
+- Expanded selection: `selection_expanded.json` (private, holds participant IDs), SHA-256
+  `fcfca9875f9b895b1d96ac11b357248ab950a972eed7b7b125e878e83b8d3dc6`, made by `src/real_cases_select.py --expanded`
+  from the same `participants.tsv`, seed 20261101: 287 targets, 260 with a co-twin, 49 with a sibling, 22 with both,
+  24 with a repeat scan; mean pool 179; 826 scans.
+
 **A1.4 Consequence for the paper (not an analysis).** Proposition 2 is a one-line remark; the contribution is the
 measured answer to when and where Dice falls into the mode trap (A1.2, A1.3).
 

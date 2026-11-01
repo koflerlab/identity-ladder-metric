@@ -31,6 +31,27 @@ def test_selection_rules():
     assert not set(pools) & {"a1", "a2", "a3", "b1", "b2", "d1", "c2"}  # no selected family, no ineligible person
 
 
+def test_expanded_selection_rules():
+    rows = toy_rows() + [person(f"q{i}{k}", f"Q{i}", 26) for i in range(8) for k in "xy"]
+    sel = rs.select_expanded(rows, seed=3, n_strangers=5)
+    by_fam = {e["family"]: e for e in sel["targets"]}
+    assert sorted(by_fam) == ["A", "B"] + [f"Q{i}" for i in range(8)]  # C: c2 is sagittal; D: d1 is 16
+    a = by_fam["A"]
+    assert a["target"] in ("a1", "a3") and a["sibling"] == "a2" and a["age_gap"] == 3  # prefers a twin with a sibling
+    assert a["cotwin"] == ({"a1", "a3"} - {a["target"]}).pop()
+    b = by_fam["B"]
+    assert "sibling" not in b and {b["target"], b["cotwin"]} == {"b1", "b2"} and b["repeat"] == (b["target"] == "b1")
+    for e in sel["targets"]:
+        own = {r["participant_id"] for r in rows if r["family_id"] == e["family"]}
+        assert len(e["strangers"]) == 5 and not set(e["strangers"]) & own
+        assert not set(e["strangers"]) & set(sel["mean_pool"])
+    assert "c1" in sel["mean_pool"] and "d2" in sel["mean_pool"] and len(sel["mean_pool"]) == 122
+    assert sorted(sel["processing_order"]) == sorted(by_fam)
+    assert rs.select_expanded(rows, seed=3, n_strangers=5) == sel
+    need = rs.scans_expanded(rows)
+    assert ("b1", "ses-02") in need and ("c2", "ses-01") not in need and ("d1", "ses-01") not in need
+
+
 def test_selection_is_deterministic_and_lists_every_scan():
     a, b = rs.select(toy_rows()), rs.select(toy_rows())
     assert a == b
