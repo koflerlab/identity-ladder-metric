@@ -1,8 +1,9 @@
 # Protocol: real cases under the regression-to-the-mean results
 
-Status: DRAFT for Kate's approval, written 2026-11-01. Not frozen. No real-data result of this analysis has been
-computed: only metadata (`participants.tsv`) and the template were read. The protocol is frozen by Kate's approval and
-the commit that records it; git history gives provenance, not external preregistration. Choices and their rejected
+Status: FROZEN 2026-11-01 on Kate's approval ("Approve as is"), before any scan was downloaded or any real-data
+result computed: only metadata (`participants.tsv`) and the template were read. The freezing commit is the first
+commit that contains this paragraph; its hash goes into every results manifest. Git history gives provenance, not
+external preregistration. Changes from here on are dated amendments at the end of this file. Choices and their rejected
 branches: `docs/DECISION_TREES.md`. Datasets: `docs/DATASETS.md`.
 
 ## Question
@@ -145,14 +146,15 @@ Secondary (descriptive, both sets unless stated):
 - No realism measure (FID or Fréchet distances with medical features): too few fills for them (D12).
 - Only aggregate results enter the repository. No participant ID, image or per-case table is published.
 
-## Open decisions for Kate before freezing
+## Decisions at freezing (2026-11-01)
 
-1. Figures of real QTIM cases: the data are CC0, but the project rule keeps real images out of the public repository.
-   Should the paper and the README show one real case (a cropped box, no face), or only aggregate plots?
-2. Is "certain non-twin sibling" the right relative for the paper, with co-twins left out?
-3. Label space on a subset sized by the CPU budget (D9), at least 5 targets: acceptable for the deadline?
-4. The BraTS model arm (C10): scope decided ("CPU models only"). Still open: yes to pulling the three model images
-   and the preprocessing pipeline (sizes to be stated before the download)?
+1. Figures of real QTIM cases: not decided by Kate, so the project rule holds: no real image enters the public
+   repository; the paper and README get aggregate numbers and plots only. Showing one real case later needs Kate's
+   decision and an amendment.
+2. Relative: certain non-twin siblings only, co-twins left out, as written.
+3. Label space on a subset sized by the CPU budget (D9), at least 5 targets, as written.
+4. BraTS model arm (C10): CPU models only (Kate). Pulling the three model images and the preprocessing pipeline is a
+   separate download that Kate approves with the sizes stated, before it starts.
 
 ## Amendments
 
@@ -163,4 +165,4 @@ segmentation times; the segmenter chosen by the D8 rule and n_L by the D9 rule; 
 Any other change is a dated amendment made before the affected results are seen; a change made after is labelled
 post hoc and does not replace the prespecified analysis.
 
-Approved by Kate: (date, commit)
+Approved by Kate: 2026-11-01, "Approve as is" (freezing commit: see Status).
