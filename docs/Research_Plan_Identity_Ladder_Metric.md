@@ -273,6 +273,54 @@ Several fields have had to judge a distance between objects that differ between 
 - **H5:** the L2 vs L3a order is feature-dependent; it is reported, not assumed.
 - **H6:** the ranking of BraTS inpainting methods by AUC-TA and z₉₅ differs from the SSIM/PSNR/RMSE ranking, and fills with visible artefacts land at or above the twin rung.
 
+### 9.1 Baseline metrics on the ladder (added 1 November 2026; every item is a hypothesis to test)
+
+Every baseline is one cell of a grid, feature space × comparison metric, so that a failure can be traced either to the features or to the comparison.
+
+- **Feature spaces:** F0, a nuisance-only control (global mean and SD of intensity); F1, raw pixels or voxels; F2, handcrafted domain features (iris code, minutiae, vessel graph, regional volumes); F3, generic pretrained encoders; F4, domain foundation models; F5, identity-trained matchers.
+- **Comparison metrics by family:** pixel fidelity (MSE, RMSE, MAE, MSLE, PSNR, normalised cross-correlation, mutual information); structural and perceptual (SSIM, MS-SSIM, LPIPS, DISTS); distribution-level (FID, KID, MMD), which score populations rather than pairs; identity scores (embedding cosine, iris-code Hamming distance, matcher scores); biometric operating metrics (EER, FMR at a fixed FNMR, d′, ROC AUC, rank-1); reliability (ICC, within-subject coefficient of variation, repeatability coefficient, Dice between re-scans); identifiability (fingerprinting rank-1, differential identifiability, discriminability, I2C2); relatedness (MZ and DZ correlations, heritability, kinship-verification accuracy); normalised scores (z against a reference, cohort score normalisation, the two-anchor S of Section 8.3, and c(d) = P(d_stranger > d) with a stranger reference matched on the pair's nuisance condition). Which family is the standard in which field is being confirmed against sources.
+
+**The ladder exam.** Each cell is scored on seven tests.
+
+- **T1, order:** L0 < L1 < L4 and L2 < L4 must hold, because the same person is closer than a stranger. The positions of L3 and of the mirror rung are measured, not graded. Scored by the AUC between adjacent rungs and the number of inversions.
+- **T2, anchors:** the values at L0 and at L4 across devices, datasets, mask sizes and modalities.
+- **T3, nuisance:** (a) the same metric on F0 must not reproduce the ladder; (b) the ratio (L1 − L0)/(L4 − L0), a device change against a change of person; (c) the shift between a nuisance-matched and a pooled stranger reference.
+- **T4, resolution:** d′ and AUC of adjacent rungs with intervals, and the number of pairs needed.
+- **T5, known answer:** synthetic degradations (blur, noise, compression, intensity gain, sub-pixel shift) move the score monotonically within the L0–L1 band; an identity swap lands at L4; donor-swap fills order re-scan < twin < stranger (Section 7.4).
+- **T6, comparability:** one rung gives one value across modalities, for example the fellow eye in iris and in fundus.
+- **T7, consequences:** whether the ranking of methods (inpainting, face avatars derived from MRI) changes between a baseline and the ladder (H6).
+
+**Hypotheses on baselines.**
+
+- **H7:** raw-scale metrics (SSIM, PSNR, MSE, MAE) fail T2: their values at L0 and at L4 differ between datasets, devices and mask sizes, so a raw value cannot be read as a distance in identity.
+- **H8 (negative control):** on 2D images, pixel distances fail T3a. Pilot evidence: in UPOL, a feature made only of the mean and SD of grey level gave c = 0.919 for the same eye and 0.884 for the fellow eye, against 0.923 and 0.805 for 16 × 16 pixels; in UTIRIS NIR the control gave 0.793 and 0.764, and the classical iris code 0.913 for the same eye (`results/iris_calibration.json`, `results/iris_codes.json`).
+- **H9:** a pooled stranger reference biases c by about one rung. Pilot evidence (GRAPE, RETFound features): with a reference pooled over camera pairs, a camera change cost 0.260 [0.183, 0.329] in c; with a reference matched on the device pair and the eye relation, 0.096 [0.048, 0.146] (`results/audit_2026-11-01.json`).
+- **H10:** in MRI geometry features, a protocol change moves a pair about as far as a change of person (T3b ratio near 1). Pilot evidence: median distance 18.4 for SIMON pairs across scanner and protocol, 16.4 for IXI strangers scanned at the same centre, and 7.4 for repeats within one session (`results/image_ladder.json`; raw medians, not calibrated).
+
+**The BraTS inpainting panel.** The challenge code [101] normalises the reference and the fill to [0, 1] with the 0.5th and 99.5th percentiles of the voided input, clipping values outside that range. It then reports SSIM (the SSIM map of the masked images, averaged inside the mask) and, on the voxels inside the mask, MSE, RMSE, MAE, MSLE, PSNR, PSNR_eps, PSNR_01 and PSNR_01_eps. PSNR and PSNR_eps take the data range from the reference inside the mask, the _01 variants fix it to [0, 1], and the _eps variants add machine epsilon to the MSE.
+
+- **H11 (redundancy):** within a case, the data range of PSNR and PSNR_eps comes from the reference alone and is the same for every fill, so MSE, RMSE, PSNR_eps, PSNR_01 and PSNR_01_eps are monotone functions of one another and rank fills identically; they can differ only after averaging over cases. Plain PSNR follows the same order except where a fill leaves the reference's range inside the mask, because torchmetrics clamps the input to a tuple data range (Section 11). The challenge ranks the teams within each case on SSIM, PSNR and RMSE and sums the three metric ranks with equal weights [1], so the final ranking is expected to weight squared error about twice and SSIM once. Hypothesis: the panel carries at most five per-case signals (the MSE family, plain PSNR through its clamping, MAE, MSLE and SSIM), and MSLE tracks MSE closely on [0, 1] data. Test: per-case rank agreement of PSNR and RMSE, and rank correlations of the whole panel across donor-swap fills.
+- **H12 (blur beats a stranger):** the MSE family and PSNR score a blurred or population-average fill better than real tissue from a stranger, and possibly better than tissue from a co-twin, because squared error rewards the conditional mean; such fills would then sit between L1 and L3 on the donor-swap ladder although they carry no individual anatomy (compare design rule 1 in Section 8.3). Test: T5 with the reference blurred at increasing σ, a template fill and donor fills.
+- **H13 (PSNR range):** because PSNR and PSNR_eps take their data range from the reference inside the mask, the same error gives a lower PSNR in a homogeneous region than in a region of high contrast, so PSNR fails T2 across mask locations while PSNR_01 does not. Test: one fixed degradation applied in masks at different locations.
+- **H14 (SSIM at the mask border):** SSIM is computed on images set to zero outside the mask, so windows that cross the mask border compare zeros with zeros; SSIM is expected to rise as masks become smaller or thinner at a constant fill quality (T2 across mask sizes). Because the code computes SSIM per 2D slice (Section 11), the effect should depend on the mask's extent within the slice plane, not across slices.
+- **H15 (clipping):** both images are clipped at the 99.5th percentile of the voided input, so hyperintense artefacts above it are capped and under-penalised by every metric of the panel. Plain PSNR in addition clamps the fill to the reference's range inside the mask, so an overshoot beyond that range is forgiven by PSNR but not by RMSE. Test: T5 with bright artefacts of increasing intensity, inside and outside the reference's range.
+
+### 9.2 Cross-modal hypotheses (added 1 November 2026)
+
+- **H16 (five axes, 2D first):** every modality is analysed on five axes: bilaterality, test–retest, twins, ageing and unrelated people. Analyses start with 2D modalities that have one fixed acquisition geometry (iris, fundus, fingerprints, palms, ears, frontal faces), where L1 is expected to be small against L4; 3D MRI, where protocol change dominates (H10), follows.
+- **H17 (the contralateral organ as a twin inside one person):** a fellow eye, the contralateral finger or the other ear shares genome, age and environment with its partner but develops separately, so the expected order is same side < contralateral side ≤ MZ co-twin < DZ co-twin < stranger. Where the contralateral rung falls relative to the MZ rung is measured per modality.
+- **H18 (L3 is modality-specific):** in iris and fingerprint texture the MZ rung is expected near L4, in faces near L0–L1. A metric can be right in both modalities while giving opposite L3 positions, which is why T1 grades only L0 < L1 < L4 and L2 < L4.
+
+- **H19 (pointwise downstream metrics inherit the bias):** under squared error an identity-free population-mean fill has half the expected error of a stranger's tissue and beats an MZ co-twin's tissue when the genetic share is below one half (Proposition 5 of the ISBI draft; synthetic check: rho-hat 0.50 vs 0.504 predicted). Hypothesis: the same holds in label space, because Dice or voxel accuracy against the oracle segmentation rewards the most probable (population-typical) label, so a blurred or average fill segments closer to the oracle than realistic donor tissue from a stranger and possibly from a co-twin. Kate's observation from the BraTS inpainting challenge: blurry fills won on the intensity metrics, and the downstream FastSurfer check also favoured them. Test: donor-swap in label space (re-scan, mirror, co-twin, stranger, population mean, blur) on synthetic tissue with a threshold segmenter, then MRI with FastSurfer; topological descriptors of the segmentation (component and hole counts, Euler characteristic, boundary curvature) and population-level realism are expected to separate the average fill.
+  - First synthetic test (1 Nov 2026, `src/label_ladder.py`, `results/label_ladder.json`; two tissue classes from a population prior plus individual fields, threshold segmenter, c per case against 16 stranger fills): with genetic share 0.19 the population-mean fill reached Dice c 0.90 against 0.61 for the MZ and 0.68 for the DZ co-twin (RMSE 0.99 vs 0.66; SSIM 0.99 vs 0.70); with genetic share 0.54 the MZ co-twin stayed above it (Dice 0.95 vs 0.91). So H19 holds in label space in this model. Topology did not separate the average fill here (component-count error 0.8, as for the other side; strangers 1.1-1.4), probably because the prior dominates the label maps; a folding-like anatomy is needed for the topology test.
+
+### 9.3 First test: baseline v0 on the 2D pilots
+
+- **Data:** UTIRIS NIR and UPOL (iris), GRAPE (fundus).
+- **Cells:** F0, F1, F2 (iris code) and F4 (the released RETFound features for GRAPE), each with the BraTS panel, normalised cross-correlation, mutual information, cosine or Hamming distance, EER, d′, AUC, rank-1, ICC, differential identifiability, discriminability, z, S and c.
+- **2D donor-swap:** on unrolled iris strips, which are aligned by construction, a patch is masked and filled from the same eye in another capture, from the fellow eye (flipped), from a stranger, and with blur, a population template and an intensity gain; the panel is computed inside the mask with the challenge code [101]. This gives T5 and H11–H15 a 2D test before MRI.
+- **Tests:** T1–T6. T7 needs a generator and comes with the avatar benchmark.
+
 ## 10. Risks
 
 1. **Reliability vs individuality** (Section 3): the features that separate twins may be the noisiest.
@@ -289,6 +337,9 @@ Several fields have had to judge a distance between objects that differ between 
 - Hays et al. give 14 TREAT-MS participants in the text and 15 subjects in their validation table [3].
 - The FTHP numbers in the describing paper (477 volumes, 123 scanners [4]) differ from the released dataset (557 images, 116 machines [22]); the released set is what WP1 uses.
 - NeuroFM is described here only from its repository page; its preprint was not read.
+- Settled on 1 November 2026 with synthetic volumes (`src/brats_panel_checks.py`; `results/brats_panel_checks_tm1.1.2.json` and `results/brats_panel_checks_tm1.9.0.json`, identical under both torchmetrics versions):
+  - The challenge code [101] computes SSIM per 2D slice. Volumes of shape [1, 240, 240, 155] enter torchmetrics SSIM, whose documentation describes B × C × H × W inputs; permuting the first spatial axis in every input left SSIM unchanged, while the same permutation along the last axis changed it.
+  - Plain PSNR clamps the fill to the reference's in-mask range, because the code passes that range to torchmetrics as a tuple data range. With 20% of the fill voxels above the reference's in-mask maximum, plain PSNR was 12.3 dB, equal to PSNR from the clamped error, against 9.1 dB for PSNR_eps from the unclamped error. Across 11 synthetic fills of one case, MSE, PSNR_eps, PSNR_01 and PSNR_01_eps ranked the fills exactly as RMSE did (Kendall τ = 1), plain PSNR and MSLE with τ = 0.89, MAE and SSIM with τ = 0.67 (H11, H15).
 
 ---
 
@@ -394,6 +445,7 @@ Several fields have had to judge a distance between objects that differ between 
 98. Canty MJ, Nielsen AA. Automatic radiometric normalization of multitemporal satellite imagery with the iteratively re-weighted MAD transformation. Remote Sens Environ. 2008;112(3):1025–36. doi:10.1016/j.rse.2007.07.013
 99. Komiske PT, Metodiev EM, Thaler J. Metric space of collider events. Phys Rev Lett. 2019;123(4):041801. doi:10.1103/PhysRevLett.123.041801
 100. Komiske PT, Mastandrea R, Metodiev EM, Naik P, Thaler J. Exploring the space of jets with CMS open data. Phys Rev D. 2020;101(3):034009. doi:10.1103/PhysRevD.101.034009
+101. Kofler F. inpainting: official package to compute metrics for the BraTS inpainting challenge [Internet]. Version 0.0.12. GitHub; 2023 [updated 2026 Jun 10; cited 2026 Nov 1]. Available from: https://github.com/BraTS-inpainting/inpainting
 
 ### Reference notes
 

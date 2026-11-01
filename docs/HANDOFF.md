@@ -1,15 +1,39 @@
 # Handoff — identity-ladder-metric (updated 2026-11-01)
 
+## Start here (verified 1 Nov 2026, continuation)
+Goal chosen by Kate: the "average beats real tissue" direction (plan section 9.2, H19 + ISBI Prop. 5).
+- Fig. 1 is regenerated from corrected contrast-0.1 / population_mean_sd_restored data; overlapping series have row offsets.
+- `results/brats_metrics_table.csv`: 56 rows (8 toy configurations x 7 fills), rho-hat, predicted rho and c for all 9 intensity metrics, including both epsilon PSNR variants. This CSV does NOT yet include label-ladder results; those remain in `results/label_ladder.json` (no rho estimates stored there).
+- H19 folding-like synthetic anatomy implemented with prior_scale=0.25. At genetic share 0.54, population mean c: RMSE 0.9964, Dice 0.7557, component error 0.5651, perimeter error 0.5938. This supports the proposed distinction in this 2D model only; 120 targets, about 0.15 oracle holes per target. Boundary length is measured, not curvature.
+- Verification: `python -m pytest tests/ -q` -> 88 passed, 5 torchmetrics tensor-copy warnings. Manual pre-commit security review found no secrets or participant-level data in the intended changes. Tests use synthetic fixtures; result files contain synthetic results or aggregates.
+- The 1 Nov implementation, results and paused paper sources are being checkpointed locally with this handoff. See `git log -1` for the checkpoint; no push is requested.
+
+Next actions:
+1. Complete the combined metrics table by exporting label-ladder c values; explicitly mark unavailable rho values rather than importing the Gaussian intensity formula into nonlinear label anatomy.
+2. Real BraTS MRI is blocked on Kate registering on Synapse and accepting the data terms herself. Then obtain challenge data / model weights, run winner fills and FastSurfer, and compare donor swaps with re-scan/twin/stranger donors.
+3. Keep the ISBI draft paused. Its text / bibliography and existing main.pdf are not validated against the corrected results; do not treat the PDF as submission-ready.
+Open decisions: ISBI submission; Tongji clean-up (~22 GB); retry ND FACE features.
+Use project-continuity for resumption, research-experiment for new analyses, and pre-commit-security before commits. Load figure / citation skills only for the corresponding work.
+
+## Historical status before the continuation checkpoint (1 Nov 2026)
+- Plan: hypotheses H7-H18 and baseline exam T1-T7 in Research_Plan section 9; BraTS code facts settled (SSIM per 2D slice, plain PSNR clamps; `src/brats_panel_checks.py`, `tests/test_brats_panel_checks.py`).
+- Baseline v0 fixed after review (`src/baseline_v0.py`, 81 tests pass): H12 supported only for an affine template; GRAPE camera change on the stated anchor costs more than a change of person (c-scale T3b 1.55).
+- Theory + synthetic ladder: `src/toy_ladder.py`, `results/toy_ladder.json` (closed form P(F>rho) matches; tissue redesigned: no clipping, rho-hat vs predictions).
+- ISBI 2027 draft (deadline 2 Nov 23:59 ET) in `paper/isbi2027/` — PAUSED by Kate. Verification findings to apply: `scratchpad isbi_verification.json` (circularity wording, ethics/COI/funding, refs, layout). Bib update agent was stopped mid-way: check `refs.bib` before use.
+- Data: batch 1 (8 open 2D sets) downloaded and registered; Tongji 26 GB incl. 4.7 GB duplicate awaiting Kate's cleanup decision; ND FACE features failed (retry). Dataset tree artifact: https://claude.ai/artifact/5MkpXbuvPzYoBUWNxv81LA. Ladder audit from files was stopped (rerun if needed).
+- New ideas (Kate, not started): compute the ladder not on raw intensities but on masks and topological objects (segmentations, persistence), or on 2D/3D meshes (shape distances); choose the math for these; or start directly from DINO latent embeddings.
+- Kate picks 1-2 directions for 2 Nov. Candidate she flagged as most important: the "average beats real tissue" result (H19 in plan section 9.2). To do: (1) clearer simulations, regenerate Fig. 1 from the corrected run (the v0 figure with c<=0.02 for the SD-matched mean and the low-contrast SSIM collapse was a clipping/mean-shift artefact); (2) H19 simulation in label space with topology descriptors; (3) all BraTS metrics, not only RMSE/SSIM; (4) example masks/fills of challenge winners via the BraTS orchestrator (needs BraTS data via Synapse registration = Kate's action, plus model weights).
+
 The repository holds the paper on a calibrated identity metric (IdLadder scale). It was renamed from
 `identity-ladder-repro` on 2026-10-31 (GitHub `kondratevakate/identity-ladder-metric`, private; private run data in
 `C:\Projects\data\projects\identity-ladder-metric\`).
 
 ## State of the repository
 - Committed: GRAPE reproduction and audit, plans in `docs/`, SIMON E0 (`a6105d8`), rename (`aafea62`).
-- **Not committed (2026-11-01 overnight work):** `src/grape_calibration.py`, `src/iris_calibration.py`,
+- **Committed in `b8fb197` (verified from git history):** `src/grape_calibration.py`, `src/iris_calibration.py`,
   `src/iris_codes.py`, `src/image_ladder.py`, their tests, `results/{grape_calibration,iris_calibration,iris_codes,
   image_ladder,audit_2026-11-01}.json`, this file.
-- Tests: `python -m pytest tests/ -q` → 51 passed.
+- Historical tests at that checkpoint: 51 passed; current verification is recorded above.
 - Every result below was re-derived by an independent audit (`results/audit_2026-11-01.json`) and the code was fixed
   where the audit found bugs; numbers are from the fixed code.
 
@@ -81,7 +105,7 @@ Verified leads (2026-11-01, nothing downloaded):
   (CASIA-Iris-Twins, zygosity not stated).
 
 ## Next steps (decisions for Kate)
-1. Commit the overnight work (code, tests, results, this file)?
+1. Overnight work is already committed in `b8fb197`; see current checkpoint above.
 2. Approve downloads: UBIPr, AFHIRIS, MUCT, KinFaceW/Family101 (kinship faces), OLIVES (~34 GB).
 3. MRI registration quality is modest (template correlation 0.64-0.68). Options: a whole-head template (official
    ICBM152 2009 package, about 60 MB) or a skull-stripping model (SynthStrip); both are downloads.
