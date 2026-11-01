@@ -1,0 +1,66 @@
+{
+  "date": "2026-11-01",
+  "real_case_count": {
+    "mri": 1,
+    "eyes": 1
+  },
+  "mri_prepared_volumes": 18,
+  "native_spacing_mm": [
+    0.9,
+    0.9375,
+    0.9375
+  ],
+  "prepared_grid_mm": 1,
+  "registration": "Affine to independent symmetric MNI template; seed 123; 2 ITK threads",
+  "n_mri_template_people": 8,
+  "n_mri_template_families": 7,
+  "mean_family_weighting": "equal family weights, then mean of scans within family",
+  "n_mri_reference_people_and_families": 8,
+  "target_family_excluded": true,
+  "template_reference_families_disjoint": true,
+  "mri_roi": {
+    "case_index": 0,
+    "slice_mni_z_mm": 55,
+    "roi_mni_x_mm": [
+      -45,
+      -13
+    ],
+    "roi_mni_y_mm": [
+      -65,
+      -33
+    ],
+    "context_padding_mm": 16,
+    "selection": "Target anatomy inspected before alternative scores; posterior cortical folding, fixed first atlas case."
+  },
+  "mri_mask_pixels": 1024,
+  "registration_corr_range_all_18": [
+    0.4131318734740442,
+    0.5275834134076142
+  ],
+  "n_eye_template_people": 8,
+  "n_eye_reference_people": 8,
+  "case_selection": "First existing atlas case for each modality; no score-based case replacement.",
+  "metric_scope": "All nine inpainting package outputs, 2D adaptation; official leaderboard names MSE/PSNR/SSIM.",
+  "private_output_root": "C:\\Projects\\data\\projects\\identity-ladder-metric\\run-2026-11-01-detail",
+  "source_sha256": {
+    "real_mri_detail.py": "69b19107634c6312ae14c56e84223ba90381a9beea90c6b48aff9e66cfee7d59",
+    "detail_report.py": "72f389eeb9abe9ac38d9748134cdff9e0850b0606c2c2707d408f26b385659c3",
+    "population_null.py": "ac98a2dc1e0e01bff15d9bf1c070b869ac02ac60cecb341e3708931e86cfb627"
+  },
+  "versions": {
+    "antspyx": "0.6.3",
+    "nibabel": "5.4.2",
+    "nilearn": "0.13.1",
+    "inpainting": "0.0.12",
+    "torchmetrics": "1.9.0",
+    "torch": "2.10.0"
+  },
+  "limitations": [
+    "One real example per modality, descriptive only.",
+    "Affine correspondence is not exact folding correspondence.",
+    "Later MRI visit is years apart; no repeat-based noise floor.",
+    "Acquisition protocol matching not individually verified.",
+    "No real segmentation ground truth; synthetic shape metrics are not assigned to real images.",
+    "N4 uses full source images; diagnostic comparison, not a masked-input inpainting method."
+  ]
+}
