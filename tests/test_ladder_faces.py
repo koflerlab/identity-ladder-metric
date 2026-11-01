@@ -28,5 +28,6 @@ def test_rmse_ignores_pixels_outside_the_box():
     b = a.copy()
     b[:20] = 1.0  # above the box
     assert lf.rmse(a, b) == 0.0
-    b[50, 50] = 1.0  # inside the box
+    x0, x1, y0, y1 = lf.BOX
+    b[int(100 * (y0 + y1) / 2), int(100 * (x0 + x1) / 2)] = 1.0  # inside the box
     assert lf.rmse(a, b) > 0.0

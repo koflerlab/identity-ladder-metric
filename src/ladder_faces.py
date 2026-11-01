@@ -3,8 +3,9 @@
 Faces are drawn, not photographed: no real person appears. Each face is built from the same variance components as
 the tissue model, z = sqrt(h) * genotype + sqrt(1 - h) * development, so a sibling shares half the genotype, a
 stranger shares nothing, and the population mean is the pixel average of many drawn people. Session (pose, light,
-shirt), camera (colour cast, blur) and ageing are applied on top. RMSE to the person inside a box over the brows, eyes
-and nose (the analogue of an inpainting mask) is printed under each column.
+shirt), camera (colour cast, blur) and ageing are applied on top. RMSE to the person inside a box over one brow and
+eye (the analogue of an inpainting mask) is printed under each column; the bilateral image is the mirrored photo, so
+its box holds the other eye and only side-specific development differs.
 Output: results/figures/identity_ladder_faces.{png,pdf}.
 """
 import os
@@ -20,7 +21,9 @@ from scipy.ndimage import gaussian_filter  # noqa: E402
 
 PROJECT = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))
 SEED, N_MEAN, N_DRAWS = 7, 80, 25
-BOX = (0.34, 0.66, 0.355, 0.57)  # x0, x1, y0, y1 as fractions of width and height (from the top): brows to nose
+# x0, x1, y0, y1 as fractions of width and height (from the top): one brow and eye, so that in the mirrored image the
+# box holds the other side's brow and eye and only side-specific development differs
+BOX = (0.30, 0.48, 0.355, 0.47)
 BG = "#ecebe7"
 INK, MUTED, ORANGE = "#0b0b0b", "#52514e", "#eb6834"
 SKIN = ["#f6d7c3", "#eac0a0", "#d9a07a", "#b97a55", "#8d5a3b", "#5e3b26"]
@@ -30,14 +33,14 @@ SHIRTS = ["#3d5a80", "#9a4c3c", "#4a7a52", "#6b5b95", "#c08a3e", "#5f7f8f", "#7f
 # (name, centre, half-range, genetic share h): z -> centre + half_range * tanh(z / 1.6)
 TRAITS = [("face_w", 0.235, 0.04, 0.9), ("face_h", 0.30, 0.035, 0.9), ("jaw", 0.30, 0.2, 0.9),
           ("skin", 0.45, 0.45, 0.98), ("hair_col", 0.5, 0.5, 0.98), ("iris", 0.5, 0.5, 0.98),
-          ("hair_len", 0.08, 0.14, 0.3), ("hair_vol", 0.03, 0.015, 0.7), ("hairline", 0.55, 0.12, 0.8),
+          ("hair_len", 0.08, 0.14, 0.3), ("hair_vol", 0.03, 0.015, 0.7), ("hairline", 0.68, 0.1, 0.8),
           ("eye_dx", 0.085, 0.014, 0.9), ("eye_y", 0.045, 0.018, 0.9), ("eye_size", 0.03, 0.006, 0.9),
           ("brow_w", 3.2, 1.4, 0.9), ("brow_tilt", 0.0, 0.012, 0.9), ("brow_gap", 0.045, 0.01, 0.9),
           ("nose_len", 0.08, 0.02, 0.9), ("nose_w", 0.028, 0.008, 0.9), ("mouth_w", 0.058, 0.014, 0.9),
           ("mouth_y", -0.125, 0.018, 0.9), ("smile", 0.010, 0.008, 0.5), ("lip", 0.012, 0.006, 0.9),
           ("ear", 0.048, 0.01, 0.9),
           # side-specific development: no genetic share, swaps sides in the mirrored image
-          ("asym_eye", 0.0, 0.18, 0.0), ("asym_brow", 0.0, 0.014, 0.0), ("asym_mouth", 0.0, 0.010, 0.0),
+          ("asym_eye", 0.0, 0.06, 0.0), ("asym_brow", 0.0, 0.005, 0.0), ("asym_mouth", 0.0, 0.006, 0.0),
           ("part", 0.0, 1.0, 0.0), ("mole_x", 0.0, 0.13, 0.0), ("mole_y", -0.05, 0.1, 0.0)]
 
 
@@ -109,7 +112,7 @@ def render(p, sess, age=0.0, size=(2.0, 2.4), dpi=110):
     hl = p["hairline"] + 0.18 * age
     xs = np.linspace(cx - a * 0.85, cx + a * 0.85, 30)
     side = 1 if p["part"] >= 0 else -1
-    ys = cy + b * hl + side * 0.25 * b * (xs - cx) / a - 0.02 * np.exp(-((xs - cx - side * a * 0.3) / 0.05) ** 2)
+    ys = cy + b * hl + side * 0.15 * b * (xs - cx) / a - 0.02 * np.exp(-((xs - cx - side * a * 0.3) / 0.05) ** 2)
     ys = np.minimum(ys, cy + 0.95 * b * np.sqrt(np.clip(1 - ((xs - cx) / a) ** 2, 0, 1)))  # stay inside the head
     inner = np.r_[[[cx - a * 0.99, cy + b * 0.1]], np.c_[xs, ys], [[cx + a * 0.99, cy + b * 0.1]]]
     ax.add_patch(Polygon(np.r_[outer, inner], color=hair, transform=T))
@@ -127,7 +130,7 @@ def render(p, sess, age=0.0, size=(2.0, 2.4), dpi=110):
                              transform=T))
         ax.add_patch(Circle((ex, ey), 0.5 * r, color=palette(IRIS, p["iris"]), transform=T))
         ax.add_patch(Circle((ex, ey), 0.22 * r, color="#111111", transform=T))
-        ax.add_patch(Circle((ex + 0.15 * r, ey + 0.15 * r), 0.09 * r, color="white", transform=T))
+        ax.add_patch(Circle((ex, ey + 0.2 * r), 0.09 * r, color="white", transform=T))  # centred: mirror-safe
         if age > 0.3:  # crow's feet
             for k in (-1, 0, 1):
                 ax.plot([ex + s * 1.2 * r, ex + s * 1.75 * r], [ey + k * 0.25 * r, ey + k * 0.45 * r],
@@ -184,7 +187,7 @@ def noisy(img, rng, sigma=0.03):
 
 
 def face_box(img):
-    """Pixels inside BOX, a part of the face (brows, eyes, nose): the analogue of the masked region."""
+    """Pixels inside BOX, one brow and eye: the analogue of the masked region."""
     h, w = img.shape[:2]
     x0, x1, y0, y1 = BOX
     return img[int(y0 * h):int(y1 * h), int(x0 * w):int(x1 * w)]
@@ -209,7 +212,6 @@ def build(seed=SEED):
     base = {"shirt": SHIRTS[0]}
     clean = render(p, base)
     top = noisy(clean, rng)
-    flipped = {**p, **{k: -p[k] for k in ("asym_eye", "asym_brow", "asym_mouth", "part", "mole_x")}}
     pool = [render(traits(draw_genome(rng)), {"shirt": SHIRTS[rng.integers(len(SHIRTS))],
                                               "dx": rng.normal(0, 0.005), "rot": rng.normal(0, 1)})
             for _ in range(N_MEAN)]
@@ -221,7 +223,7 @@ def build(seed=SEED):
          noisy(camera(render(p, {"shirt": SHIRTS[2], "rot": -1})), rng)),
         ("L2", "same person,\nyears later", "noise, session,\nageing",
          noisy(render(p, {"shirt": SHIRTS[3], "rot": 1}, age=0.8), rng)),
-        ("bilateral", "same person,\nother side", "side-specific\ndevelopment", noisy(render(flipped, base), rng)),
+        ("bilateral", "same person,\nother side", "side-specific\ndevelopment", noisy(clean[:, ::-1], rng)),
         ("MZ", "identical twin\n(same genome)", "development,\nside, session", median_draw(
             lambda r: noisy(render(traits({"g": person["g"], "e": r.standard_normal(len(TRAITS))}),
                                    {"shirt": SHIRTS[4], "rot": -1}), r), top, rng)),
