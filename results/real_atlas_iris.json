@@ -1,0 +1,254 @@
+{
+  "dataset": "UTIRIS V.1, NIR",
+  "n_targets": 6,
+  "n_template_people": 8,
+  "n_reference_people": 8,
+  "people_screened": 26,
+  "images_screened": 100,
+  "numerical_qc_failures": 28,
+  "parser_side_conflicts_all_sensors": 15,
+  "mask_shape": [
+    16,
+    128
+  ],
+  "mask_pixels": 256,
+  "aggregate": {
+    "Repeat capture": {
+      "ssim": {
+        "mean_c": 1.0,
+        "n_targets": 6
+      },
+      "mse": {
+        "mean_c": 1.0,
+        "n_targets": 6
+      },
+      "rmse": {
+        "mean_c": 1.0,
+        "n_targets": 6
+      },
+      "msle": {
+        "mean_c": 1.0,
+        "n_targets": 6
+      },
+      "mae": {
+        "mean_c": 1.0,
+        "n_targets": 6
+      },
+      "psnr": {
+        "mean_c": 1.0,
+        "n_targets": 6
+      },
+      "psnr_eps": {
+        "mean_c": 1.0,
+        "n_targets": 6
+      },
+      "psnr_01": {
+        "mean_c": 1.0,
+        "n_targets": 6
+      },
+      "psnr_01_eps": {
+        "mean_c": 1.0,
+        "n_targets": 6
+      }
+    },
+    "Other eye (flipped)": {
+      "ssim": {
+        "mean_c": 0.6041666666666666,
+        "n_targets": 6
+      },
+      "mse": {
+        "mean_c": 0.5625,
+        "n_targets": 6
+      },
+      "rmse": {
+        "mean_c": 0.5625,
+        "n_targets": 6
+      },
+      "msle": {
+        "mean_c": 0.5625,
+        "n_targets": 6
+      },
+      "mae": {
+        "mean_c": 0.5416666666666666,
+        "n_targets": 6
+      },
+      "psnr": {
+        "mean_c": 0.5625,
+        "n_targets": 6
+      },
+      "psnr_eps": {
+        "mean_c": 0.5625,
+        "n_targets": 6
+      },
+      "psnr_01": {
+        "mean_c": 0.5625,
+        "n_targets": 6
+      },
+      "psnr_01_eps": {
+        "mean_c": 0.5625,
+        "n_targets": 6
+      }
+    },
+    "Stranger": {
+      "ssim": {
+        "mean_c": 0.6666666666666666,
+        "n_targets": 6
+      },
+      "mse": {
+        "mean_c": 0.5625,
+        "n_targets": 6
+      },
+      "rmse": {
+        "mean_c": 0.5625,
+        "n_targets": 6
+      },
+      "msle": {
+        "mean_c": 0.5416666666666666,
+        "n_targets": 6
+      },
+      "mae": {
+        "mean_c": 0.5625,
+        "n_targets": 6
+      },
+      "psnr": {
+        "mean_c": 0.6041666666666666,
+        "n_targets": 6
+      },
+      "psnr_eps": {
+        "mean_c": 0.5625,
+        "n_targets": 6
+      },
+      "psnr_01": {
+        "mean_c": 0.5625,
+        "n_targets": 6
+      },
+      "psnr_01_eps": {
+        "mean_c": 0.5625,
+        "n_targets": 6
+      }
+    },
+    "Mean: raw": {
+      "ssim": {
+        "mean_c": 0.3958333333333333,
+        "n_targets": 6
+      },
+      "mse": {
+        "mean_c": 0.3333333333333333,
+        "n_targets": 6
+      },
+      "rmse": {
+        "mean_c": 0.3333333333333333,
+        "n_targets": 6
+      },
+      "msle": {
+        "mean_c": 0.3541666666666667,
+        "n_targets": 6
+      },
+      "mae": {
+        "mean_c": 0.3125,
+        "n_targets": 6
+      },
+      "psnr": {
+        "mean_c": 0.4166666666666667,
+        "n_targets": 6
+      },
+      "psnr_eps": {
+        "mean_c": 0.3333333333333333,
+        "n_targets": 6
+      },
+      "psnr_01": {
+        "mean_c": 0.3333333333333333,
+        "n_targets": 6
+      },
+      "psnr_01_eps": {
+        "mean_c": 0.3333333333333333,
+        "n_targets": 6
+      }
+    },
+    "Mean: affine": {
+      "ssim": {
+        "mean_c": 0.7708333333333334,
+        "n_targets": 6
+      },
+      "mse": {
+        "mean_c": 0.5833333333333334,
+        "n_targets": 6
+      },
+      "rmse": {
+        "mean_c": 0.5833333333333334,
+        "n_targets": 6
+      },
+      "msle": {
+        "mean_c": 0.5833333333333334,
+        "n_targets": 6
+      },
+      "mae": {
+        "mean_c": 0.6041666666666666,
+        "n_targets": 6
+      },
+      "psnr": {
+        "mean_c": 0.5416666666666666,
+        "n_targets": 6
+      },
+      "psnr_eps": {
+        "mean_c": 0.5833333333333334,
+        "n_targets": 6
+      },
+      "psnr_01": {
+        "mean_c": 0.5833333333333334,
+        "n_targets": 6
+      },
+      "psnr_01_eps": {
+        "mean_c": 0.5833333333333334,
+        "n_targets": 6
+      }
+    },
+    "Blurred stranger": {
+      "ssim": {
+        "mean_c": 0.7916666666666666,
+        "n_targets": 6
+      },
+      "mse": {
+        "mean_c": 0.6666666666666666,
+        "n_targets": 6
+      },
+      "rmse": {
+        "mean_c": 0.6666666666666666,
+        "n_targets": 6
+      },
+      "msle": {
+        "mean_c": 0.6458333333333334,
+        "n_targets": 6
+      },
+      "mae": {
+        "mean_c": 0.6666666666666666,
+        "n_targets": 6
+      },
+      "psnr": {
+        "mean_c": 0.6875,
+        "n_targets": 6
+      },
+      "psnr_eps": {
+        "mean_c": 0.6666666666666666,
+        "n_targets": 6
+      },
+      "psnr_01": {
+        "mean_c": 0.6666666666666666,
+        "n_targets": 6
+      },
+      "psnr_01_eps": {
+        "mean_c": 0.6666666666666666,
+        "n_targets": 6
+      }
+    }
+  },
+  "selection": "First six eligible people in stable person/path order; disjoint 8-person template and 8-person reference pools",
+  "limits": [
+    "Descriptive selected cases only; numerical circle-fit QC is not ground-truth segmentation.",
+    "Known dataset side-label issues remain possible after excluding explicit folder/filename conflicts.",
+    "Within-sitting repeats, not longitudinal acquisitions. Eight reference people: coarse c resolution.",
+    "All donor strips use visible-tissue alignment; means shown raw and affine-fitted separately.",
+    "Photographs, per-case scores and source mappings remain in the private local atlas; no raw images in Git."
+  ],
+  "source": "https://utiris.wordpress.com/2014/03/04/university-of-tehran-iris-image-repository/"
+}

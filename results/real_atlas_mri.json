@@ -1,0 +1,219 @@
+{
+  "dataset": "QTIM OpenNeuro ds004169 v1.0.8",
+  "license": "CC0 (local dataset_description.json)",
+  "cache_run": "run-2026-11-01-image-ladder-v2",
+  "grid_mm": 6,
+  "n_target_people": 6,
+  "n_target_families": 6,
+  "n_reference_people": 8,
+  "n_template_people": 8,
+  "slice_index": 17,
+  "roi_bounds_display": [
+    15,
+    26,
+    5,
+    13
+  ],
+  "mask_pixels": 83,
+  "aggregate": {
+    "Later visit": {
+      "ssim": {
+        "mean_c": 1.0,
+        "n_targets": 6
+      },
+      "mse": {
+        "mean_c": 1.0,
+        "n_targets": 6
+      },
+      "rmse": {
+        "mean_c": 1.0,
+        "n_targets": 6
+      },
+      "msle": {
+        "mean_c": 1.0,
+        "n_targets": 6
+      },
+      "mae": {
+        "mean_c": 1.0,
+        "n_targets": 6
+      },
+      "psnr": {
+        "mean_c": 1.0,
+        "n_targets": 6
+      },
+      "psnr_eps": {
+        "mean_c": 1.0,
+        "n_targets": 6
+      },
+      "psnr_01": {
+        "mean_c": 1.0,
+        "n_targets": 6
+      },
+      "psnr_01_eps": {
+        "mean_c": 1.0,
+        "n_targets": 6
+      }
+    },
+    "Other hemisphere": {
+      "ssim": {
+        "mean_c": 0.4166666666666667,
+        "n_targets": 6
+      },
+      "mse": {
+        "mean_c": 0.5208333333333334,
+        "n_targets": 6
+      },
+      "rmse": {
+        "mean_c": 0.5208333333333334,
+        "n_targets": 6
+      },
+      "msle": {
+        "mean_c": 0.4791666666666667,
+        "n_targets": 6
+      },
+      "mae": {
+        "mean_c": 0.6875,
+        "n_targets": 6
+      },
+      "psnr": {
+        "mean_c": 0.5625,
+        "n_targets": 6
+      },
+      "psnr_eps": {
+        "mean_c": 0.5208333333333334,
+        "n_targets": 6
+      },
+      "psnr_01": {
+        "mean_c": 0.5208333333333334,
+        "n_targets": 6
+      },
+      "psnr_01_eps": {
+        "mean_c": 0.5208333333333334,
+        "n_targets": 6
+      }
+    },
+    "Stranger": {
+      "ssim": {
+        "mean_c": 0.2916666666666667,
+        "n_targets": 6
+      },
+      "mse": {
+        "mean_c": 0.22916666666666666,
+        "n_targets": 6
+      },
+      "rmse": {
+        "mean_c": 0.22916666666666666,
+        "n_targets": 6
+      },
+      "msle": {
+        "mean_c": 0.20833333333333334,
+        "n_targets": 6
+      },
+      "mae": {
+        "mean_c": 0.1875,
+        "n_targets": 6
+      },
+      "psnr": {
+        "mean_c": 0.3125,
+        "n_targets": 6
+      },
+      "psnr_eps": {
+        "mean_c": 0.22916666666666666,
+        "n_targets": 6
+      },
+      "psnr_01": {
+        "mean_c": 0.22916666666666666,
+        "n_targets": 6
+      },
+      "psnr_01_eps": {
+        "mean_c": 0.22916666666666666,
+        "n_targets": 6
+      }
+    },
+    "Population mean": {
+      "ssim": {
+        "mean_c": 0.8333333333333334,
+        "n_targets": 6
+      },
+      "mse": {
+        "mean_c": 0.8958333333333334,
+        "n_targets": 6
+      },
+      "rmse": {
+        "mean_c": 0.8958333333333334,
+        "n_targets": 6
+      },
+      "msle": {
+        "mean_c": 0.875,
+        "n_targets": 6
+      },
+      "mae": {
+        "mean_c": 0.7916666666666666,
+        "n_targets": 6
+      },
+      "psnr": {
+        "mean_c": 0.875,
+        "n_targets": 6
+      },
+      "psnr_eps": {
+        "mean_c": 0.8958333333333334,
+        "n_targets": 6
+      },
+      "psnr_01": {
+        "mean_c": 0.8958333333333334,
+        "n_targets": 6
+      },
+      "psnr_01_eps": {
+        "mean_c": 0.8958333333333334,
+        "n_targets": 6
+      }
+    },
+    "Blurred stranger": {
+      "ssim": {
+        "mean_c": 0.1875,
+        "n_targets": 6
+      },
+      "mse": {
+        "mean_c": 0.041666666666666664,
+        "n_targets": 6
+      },
+      "rmse": {
+        "mean_c": 0.041666666666666664,
+        "n_targets": 6
+      },
+      "msle": {
+        "mean_c": 0.020833333333333332,
+        "n_targets": 6
+      },
+      "mae": {
+        "mean_c": 0.020833333333333332,
+        "n_targets": 6
+      },
+      "psnr": {
+        "mean_c": 0.0625,
+        "n_targets": 6
+      },
+      "psnr_eps": {
+        "mean_c": 0.041666666666666664,
+        "n_targets": 6
+      },
+      "psnr_01": {
+        "mean_c": 0.041666666666666664,
+        "n_targets": 6
+      },
+      "psnr_01_eps": {
+        "mean_c": 0.041666666666666664,
+        "n_targets": 6
+      }
+    }
+  },
+  "selection": "First six QC-passing people with distinct visits in sorted manifest order",
+  "limits": [
+    "Derived 6-mm intensities: interpolation, smoothing and registration can affect scores.",
+    "Not a native-resolution or BraTS inpainting model benchmark. No segmentation performed.",
+    "Later visits include ageing/time differences; not test-retest reliability.",
+    "Opposite hemisphere shares scan-level nuisance. Reference side relation matched; protocol fields not individually verified.",
+    "Small selected case atlas; descriptive averages only; no confidence intervals.",
+    "Per-case scores, images and source mappings remain in the private data folder."
+  ]
+}
