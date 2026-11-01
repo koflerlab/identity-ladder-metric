@@ -158,9 +158,81 @@ Secondary (descriptive, both sets unless stated):
 
 ## Amendments
 
-Amendment 1 (planned, before any fill is scored): scan manifest hash after download; measured registration and
-segmentation times; the segmenter chosen by the D8 rule and n_L by the D9 rule; QC exclusion counts with reasons;
-`brats` package version, model image digests, time per inference and n_B (D11).
+### Amendment 1: the whole dataset, label space by structure, blur asymmetry (2026-11-01, 20:40 +04, before any result)
+
+Approved by Kate ("окей, давай", relayed by the parent session, after she asked for results on the dataset rather
+than on one brain). Made before any real-data result was seen. State of the run at this point: the run session had
+acquired the data-root lock (16:36 UTC) and was downloading the 244 scans of `selection.json` (11 new scans complete,
+6 in progress); its download script was not yet committed; no scan had been registered, filled, segmented or scored.
+
+The frozen design stays as written and is reported as written: set S (49 targets) and set R (23 targets) with their
+40-person stranger pool and 60-person mean pool, claims C1 to C10 and their labels. This amendment adds an expanded
+analysis next to it; it does not replace the primary.
+
+**A1.1 Expanded intensity analysis (no segmentation).**
+
+- Eligible: adults scanned coronal at session 1 (779 people in 466 families, counted from `participants.tsv`).
+- Targets: one per family with at least two eligible members (287 families), chosen with seed 20261101 among
+  members who have a relative, preferring a member who has both a same-age and a different-age relative.
+- Relative rows: "co-twin, zygosity unknown" (a same-age relative; 260 families) and "non-twin sibling" (the
+  different-age relative closest in age; 49 families). Both rows on the same target where a family has both (22).
+- Repeat row: the second session, for targets in the test-retest subsample scanned coronal in both sessions.
+- Population mean: the 179 single-member families, one person each, fixed, so the mean pool is disjoint from every
+  target family. Deviation from the proposed 200 to 300: 287 target families plus disjoint pools of 150 to 200 and
+  200 to 300 families would need about 640 families, and QTIM has 466 eligible ones; 179 is the largest fixed mean
+  pool that removes no target family.
+- Strangers: 16 per target, drawn with the seed from the other 286 multi-member families, never from the target's
+  own family and never from the mean pool. Strangers are not globally disjoint from targets (a target of one family
+  serves as a stranger to another), so target scores share some strangers; the bootstrap over targets ignores this
+  mild dependence, stated as a limitation.
+- Fills, metrics, c, rho, distance to the mean, target projection and the bootstrap as in Definitions. Box: the
+  primary parietal box.
+- Claims, with the same prespecified labels as C1 and C2: **C1-all** and **C2-all** for the sibling on this design;
+  **C11** co-twin against the mean (delta c under RMSE) and **C12** co-twin against strangers (c under RMSE, interval
+  against 0.5). No sign is predicted for C11: the co-twin row mixes MZ and DZ pairs.
+- Downloads: every eligible session-1 scan plus the retest session-2 scans, 826 T1w, about 10 GB at the measured 12.4
+  MB per scan, under the data-root lock, registry updated.
+- CPU budget: families are processed in a seeded order fixed before any image is opened; if registration and
+  scoring do not finish within 12 hours of wall time, the analysis uses the families finished by then, reported with
+  their number.
+
+**A1.2 Label space by structure.**
+
+- Prespecified hypothesis: Dice against the oracle favours the population mean in deep grey matter and the
+  ventricles, where a strong population prior fixes the boundary, but not in the cortex, where individual folding
+  sets it.
+- Label groups (names of the FreeSurfer colour table, which both segmenters use): cortex (the whole-cortex label or
+  all cortical parcels, whichever the segmenter outputs); cerebral white matter; deep grey matter (thalamus,
+  caudate, putamen, pallidum); ventricles (lateral, inferior lateral, third, fourth); hippocampus and amygdala.
+- Boxes: the primary parietal box (cortex) plus two 24 mm cubes centred on the left-hemisphere centroid of the deep
+  grey matter group and of the lateral ventricle, found by segmenting the template T1 (input table) with the chosen
+  segmenter; mirrored for the other hemisphere. Their coordinates go into Amendment 2 before any subject is scored.
+- Report: Dice c per label group, for the mean, the sibling, the co-twin and the other hemisphere, paired delta c
+  (mean minus relative).
+- Labels: "mode trap in deep structures" if the 95% interval of delta c (mean minus sibling, and separately mean
+  minus co-twin) lies above 0 in deep grey matter and in the ventricles while the interval for the cortex includes
+  0 or lies below it. Otherwise the numbers are reported without the label.
+- Budget: within D9 (8 hours of segmentation), split equally over the three boxes; n_L per box by the D9 formula.
+
+**A1.3 Blur asymmetry (extends the D8 blur sweep).**
+
+- In each label-space box, blur the target's true tissue and stranger 1's tissue at sigma 0, 1, 2, 3 and 4 mm,
+  inside the box; score both against the target: Dice against the oracle, and RMSE.
+- Bias predicts that blur hurts the truth but helps the stranger; insensitivity predicts flat curves for both.
+- Labels, on Dice: "bias pattern" if the 95% interval of the truth's drop from sigma 0 to 3 mm lies above 0 and the
+  interval of the stranger's gain lies above 0; "insensitive" if both intervals include 0; otherwise "mixed". The
+  RMSE curves are reported descriptively (Proposition 1 already predicts that smoothing a stranger lowers its RMSE).
+- The D8 rule stays: label-space claims (C9, A1.2) are interpreted only if the truth's Dice falls with blur.
+
+**A1.4 Consequence for the paper (not an analysis).** Proposition 2 is a one-line remark; the contribution is the
+measured answer to when and where Dice falls into the mode trap (A1.2, A1.3).
+
+### Amendment 2 (planned, before any fill is scored)
+
+Scan manifest hashes after download (the original 244 and the expanded 826); the expanded selection file and its
+SHA-256; measured registration and segmentation times; the segmenter chosen by the D8 rule and n_L by the D9 rule;
+coordinates of the deep grey matter and ventricle boxes (A1.2); QC exclusion counts with reasons; `brats` package
+version, model image digests, time per inference and n_B (D11).
 
 Any other change is a dated amendment made before the affected results are seen; a change made after is labelled
 post hoc and does not replace the prespecified analysis.
