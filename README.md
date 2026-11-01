@@ -1,5 +1,12 @@
 # Identity ladder metric
 
+[![Code: MIT](https://img.shields.io/badge/code-MIT-blue.svg)](LICENSE)
+[![Text and figures: CC BY 4.0](https://img.shields.io/badge/text%20%26%20figures-CC%20BY%204.0-lightgrey.svg)](LICENSE-CC-BY-4.0)
+[![Python 3.11](https://img.shields.io/badge/python-3.11-3776AB.svg)](https://www.python.org/)
+[![Metrics: BraTS inpainting 0.0.12](https://img.shields.io/badge/metrics-BraTS%20inpainting%200.0.12-orange.svg)](https://github.com/BraTS-inpainting/inpainting)
+[![Data: synthetic + open](https://img.shields.io/badge/data-synthetic%20%2B%20open-success.svg)](docs/DATASETS.md)
+[![Status: research in progress](https://img.shields.io/badge/status-research%20in%20progress-yellow.svg)](docs/HANDOFF.md)
+
 How much of a person is left in a synthesized image?
 
 BraTS inpainting and most image synthesis work score a fill with RMSE, PSNR and SSIM against the true image. These
