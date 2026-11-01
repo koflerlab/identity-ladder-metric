@@ -11,17 +11,26 @@
 
 \title{Fighting regression to the mean in the evaluation of brain MRI inpainting}
 \name{Ekaterina Kondrateva$^{1,2}$, Florian Kofler$^{1,3,4,5}$}
-\address{$^{1}$Hertie Institute for AI in Brain Health, University of T\"ubingen, Germany\\
-$^{2}$Department of Radiation Oncology (Maastro), GROW, Maastricht University, The Netherlands\\
-$^{3}$Department of Quantitative Biomedicine, University of Zurich, Switzerland\\
-$^{4}$Helmholtz AI, Helmholtz Munich, Germany\\
-$^{5}$TUM School of Medicine and Health, Technical University of Munich, Germany}
+\address{$^{1}$Hertie Institute for AI in Brain Health, University of T\"ubingen, T\"ubingen, Germany\\
+$^{2}$Department of Radiation Oncology (Maastro), GROW, Maastricht University,\\
+Maastricht, The Netherlands\\
+$^{3}$AI for Image-Guided Diagnosis and Therapy, TUM School of Medicine and Health,\\
+Technical University of Munich, Munich, Germany\\
+$^{4}$Department of Quantitative Biomedicine, University of Zurich, Zurich, Switzerland\\
+$^{5}$Helmholtz AI, Helmholtz Munich, Neuherberg, Germany\\
+ORCID: E.~Kondrateva 0000-0003-3623-6106; F.~Kofler 0000-0003-0642-7884}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-Healthy-tissue inpainting in brain MRI is ranked by SSIM, PSNR and RMSE, and top-ranked methods in the BraTS inpainting challenge produce visibly blurred fills. We show that this is what the metrics ask for. Writing tissue as a population mean plus an individual part, the mean fill has half the expected squared error of another person's tissue and also beats a sibling's tissue, although the sibling shares part of the individual anatomy and the mean shares none of it. Pointwise label agreement has the same property with the mode in place of the mean, so a downstream segmentation scored by Dice against the oracle inherits the bias instead of exposing it. On synthetic tissue scored with the official challenge code, the identity-free mean scores $c\ge0.97$ against stranger fills under all nine metrics of the package, and a fill that keeps only half of the individual signal is indistinguishable from the truth. Weather forecasting, image restoration and protein structure prediction met the same problem and answered it with plausibility checks, scale-aware and perceptual scores, and calibration against random pairs. We propose the population-mean fill as a mandatory baseline, its distance from each fill, and plausibility measures that do not reward averaging.
+Healthy-tissue inpainting in brain MRI is ranked by SSIM, PSNR and RMSE, and top-ranked methods in the BraTS inpainting challenge produce visibly blurred fills.
+We show that this is what the metrics ask for.
+Writing tissue as a population mean plus an individual part, the mean fill has half the expected squared error of another person's tissue and also beats a sibling's tissue, although the sibling shares part of the individual anatomy and the mean shares none of it.
+Pointwise label agreement has the same property with the mode in place of the mean, so a downstream segmentation scored by Dice against the oracle inherits the bias instead of exposing it.
+On synthetic tissue scored with the official challenge code, the identity-free mean scores $c\ge0.97$ against stranger fills under all nine metrics of the package, and a fill that keeps only half of the individual signal is indistinguishable from the truth.
+Weather forecasting, image restoration and protein structure prediction met the same problem and answered it with plausibility checks, scale-aware and perceptual scores, and calibration against random pairs.
+We propose the population-mean fill as a mandatory baseline, its distance from each fill, and plausibility measures that do not reward averaging.
 \end{abstract}
 \begin{keywords}
 inpainting, image synthesis, metric validation, regression to the mean, BraTS
@@ -29,55 +38,85 @@ inpainting, image synthesis, metric validation, regression to the mean, BraTS
 
 \section{Introduction}
 \label{sec:intro}
-The BraTS challenge on local synthesis of healthy brain tissue asks participants to fill masked healthy regions of T1 scans, and ranks them case-wise by SSIM, PSNR and RMSE inside the mask~\cite{kofler2023brats,inpainting2026}. In the 2023 edition the ranking was clear, yet the organisers report that, apart from one 2D diffusion model with stripe artefacts in the orthogonal views, the submissions produced blurry inpaintings in all three views, and that qualitative inspection gave a more varied picture than the ranking~\cite{kofler2023brats}. They called for synthesis metrics closer to expert perception. The 2025 winner is a U-Net trained to inpaint masked regions~\cite{zhang2025brats}.
+The BraTS challenge on local synthesis of healthy brain tissue asks participants to fill masked healthy regions of T1 scans, and ranks them case-wise by SSIM, PSNR and RMSE inside the mask~\cite{kofler2023brats,inpainting2026}.
+In the 2023 edition the ranking was clear, yet the organisers report that, apart from one 2D diffusion model with stripe artefacts in the orthogonal views, the submissions produced blurry inpaintings in all three views, and that qualitative inspection gave a more varied picture than the ranking~\cite{kofler2023brats}.
+They called for synthesis metrics closer to expert perception.
+The 2025 winner is a U-Net trained to inpaint masked regions~\cite{zhang2025brats}.
 
-A natural remedy is to judge fills by what they are for: segment the inpainted brain with a downstream U-Net and compare the result with the segmentation of the real image. In the challenge, this downstream check also favoured the blurred fills. \todo{FK to confirm}
+A natural remedy is to judge fills by what they are for: segment the inpainted brain with a downstream U-Net and compare the result with the segmentation of the real image.
+In the challenge, this downstream check also favoured the blurred fills.
+\todo{FK to confirm}
 
-We argue that both observations follow from the metrics, not from the models. Squared error is minimised by the conditional mean, so when the visible context carries little information about the individual anatomy inside the mask, the optimal fill is close to the population average: regression to the mean. Pointwise label agreement is maximised by the most probable label, so a segmentation of an averaged fill lands on the population-typical boundary. Our contributions are (i) closed forms that compare the population-mean fill with real tissue from the same person, relatives and strangers; (ii) the analogue for Dice and accuracy against the oracle; (iii) synthetic experiments with the official challenge code, covering all nine of its metrics, segmentation and topology, and a controlled shrinkage of the individual signal; (iv) lessons from fields that faced the same problem, turned into a reporting protocol.
+We argue that both observations follow from the metrics, not from the models.
+Squared error is minimised by the conditional mean, so when the visible context carries little information about the individual anatomy inside the mask, the optimal fill is close to the population average: regression to the mean.
+Pointwise label agreement is maximised by the most probable label, so a segmentation of an averaged fill lands on the population-typical boundary.
+Our contributions are (i) closed forms that compare the population-mean fill with real tissue from the same person, relatives and strangers; (ii) the analogue for Dice and accuracy against the oracle; (iii) synthetic experiments with the official challenge code, covering all nine of its metrics, segmentation and topology, and a controlled shrinkage of the individual signal; (iv) lessons from fields that faced the same problem, turned into a reporting protocol.
 
 \section{Theory}
 \label{sec:theory}
 \subsection{Tissue model and stranger-calibrated score}
-Write a voxel vector of side $s$ of person $p$ in session $k$ as $x=\mu+g_p+e_p+b_{ps}+\eta_{pk}+\varepsilon$: population mean $\mu$, genotype $g$ (shared with correlation $1/2$ by siblings), individual development $e$, side-specific development $b$, session nuisance $\eta$ and noise $\varepsilon$, independent and zero-mean with variances $\sigma_\cdot^2$ per dimension in $D$ dimensions. The individual part $\delta=x-\mu$ has variance $V=\sigma_g^2+\sigma_e^2+\sigma_b^2+\sigma_\eta^2+\sigma_\varepsilon^2$, and $h^2=\sigma_g^2/V$ is its genetic share. Because raw metric values shift with mask size and contrast, we score a fill $f$ of target $x$ by its rank among fills taken from unrelated people:
+Write a voxel vector of side $s$ of person $p$ in session $k$ as $x=\mu+g_p+e_p+b_{ps}+\eta_{pk}+\varepsilon$: population mean $\mu$, genotype $g$ (shared with correlation $1/2$ by siblings), individual development $e$, side-specific development $b$, session nuisance $\eta$ and noise $\varepsilon$, independent and zero-mean with variances $\sigma_\cdot^2$ per dimension in $D$ dimensions.
+The individual part $\delta=x-\mu$ has variance $V=\sigma_g^2+\sigma_e^2+\sigma_b^2+\sigma_\eta^2+\sigma_\varepsilon^2$, and $h^2=\sigma_g^2/V$ is its genetic share.
+Because raw metric values shift with mask size and contrast, we score a fill $f$ of target $x$ by its rank among fills taken from unrelated people:
 \begin{equation}
 c=P(d_{\mathrm{str}}>d)+\tfrac12 P(d_{\mathrm{str}}=d),
 \label{eq:c}
 \end{equation}
-with $d=d(x,f)$ and $d_{\mathrm{str}}$ the distance of a stranger's tissue. A stranger scores $1/2$ and $c$ is the AUC of the fill against stranger fills; as $c$ uses ranks only, MSE, RMSE and PSNR give the same $c$. We write $\rho=\mathbb{E}d^2/\mathbb{E}d_{\mathrm{str}}^2$ for the error ratio.
+with $d=d(x,f)$ and $d_{\mathrm{str}}$ the distance of a stranger's tissue.
+A stranger scores $1/2$ and $c$ is the AUC of the fill against stranger fills; as $c$ uses ranks only, MSE, RMSE and PSNR give the same $c$.
+We write $\rho=\mathbb{E}d^2/\mathbb{E}d_{\mathrm{str}}^2$ for the error ratio.
 
 \subsection{Why pointwise metrics favour the mean}
 \begin{prop}[squared error]
-For a masked region of $x$ filled with $f$, $\mathbb{E}\|x-f\|^2/D$ equals $V$ for the population mean ($\rho=1/2$), $2V$ for a stranger's tissue ($\rho=1$), and $2V(1-r)$ for tissue whose individual part, of the same variance, has correlation $r$ with the target's ($\rho=1-r$); a sibling has $r=h^2/2$. Hence the identity-free mean beats any donor with $r<1/2$, every sibling included, although the sibling carries the share $r$ of the target's individual part and the mean carries none. Rescaling the mean to the target's spread adds variance and removes the advantage.
+For a masked region of $x$ filled with $f$, $\mathbb{E}\|x-f\|^2/D$ equals $V$ for the population mean ($\rho=1/2$), $2V$ for a stranger's tissue ($\rho=1$), and $2V(1-r)$ for tissue whose individual part, of the same variance, has correlation $r$ with the target's ($\rho=1-r$); a sibling has $r=h^2/2$.
+Hence the identity-free mean beats any donor with $r<1/2$, every sibling included, although the sibling carries the share $r$ of the target's individual part and the mean carries none.
+Rescaling the mean to the target's spread adds variance and removes the advantage.
 \end{prop}
-\noindent More generally, for any predictor $f$ of the masked region from the visible context $z$, $\mathbb{E}\|x-f(z)\|^2$ is minimised by $\mathbb{E}[x\mid z]$. If $z$ is nearly independent of the individual part inside the mask, the optimum is close to $\mu$, so a network trained on squared error, or selected by RMSE and PSNR, is pulled towards the average: a blurred fill is the expected answer, not a failure of optimisation.
+\noindent More generally, for any predictor $f$ of the masked region from the visible context $z$, $\mathbb{E}\|x-f(z)\|^2$ is minimised by $\mathbb{E}[x\mid z]$.
+If $z$ is nearly independent of the individual part inside the mask, the optimum is close to $\mu$, so a network trained on squared error, or selected by RMSE and PSNR, is pulled towards the average: a blurred fill is the expected answer, not a failure of optimisation.
 
 \begin{prop}[pointwise label agreement]
-Let a voxel belong to a tissue class with probability $p$ given the context. A fill whose segmentation takes the most probable label agrees with the true label with probability $\max(p,1-p)$; an independent donor agrees with probability $p^2+(1-p)^2\le\max(p,1-p)$. Expected voxel accuracy, and Dice in the same way, against the oracle segmentation therefore favour the mode over any donor that does not share the target's anatomy.
+Let a voxel belong to a tissue class with probability $p$ given the context.
+A fill whose segmentation takes the most probable label agrees with the true label with probability $\max(p,1-p)$; an independent donor agrees with probability $p^2+(1-p)^2\le\max(p,1-p)$.
+Expected voxel accuracy, and Dice in the same way, against the oracle segmentation therefore favour the mode over any donor that does not share the target's anatomy.
 \end{prop}
-\noindent A segmenter applied to a blurred fill tends to place boundaries where they are most common in the population, so a downstream Dice check inherits the bias of the intensity metrics. Overlap does not see that the folding was simplified; shape and topology of the segmentation can.
+\noindent A segmenter applied to a blurred fill tends to place boundaries where they are most common in the population, so a downstream Dice check inherits the bias of the intensity metrics.
+Overlap does not see that the folding was simplified; shape and topology of the segmentation can.
 
 \begin{prop}[SSIM stabilizer]
-For a fill that is constant within an SSIM window, $\mathrm{SSIM}=l\cdot C_2/(\sigma_x^2+C_2)$~\cite{wang2004}, with $C_2=(0.03L)^2$ and data range $L$. Where the local SD of the reference is well below $0.03L$, a mean-matched flat fill scores close to 1.
+For a fill that is constant within an SSIM window, $\mathrm{SSIM}=l\cdot C_2/(\sigma_x^2+C_2)$~\cite{wang2004}, with $C_2=(0.03L)^2$ and data range $L$.
+Where the local SD of the reference is well below $0.03L$, a mean-matched flat fill scores close to 1.
 \end{prop}
 
 \begin{prop}[challenge ranking]
-In the challenge code~\cite{inpainting2026} the PSNR data range comes from the reference inside the mask, so within a case PSNR repeats the RMSE order, apart from the clamping of plain PSNR. A case-wise rank-sum over SSIM, PSNR and RMSE~\cite{kofler2023brats} therefore gives squared error two thirds of the weight.
+In the challenge code~\cite{inpainting2026} the PSNR data range comes from the reference inside the mask, so within a case PSNR repeats the RMSE order, apart from the clamping of plain PSNR.
+A case-wise rank-sum over SSIM, PSNR and RMSE~\cite{kofler2023brats} therefore gives squared error two thirds of the weight.
 \end{prop}
 
 \section{Experiments}
 \label{sec:experiments}
-\textbf{Synthetic tissue.} $64\times64$ images: a flat template with a bright ring outside the mask (no clipping of the masked target by the challenge's percentile scaling), Gaussian random fields for $g$, $e$, $b$, a global offset per session and white noise; identity contrast $\times1$ or $\times0.1$; 60 two-person families, 30 of them sibling pairs (the rest contribute only strangers and population-mean members); $32^2$ mask. Two parameter sets, genetic share $0.54$ and $0.19$ (sibling $r=0.27$ and $0.10$). The variances are illustrative, not estimates from data: both sets have the same total individual variance and differ only in the genetic share. Fills: the same person's repeat and other hemisphere, a sibling, the leave-one-family-out population mean with and without restoring its spread, and 16 stranger fills per case. All nine outputs of the official package (inpainting 0.0.12, torchmetrics 1.9.0) are computed, with $c$ per case against the stranger fills and $\hat\rho$ as the fill's MSE over the mean stranger MSE.
+\textbf{Synthetic tissue.} $64\times64$ images: a flat template with a bright ring outside the mask (no clipping of the masked target by the challenge's percentile scaling), Gaussian random fields for $g$, $e$, $b$, a global offset per session and white noise; identity contrast $\times1$ or $\times0.1$; 60 two-person families, 30 of them sibling pairs (the rest contribute only strangers and population-mean members); $32^2$ mask.
+Two parameter sets, genetic share $0.54$ and $0.19$ (sibling $r=0.27$ and $0.10$).
+The variances are illustrative, not estimates from data: both sets have the same total individual variance and differ only in the genetic share.
+Fills: the same person's repeat and other hemisphere, a sibling, the leave-one-family-out population mean with and without restoring its spread, and 16 stranger fills per case.
+All nine outputs of the official package (inpainting 0.0.12, torchmetrics 1.9.0) are computed, with $c$ per case against the stranger fills and $\hat\rho$ as the fill's MSE over the mean stranger MSE.
 
-\textbf{Label space.} Two-class tissue $\mathbf{1}[\lambda\,\mathrm{prior}+F_p>0]$, where $F_p$ is the individual field and $\lambda\in\{0,0.25,1\}$ sets how much a population prior shapes the anatomy (small $\lambda$: folding-like, individual-driven). A threshold segmenter after light smoothing stands in for the downstream U-Net; the oracle is the segmentation of the true image. Dice, accuracy and topology errors (components, holes, Euler number, boundary length) are scored with Eq.~\ref{eq:c}. Five seeds, 120 targets per seed.
+\textbf{Label space.} Two-class tissue $\mathbf{1}[\lambda\,\mathrm{prior}+F_p>0]$, where $F_p$ is the individual field and $\lambda\in\{0,0.25,1\}$ sets how much a population prior shapes the anatomy (small $\lambda$: folding-like, individual-driven).
+A threshold segmenter after light smoothing stands in for the downstream U-Net; the oracle is the segmentation of the true image.
+Dice, accuracy and topology errors (components, holes, Euler number, boundary length) are scored with Eq.~\ref{eq:c}.
+Five seeds, 120 targets per seed.
 
-\textbf{Controlled shrinkage.} $y_\lambda=\mu+\lambda(x-\mu)$ for $\lambda\in\{1,0.75,0.5,0.25,0\}$ and a wrong-detail control with a residual of the same norm orthogonal to $x-\mu$; 24 tissue targets over three seeds, prior $0.25$. For each fill we record the distance-to-mean ratio $\|y-\mu\|/\|x-\mu\|$ and the target projection $\langle y-\mu,x-\mu\rangle/\|x-\mu\|^2$.
+\textbf{Controlled shrinkage.} $y_\lambda=\mu+\lambda(x-\mu)$ for $\lambda\in\{1,0.75,0.5,0.25,0\}$ and a wrong-detail control with a residual of the same norm orthogonal to $x-\mu$; 24 tissue targets over three seeds, prior $0.25$.
+For each fill we record the distance-to-mean ratio $\|y-\mu\|/\|x-\mu\|$ and the target projection $\langle y-\mu,x-\mu\rangle/\|x-\mu\|^2$.
 
 \section{Results}
 \label{sec:results}
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{fig_cases.pdf}
-\caption{One synthetic target (saved run, seed 401, prior 0.25) and its candidate fills: repeat capture, later visit, other hemisphere, stranger, population mean. Rows: the fill in context with the filled region, the region enlarged, threshold segmentation. Under RMSE the grey, fold-free mean scores like the best real fills (Table~\ref{tab:fills}); the distance-to-mean ratio and target projection under each column expose it at once.}
+\caption{One synthetic target (saved run, seed 401, prior 0.25) and its candidate fills: repeat capture, later visit, other hemisphere, stranger, population mean.
+Rows: the fill in context with the filled region, the region enlarged, threshold segmentation.
+Under RMSE the grey, fold-free mean scores like the best real fills (Table~\ref{tab:fills}); the distance-to-mean ratio and target projection under each column expose it at once.}
 \label{fig:cases}
 \end{figure*}
 
@@ -101,19 +140,30 @@ mean, spread restored & 0.61 & 0.59 & 0.92 (1.00) & 0.54 & 0.97 (1.00) \\
 \end{tabular}
 \end{table}
 
-\textbf{Intensity metrics.} The measured error ratio of the mean against strangers was $\hat\rho=0.50$ in both parameter sets, as Proposition~1 predicts, and the mean reached $c=1.00$ under RMSE. It outranked the sibling in both parameter sets ($0.67$ and $0.89$; Table~\ref{tab:fills}, Fig.~\ref{fig:cases}). Restoring the mean's spread removed the advantage ($0.54$--$0.61$). At identity contrast $\times0.1$, SSIM gave the mean $c=1.00$ against $0.65$ for the sibling. Within a case MSE, PSNR$_\epsilon$, PSNR$_{01}$ and PSNR$_{01,\epsilon}$ ranked fills exactly as RMSE did (Kendall $\tau=1$), plain PSNR and MSLE with $\tau=0.89$, and SSIM was computed per 2D slice.
+\textbf{Intensity metrics.} The measured error ratio of the mean against strangers was $\hat\rho=0.50$ in both parameter sets, as Proposition~1 predicts, and the mean reached $c=1.00$ under RMSE.
+It outranked the sibling in both parameter sets ($0.67$ and $0.89$; Table~\ref{tab:fills}, Fig.~\ref{fig:cases}).
+Restoring the mean's spread removed the advantage ($0.54$--$0.61$).
+At identity contrast $\times0.1$, SSIM gave the mean $c=1.00$ against $0.65$ for the sibling.
+Within a case MSE, PSNR$_\epsilon$, PSNR$_{01}$ and PSNR$_{01,\epsilon}$ ranked fills exactly as RMSE did (Kendall $\tau=1$), plain PSNR and MSLE with $\tau=0.89$, and SSIM was computed per 2D slice.
 
-\textbf{Shrinkage.} A fill that kept only half of the individual signal ($\lambda=0.5$) scored $c=1.000$ under both RMSE and SSIM; the pure mean $0.995$ and $0.950$. The wrong-detail control, as far from the mean as the truth but carrying none of the target's residual, scored $0.566$ and $0.184$. The distance-to-mean ratio separated the mean (0) from the truth (1) but not the wrong detail (1.00); only the target projection (0.00) identified it.
+\textbf{Shrinkage.} A fill that kept only half of the individual signal ($\lambda=0.5$) scored $c=1.000$ under both RMSE and SSIM; the pure mean $0.995$ and $0.950$.
+The wrong-detail control, as far from the mean as the truth but carrying none of the target's residual, scored $0.566$ and $0.184$.
+The distance-to-mean ratio separated the mean (0) from the truth (1) but not the wrong detail (1.00); only the target projection (0.00) identified it.
 
-\textbf{Label space.} The mean's RMSE $c$ stayed at $0.995$--$0.997$ in all settings. Its Dice advantage over the sibling depended on the anatomy: with a strong prior ($\lambda=1$) it was positive in every seed for both genetic shares ($+0.286$, seed range $+0.221$ to $+0.319$, at $0.19$; $+0.128$, $+0.065$ to $+0.155$, at $0.54$), with $\lambda=0.25$ only at $0.19$ ($+0.121$, $+0.020$ to $+0.217$), and without a prior the seed range crossed zero in both settings. Component counts scored the mean close to a stranger ($c=0.50$--$0.56$); holes were too rare to resolve.
+\textbf{Label space.} The mean's RMSE $c$ stayed at $0.995$--$0.997$ in all settings.
+Its Dice advantage over the sibling depended on the anatomy: with a strong prior ($\lambda=1$) it was positive in every seed for both genetic shares ($+0.286$, seed range $+0.221$ to $+0.319$, at $0.19$; $+0.128$, $+0.065$ to $+0.155$, at $0.54$), with $\lambda=0.25$ only at $0.19$ ($+0.121$, $+0.020$ to $+0.217$), and without a prior the seed range crossed zero in both settings.
+Component counts scored the mean close to a stranger ($c=0.50$--$0.56$); holes were too rare to resolve.
 
 \section{How other fields fight it}
 \label{sec:fields}
-\textbf{Image restoration.} Blau and Michaeli proved that lowering mean distortion must make outputs easier to tell apart from real images, for any distortion measure, not only PSNR or SSIM, and proposed evaluating restoration on both axes, distortion and perceptual quality~\cite{blau2018}. Deep features match human similarity judgements far better than PSNR and SSIM~\cite{zhang2018lpips}.
+\textbf{Image restoration.} Blau and Michaeli proved that lowering mean distortion must make outputs easier to tell apart from real images, for any distortion measure, not only PSNR or SSIM, and proposed evaluating restoration on both axes, distortion and perceptual quality~\cite{blau2018}.
+Deep features match human similarity judgements far better than PSNR and SSIM~\cite{zhang2018lpips}.
 
-\textbf{Weather forecasting.} Deep nowcasting models trained to predict rain rates directly give blurry nowcasts at longer lead times and do poorly on heavier rain; a generative model, judged also by more than 50 expert meteorologists, was preferred in most cases~\cite{ravuri2021}. Verification at several spatial scales, by fractional coverage over neighbourhoods, credits realistic forecasts that place a storm slightly wrong~\cite{roberts2008}.
+\textbf{Weather forecasting.} Deep nowcasting models trained to predict rain rates directly give blurry nowcasts at longer lead times and do poorly on heavier rain; a generative model, judged also by more than 50 expert meteorologists, was preferred in most cases~\cite{ravuri2021}.
+Verification at several spatial scales, by fractional coverage over neighbourhoods, credits realistic forecasts that place a storm slightly wrong~\cite{roberts2008}.
 
-\textbf{Protein structure prediction.} A model is scored against random structures, not on a raw scale: TM-score is normalised so that its value for random structure pairs does not depend on protein length~\cite{zhang2004}. lDDT compares local distances of all atoms without global superposition and includes a check of stereochemical plausibility~\cite{mariani2013}, and MolProbity validates geometry and all-atom contacts without any reference~\cite{chen2010}. Plausibility checks of this kind do not reward closeness to the reference, so an averaged model gains nothing from them.
+\textbf{Protein structure prediction.} A model is scored against random structures, not on a raw scale: TM-score is normalised so that its value for random structure pairs does not depend on protein length~\cite{zhang2004}. lDDT compares local distances of all atoms without global superposition and includes a check of stereochemical plausibility~\cite{mariani2013}, and MolProbity validates geometry and all-atom contacts without any reference~\cite{chen2010}.
+Plausibility checks of this kind do not reward closeness to the reference, so an averaged model gains nothing from them.
 
 \textbf{For inpainting.} Translated to healthy-tissue synthesis, these practices give four rules.
 \begin{enumerate}
@@ -122,7 +172,8 @@ mean, spread restored & 0.61 & 0.59 & 0.92 (1.00) & 0.54 & 0.97 (1.00) \\
 \item \textbf{Score plausibility, not only overlap}: shape and topology of the segmentation, and population-level realism of the fill.
 \item \textbf{Calibrate raw values} against fills from other people, so that a score means the same across masks and contrasts.
 \end{enumerate}
-Limitations: the model is Gaussian and additive, and the experiments use synthetic 2D images with a threshold segmenter, so the label-space result shows what Dice can do, not yet what a trained segmenter does on challenge entries. The next step is the same test on MRI, with the challenge winners' fills next to tissue from a re-scan, the other hemisphere, a stranger and the population mean.
+Limitations: the model is Gaussian and additive, and the experiments use synthetic 2D images with a threshold segmenter, so the label-space result shows what Dice can do, not yet what a trained segmenter does on challenge entries.
+The next step is the same test on MRI, with the challenge winners' fills next to tissue from a re-scan, the other hemisphere, a stranger and the population mean.
 
 \section{Compliance with ethical standards}
 \label{sec:ethics}
@@ -130,7 +181,9 @@ This study used synthetic data only; no human data were used.
 
 \section{Acknowledgments}
 \label{sec:acknowledgments}
-\todo{Funding.} The authors declare no conflicts of interest \todo{to confirm}. Claude (Anthropic) was used to write and test the analysis code, to search and check literature sources, and to draft the text; the authors checked the derivations, the numbers against the released results and the final text.
+This work was supported by Anna Valentina Lioba Eleonora Claire Javid Mamasani and the Gemeinn\"utzige Hertie Stiftung.
+The authors declare no conflicts of interest \todo{to confirm}.
+Claude (Anthropic) was used to write and test the analysis code, to search and check literature sources, and to draft the text; the authors checked the derivations, the numbers against the released results and the final text.
 
 \bibliographystyle{IEEEbib}
 \bibliography{refs}
