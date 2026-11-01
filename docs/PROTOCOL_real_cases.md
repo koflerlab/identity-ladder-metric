@@ -252,6 +252,15 @@ beyond D7; an exclusion it suggests goes to Kate as a proposed amendment, decide
 - The T1w JSON sidecars of the 244 scans are fetched under the same data-root lock, with their own manifest
   (`sidecar_manifest.json`, private).
 
+**A1.7 Order under the CPU budget and C10 scope (2026-11-01, 21:55 +04, Kate's decisions, before any result).**
+About 27 hours of CPU remain before the deadline for about 38 hours of planned work, so the run order is: frozen
+C1 to C8 with sensitivities 2, 3 and 5; then A1.1 (C1-all, C2-all, C11, C12); then C10; then frozen C9; then A1.2.
+Whatever does not finish is reported as not run. C10 runs only the two rank-1 models, BraTS23_1 and BraTS24_1
+(Zhang, Ying-Weng; images `brainles/brats23_inpainting_ying_weng` and `brainles/brats24_inpainting_ying_weng`,
+about 9 GB compressed), approved for download by Kate; BraTS23_3 is not run and is added to the evidence boundary's
+list of untested models. The preprocessing (`brats` 0.1.14, `brainles-preprocessing` 0.6.14 with HD-BET) goes in a
+separate virtual environment, so the frozen environment (numpy 1.26.4, antspyx 0.6.3) is unchanged.
+
 **A1.4 Consequence for the paper (not an analysis).** Proposition 2 is a one-line remark; the contribution is the
 measured answer to when and where Dice falls into the mode trap (A1.2, A1.3).
 
