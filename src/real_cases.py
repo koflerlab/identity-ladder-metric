@@ -68,8 +68,26 @@ INPUTS = {
     "template_wm": (os.path.join(NILEARN_DATA, "mni_icbm152_wm_tal_nlin_sym_09a_converted.nii.gz"),
                     "382d92812de4744f9c86c7a0e4f680dc317a0a50e4da1f0153618a6798c7b7db"),
 }
-SCAN_MANIFEST = os.path.join(PRIVATE, "scan_manifest.json")
-SCAN_MANIFEST_SHA256 = "4016dcf4a30ab95c76170ba714598c435792a260d70a39780dd6701928b0dcb8"  # Amendment 2 part A
+DESIGNS = {  # private run folder, selection (file, SHA-256), scan manifest (file, SHA-256)
+    "frozen": ("real-cases-run", ("selection.json", INPUTS["selection.json"][1]),
+               ("scan_manifest.json", "4016dcf4a30ab95c76170ba714598c435792a260d70a39780dd6701928b0dcb8")),
+    "expanded": ("real-cases-run-expanded",  # Amendment 1, A1.1 and A1.5
+                 ("selection_expanded.json", "fcfca9875f9b895b1d96ac11b357248ab950a972eed7b7b125e878e83b8d3dc6"),
+                 ("scan_manifest_expanded.json", "2a1d907c575e6a9c2120dbcc3deb67ad9901761275fbef4c4dd75cbf52a17cd7")),
+}
+
+
+def use_design(name):
+    """Point the run folder, selection and scan manifest at one design (workers inherit it via the environment)."""
+    global DESIGN, RUN, SCAN_MANIFEST, SCAN_MANIFEST_SHA256
+    run, (sel, sel_sha), (man, man_sha) = DESIGNS[name]
+    DESIGN, RUN = name, os.path.join(DATA_ROOT, "projects", "identity-ladder-metric", run)
+    INPUTS["selection.json"] = (os.path.join(PRIVATE, sel), sel_sha)
+    SCAN_MANIFEST, SCAN_MANIFEST_SHA256 = os.path.join(PRIVATE, man), man_sha
+    os.environ["REAL_CASES_DESIGN"] = name
+
+
+use_design(os.environ.get("REAL_CASES_DESIGN", "frozen"))
 VERSIONS = {"inpainting": "0.0.12", "torchmetrics": "1.9.0", "antspyx": "0.6.3", "nilearn": "0.13.1",
             "nibabel": "5.4.2", "numpy": "1.26.4"}
 SEGMENTERS = {
@@ -352,12 +370,17 @@ def prepare(limit, workers):
     ensure_templates()
     space()
     jobs = scan_jobs(limit)
+    def ready(i):  # a mask younger than two minutes may still be being written
+        p = os.path.join(RUN, "strip", f"scan_{i:03d}_mask.nii.gz")
+        return os.path.exists(p) and time.time() - os.path.getmtime(p) > 120
+    waiting = [i for i, _, _ in jobs if not ready(i)]
+    jobs = [j for j in jobs if j[0] not in waiting]  # masks still being made: prepared on a later call
     os.makedirs(os.path.join(RUN, "prep"), exist_ok=True)
     os.environ["ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS"] = str(max(1, 8 // workers))
     with ProcessPoolExecutor(workers) as ex:
         metas = list(ex.map(prepare_scan, jobs))
     secs = [m["registration_seconds"] for m in metas if "registration_seconds" in m]
-    print({"prepared": len(metas), "errors": sum("error" in m for m in metas),
+    print({"prepared": len(metas), "waiting_for_mask": len(waiting), "errors": sum("error" in m for m in metas),
            "registration_seconds_median": float(np.median(secs)) if secs else None})
 
 
@@ -377,7 +400,8 @@ def qc_flags(metas):
 
 
 def qc(visual_fail):
-    metas = [read_json(os.path.join(RUN, "prep", f"scan_{i:03d}.json")) for i in range(load_design()["n_scans"])]
+    n = len(read_json(INPUTS["selection.json"][0])["scans"])
+    metas = [read_json(os.path.join(RUN, "prep", f"scan_{i:03d}.json")) for i in range(n)]
     flags = qc_flags(metas)
     views = os.path.join(RUN, "qc")
     os.makedirs(views, exist_ok=True)
@@ -434,7 +458,7 @@ def robust_flags(values, k=3.0):
 
 
 def qc_table():
-    """One descriptive row per scan of the frozen selection (private: holds participant IDs)."""
+    """One descriptive row per scan of the current design's selection (private: holds participant IDs)."""
     import nibabel as nib
     sel = read_json(INPUTS["selection.json"][0])
     with open(INPUTS["participants.tsv"][0], encoding="utf-8") as f:
@@ -525,10 +549,11 @@ def dataqc():
     for scan in any_flag:
         if scan in metas:
             qc_view(int(scan[5:]), metas[scan], os.path.join(d, "thumbs", f"{scan}.png"))
-    summary_.update(generated=datetime.date.today().isoformat(), design="frozen selection (244 scans)",
+    summary_.update(generated=datetime.date.today().isoformat(), design=f"{DESIGN} selection ({len(rows)} scans)",
                     note="descriptive only; no exclusion beyond D7; flags are 3 MAD from the median or departures "
                          "from the most common acquisition value")
-    write_json(os.path.join(ROOT, "results", "real_cases_data_qc_summary.json"), summary_)
+    name = "real_cases_data_qc_summary" + ("" if DESIGN == "frozen" else f"_{DESIGN}") + ".json"
+    write_json(os.path.join(ROOT, "results", name), summary_)
     with open(os.path.join(RUN, "run_log.md"), "a", encoding="utf-8") as f:
         f.write(f"- {datetime.datetime.now().isoformat(timespec='minutes')}: data-QC report (descriptive) on "
                 f"{len(rows)} scans; {summary_['scans_with_any_flag']} scans carry at least one flag; table, flags, "
@@ -656,6 +681,183 @@ def score(workers):
                       flush=True)
     write_json(os.path.join(RUN, "plan.json"), plan)
     print({"scored_targets": len(jobs), "dropped_by_qc": plan["dropped"]})
+
+
+# ---------------------------------------------------------------------------------------------------- A1.1 expanded
+
+A11_BUDGET_S = 12 * 3600
+
+
+def seed_from_frozen():
+    """Reuse the frozen run's masks and registrations for scans shared with the expanded selection (hard links;
+    the JSON is rewritten with the expanded scan key). The same files, code and parameters, so nothing is redone."""
+    frozen_run = os.path.join(DATA_ROOT, "projects", "identity-ladder-metric", DESIGNS["frozen"][0])
+    frozen = {tuple(s): i for i, s in enumerate(read_json(os.path.join(PRIVATE, DESIGNS["frozen"][1][0]))["scans"])}
+    for sub in ("strip", "prep"):
+        os.makedirs(os.path.join(RUN, sub), exist_ok=True)
+    linked = 0
+    for j, s in enumerate(read_json(INPUTS["selection.json"][0])["scans"]):
+        i = frozen.get(tuple(s))
+        if i is None:
+            continue
+        a, b = f"scan_{i:03d}", f"scan_{j:03d}"
+        pairs = [("strip", "_mask.nii.gz")] + [("prep", x) for x in (".nii.gz", "_brain.nii.gz", "_affine.mat")]
+        for sub, suf in pairs:
+            src, dst = os.path.join(frozen_run, sub, a + suf), os.path.join(RUN, sub, b + suf)
+            if os.path.exists(src) and not os.path.exists(dst):
+                os.link(src, dst)
+        meta = os.path.join(frozen_run, "prep", a + ".json")
+        if os.path.exists(meta) and not os.path.exists(os.path.join(RUN, "prep", b + ".json")):
+            m = read_json(meta)
+            m.update(scan=b, linked_from_frozen=a)
+            write_json(os.path.join(RUN, "prep", b + ".json"), m)
+            linked += 1
+    print({"linked_from_frozen": linked})
+
+
+def load_expanded():
+    """A1.1 targets in the seeded family processing order, as scan indices (participant IDs stay inside)."""
+    sel = read_json(INPUTS["selection.json"][0])
+    key = {tuple(s): i for i, s in enumerate(sel["scans"])}
+    first = lambda p: key[(p, "ses-01")]  # noqa: E731
+    rank = {f: r for r, f in enumerate(sel["processing_order"])}
+    targets = []
+    for e in sel["targets"]:
+        rel = {}
+        if "cotwin" in e:
+            rel["cotwin"] = first(e["cotwin"])
+        if "sibling" in e:
+            rel["sibling"] = first(e["sibling"])
+        if e["repeat"]:
+            rel["repeat"] = key[(e["target"], "ses-02")]
+        targets.append({"id": f"T{rank[e['family']]:03d}", "order": rank[e["family"]], "target": first(e["target"]),
+                        "relatives": rel, "strangers": [first(p) for p in e["strangers"]]})
+    return {"n_scans": len(sel["scans"]), "targets": sorted(targets, key=lambda t: t["order"]),
+            "mean_pool": [first(p) for p in sel["mean_pool"]]}
+
+
+def assign_expanded(design, excluded):
+    """D7 on the expanded design: an excluded target drops its family; an excluded relative drops its row; excluded
+    strangers or mean-pool members are left out (counts reported)."""
+    ok = lambda i: f"scan_{i:03d}" not in excluded  # noqa: E731
+    out = {"targets": [], "dropped_targets": 0, "dropped_rows": {}, "mean_pool": [j for j in design["mean_pool"] if ok(j)]}
+    for t in design["targets"]:
+        if not ok(t["target"]):
+            out["dropped_targets"] += 1
+            continue
+        rel = {k: v for k, v in t["relatives"].items() if ok(v)}
+        for k in set(t["relatives"]) - set(rel):
+            out["dropped_rows"][k] = out["dropped_rows"].get(k, 0) + 1
+        out["targets"].append({**t, "relatives": rel, "strangers": [j for j in t["strangers"] if ok(j)]})
+    return out
+
+
+def score_target_expanded(job):
+    t, metas = job["target"], job["metas"]
+    out = os.path.join(RUN, "scores", f"{t['id']}.json")
+    if os.path.exists(out):
+        return t["id"]
+    _, brain, box, mirror = space()
+    c = _CACHE["box_wm"]
+    x = normalized(t["target"], metas[t["target"]])
+    xb = x[box]
+    mu = c[job["mean_pool"]].mean(0)
+    named = fills(xb, mu, c[t["strangers"][0]], other=mirrored_values(x, box, mirror), brain=brain[box])
+    named.update({k: c[v] for k, v in t["relatives"].items()})
+    raw, strangers = score_volume(x, box, named, {j: c[j] for j in t["strangers"]})
+    ones = np.ones(xb.shape, bool)
+    diag = {k: diagnostics(xb, v, mu, ones) for k, v in named.items()}
+    diag.update({f"stranger_{j}": diagnostics(xb, c[j], mu, ones) for j in t["strangers"]})
+    write_json(out, {"id": t["id"], "order": t["order"], "relatives": sorted(t["relatives"]),
+                     "wm": {"fills": raw, "strangers": strangers}, "diagnostics": diag, "strangers": t["strangers"]})
+    return t["id"]
+
+
+def score_expanded(workers):
+    """Score A1.1 targets in the seeded family order until all are done or the 12-hour wall budget (counted from
+    the first A1.1 preparation step, recorded in a11_start.json) runs out."""
+    from concurrent.futures import FIRST_COMPLETED, wait
+    import nibabel as nib
+    design = load_expanded()
+    plan = assign_expanded(design, excluded_scans())
+    start = read_json(os.path.join(RUN, "a11_start.json"))["epoch"]
+    metas = [read_json(os.path.join(RUN, "prep", f"scan_{i:03d}.json")) for i in range(design["n_scans"])]
+    cache_path = os.path.join(RUN, "box_cache.npz")
+    if not os.path.exists(cache_path):
+        _, _, box, _ = space()
+        arr = np.zeros((design["n_scans"], int(box.sum())), np.float32)
+        for i, m in enumerate(metas):
+            if "error" not in m:
+                raw = nib.load(os.path.join(RUN, "prep", f"scan_{i:03d}.nii.gz")).get_fdata(dtype=np.float32)
+                arr[i] = normalized(i, m, "wm", raw)[box]
+        np.savez(cache_path, box_wm=arr, box_z=arr[:1])
+    os.makedirs(os.path.join(RUN, "scores"), exist_ok=True)
+    todo = iter(plan["targets"])
+    done, stopped = 0, False
+    with ProcessPoolExecutor(workers, initializer=_init_worker, initargs=(cache_path, max(1, 8 // workers))) as ex:
+        running = set()
+        while True:
+            while len(running) < workers and not stopped:
+                if time.time() - start > A11_BUDGET_S:
+                    stopped = True
+                    break
+                t = next(todo, None)
+                if t is None:
+                    break
+                running.add(ex.submit(score_target_expanded, {"target": t, "metas": metas, "mean_pool": plan["mean_pool"]}))
+            if not running:
+                break
+            finished, running = wait(running, return_when=FIRST_COMPLETED)
+            done += len(finished)
+            for f in finished:
+                f.result()
+            if done % 20 == 0:
+                print({"scored_targets": done, "hours": round((time.time() - start) / 3600, 2)}, flush=True)
+    write_json(os.path.join(RUN, "plan.json"), {**plan, "budget_stopped": stopped, "scored": done})
+    print({"scored_targets": done, "of": len(plan["targets"]), "budget_stopped": stopped,
+           "dropped_targets": plan["dropped_targets"], "dropped_rows": plan["dropped_rows"]})
+
+
+def analyse_expanded(rows):
+    """C1-all and C2-all (sibling rows), C11 and C12 (co-twin rows), the repeat rows and every fill, as in the
+    frozen analysis; each relative row is summarised over the targets that have it."""
+    rows = restore_inf(rows)
+    per = []
+    for r in rows:
+        refs = [r["wm"]["strangers"][str(j)] for j in r["strangers"]]
+        per.append({k: {"c": c_scores(v, refs), "rho": rho(v, refs)} for k, v in r["wm"]["fills"].items()})
+    res = {"n_targets": len(rows), "strangers_min": min(len(r["strangers"]) for r in rows)}
+    fills_ = sorted({k for p in per for k in p})
+    res["c"], res["rho"], res["distance_to_mean"] = {}, {}, {}
+    for k in fills_:
+        sub = [(p, r) for p, r in zip(per, rows) if k in p]
+        idx = boot_index(len(sub))
+        res["c"][k] = {m: summary([p[k]["c"][m] for p, _ in sub], idx) for m in METRICS}
+        res["rho"][k] = summary([p[k]["rho"] for p, _ in sub], idx)
+        res["distance_to_mean"][k] = {d: summary([r["diagnostics"][k][d] for _, r in sub], idx)
+                                      for d in ("residual_ratio", "target_projection")}
+    claims = {}
+    for rel, (cm, cs) in {"sibling": ("C1-all", "C2-all"), "cotwin": ("C11", "C12"), "repeat": (None, None)}.items():
+        sub = [(p, r) for p, r in zip(per, rows) if rel in p]
+        if not sub:
+            continue
+        idx = boot_index(len(sub))
+        d = summary([p["mean"]["c"]["rmse"] - p[rel]["c"]["rmse"] for p, _ in sub], idx)
+        crel = summary([p[rel]["c"]["rmse"] for p, _ in sub], idx)
+        block = {"n_targets": len(sub), "delta_c_rmse_mean_minus_relative": d, "c_relative_rmse": crel,
+                 "rho_relative": summary([p[rel]["rho"] for p, _ in sub], idx),
+                 "share_mean_rmse_below_relative": float(np.mean(
+                     [r["wm"]["fills"]["mean"]["rmse"] < r["wm"]["fills"][rel]["rmse"] for _, r in sub]))}
+        if cm:
+            name = "the co-twin" if rel == "cotwin" else "the sibling"
+            block["label_mean_vs_relative"] = label_c1(d["ci95"]).replace("the sibling", name)
+            block["label_relative_vs_strangers"] = label_c2(crel["ci95"]).replace("the sibling", name)
+            claims[cm] = block
+            claims[cs] = {"see": cm}
+        else:
+            claims["repeat"] = block
+    claims["rho_mean_vs_model"] = {"rho_mean": res["rho"]["mean"], "model_value": 0.5 * (1 + 1 / 179)}
+    return res, claims
 
 
 # ---------------------------------------------------------------------------------------------------- statistics
@@ -1017,17 +1219,52 @@ def report():
     print(json.dumps({"C1": claims.get("C1", {}).get("label"), "C2": claims.get("C2", {}).get("label")}))
 
 
+def report_expanded():
+    hashes = guard("report")
+    rows = [read_json(os.path.join(RUN, "scores", f)) for f in sorted(os.listdir(os.path.join(RUN, "scores")))]
+    plan = read_json(os.path.join(RUN, "plan.json"))
+    qcs = read_json(os.path.join(RUN, "qc", "qc_summary.json"))
+    res, claims = analyse_expanded(rows)
+    claims["rho_mean_vs_model"]["model_value"] = 0.5 * (1 + 1 / len(plan["mean_pool"]))
+    write_json(os.path.join(ROOT, "results", "real_cases_expanded.json"), {
+        "protocol": "docs/PROTOCOL_real_cases.md, Amendment 1 (A1.1)", "dataset": "QTIM, OpenNeuro ds004169 v1.0.8 (CC0)",
+        "qc": {"scans": load_expanded()["n_scans"], "excluded": len(qcs["excluded"]),
+               "dropped_targets": plan["dropped_targets"], "dropped_rows": plan["dropped_rows"]},
+        "budget": {"hours": A11_BUDGET_S / 3600, "stopped": plan["budget_stopped"], "scored_targets": plan["scored"],
+                   "eligible_targets": len(plan["targets"])},
+        "pools": {"mean": len(plan["mean_pool"]), "strangers_per_target_min": res["strangers_min"]},
+        "claims": claims, "fills": res})
+    write_json(os.path.join(ROOT, "results", "real_cases_expanded_manifest.json"), {
+        "protocol_sha256": sha256(PROTOCOL), "protocol_commit": git("log", "-1", "--format=%H", "--", PROTOCOL),
+        "git_commit": git("rev-parse", "HEAD"), "input_sha256": hashes, "seed": SEED, "n_bootstrap": N_BOOT,
+        "code_sha256": {f: sha256(os.path.join(ROOT, "src", f)) for f in ("real_cases.py", "atlas_common.py",
+                                                                         "population_null.py", "toy_ladder.py")},
+        "versions": {**{p: version(p) for p in VERSIONS}, "python": platform.python_version()},
+        "generated": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")})
+    print(json.dumps({k: {kk: vv for kk, vv in v.items() if kk.startswith("label")} for k, v in claims.items()
+                      if k in ("C1-all", "C11")}))
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("stage", choices=["strip", "prepare", "qc", "dataqc", "segtime", "score", "label", "report"])
+    ap.add_argument("stage", choices=["seed", "strip", "prepare", "qc", "dataqc", "segtime", "score", "label",
+                                      "report"])
+    ap.add_argument("--design", choices=list(DESIGNS), default="frozen")
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--limit", type=int)
     ap.add_argument("--visual-fail", default="", help="comma-separated flagged scans with a visible failure (D7)")
     ap.add_argument("--tool", choices=list(SEGMENTERS))
     ap.add_argument("--n-l", type=int)
     a = ap.parse_args()
+    use_design(a.design)
     guard(a.stage)
-    if a.stage == "strip":
+    if DESIGN == "expanded" and a.stage in ("seed", "strip", "prepare"):
+        start = os.path.join(RUN, "a11_start.json")  # the 12-hour A1.1 budget runs from the first preparation step
+        if not os.path.exists(start):
+            write_json(start, {"epoch": time.time(), "utc": datetime.datetime.now(datetime.timezone.utc).isoformat()})
+    if a.stage == "seed":
+        seed_from_frozen()
+    elif a.stage == "strip":
         strip(a.limit)
     elif a.stage == "prepare":
         prepare(a.limit, a.workers)
@@ -1038,12 +1275,12 @@ def main():
     elif a.stage == "segtime":
         segtime()
     elif a.stage == "score":
-        score(a.workers)
+        score_expanded(a.workers) if DESIGN == "expanded" else score(a.workers)
     elif a.stage == "label":
         timing = read_json(os.path.join(RUN, "segtime", "segtime.json"))
         label(a.tool or timing["d8_choice"], a.n_l or timing["n_L"], timing["parallel"])
     else:
-        report()
+        report_expanded() if DESIGN == "expanded" else report()
 
 
 if __name__ == "__main__":

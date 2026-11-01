@@ -225,6 +225,29 @@ def test_score_target_and_analysis_run_end_to_end_on_a_toy_grid(tmp_path, monkey
     assert res["S"]["n_targets"] == 4 and "C1" in claims and "C4" not in claims
 
 
+def test_expanded_design_drops_rows_not_targets_and_labels_each_relative():
+    design = {"n_scans": 60, "mean_pool": list(range(40, 60)),
+              "targets": [{"id": f"T{k:03d}", "order": k, "target": k, "relatives": {"cotwin": 10 + k, "sibling": 20 + k},
+                           "strangers": list(range(24, 40))} for k in range(3)]}
+    plan = rc.assign_expanded(design, {"scan_000": "x", "scan_011": "x", "scan_025": "x", "scan_041": "x"})
+    assert [t["id"] for t in plan["targets"]] == ["T001", "T002"] and plan["dropped_targets"] == 1
+    assert plan["dropped_rows"] == {"cotwin": 1} and "cotwin" not in plan["targets"][0]["relatives"]
+    assert 25 not in plan["targets"][0]["strangers"] and 41 not in plan["mean_pool"]
+    rng = np.random.default_rng(8)
+    rows = []
+    for k in range(30):
+        r = fake_row("S", k, rng, 0.035)
+        r["wm"]["fills"]["cotwin"] = r["wm"]["fills"]["mean"]  # a co-twin that ties the mean
+        r["diagnostics"]["cotwin"] = r["diagnostics"]["mean"]
+        del r["wm"]["fills"]["mean20"]
+        rows.append(r)
+    res, claims = rc.analyse_expanded(rows)
+    assert claims["C1-all"]["label_mean_vs_relative"] == "the population mean outranks the sibling under RMSE"
+    assert claims["C11"]["label_mean_vs_relative"] == "no difference resolved"
+    assert claims["C11"]["label_relative_vs_strangers"] == "the co-twin is closer than a stranger"
+    assert "repeat" not in claims and res["n_targets"] == 30
+
+
 def test_guard_refuses_changed_inputs_and_missing_amendment(tmp_path, monkeypatch):
     data = tmp_path / "input.txt"
     data.write_text("frozen input")
