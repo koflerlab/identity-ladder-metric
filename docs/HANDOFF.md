@@ -1,6 +1,29 @@
-# Handoff — identity-ladder-metric (updated 2026-11-01)
+# Handoff: identity-ladder-metric (updated 2026-11-01, evening)
 
-## Start here (verified 1 Nov 2026, detailed real cases and population-null experiment complete)
+## Start here (next session)
+Load skills first: token-hygiene, data:statistical-analysis, manuscript-compliance-check (human MRI data), bib-verify (any citation), pre-commit-security (before commits), humanizer (any text under Kate's name; no em dashes).
+Follow the research discipline of `C:\Projects\02_academia\studies\icml-repro\verdict_audit`: a frozen `PROTOCOL.md` (question, inputs with SHA-256, definitions, claims under test, prespecified interpretation, sensitivity analyses kept separate from primary, evidence boundary, dated amendments), a script that refuses to run if an input hash differs, and a results `manifest.json` (protocol/code/input hashes, git commit, seed, versions). Also look there for how trackio and claims are used before choosing experiment tracking here.
+
+Scope decided by Kate (1 Nov):
+- The ISBI 2027 paper (`paper/isbi2027/`, deadline 2 Nov 23:59 ET) is ONLY about regression to the mean in inpainting evaluation, plus how other fields fight it (image restoration, weather, protein structure). The identity ladder is the NEXT paper; keep it out of ISBI.
+- Kate wants a REAL case under every synthetic result, with real metrics: (1) intensity table (repeat, other hemisphere, family member, stranger, population mean, mean with restored spread), (2) controlled shrinkage path, (3) label space with a real segmenter, (4) all nine package metrics.
+- README = project only; everything about a paper lives in its paper folder (`paper/isbi2027/README.md`). README shows case images only; plots live in `docs/figures_draft.md`.
+
+Do in this order:
+1. `docs/DATASETS.md`: every dataset used or planned, from `C:\Projects\data\_registry\datasets.json` (source, licence as recorded, local status, which rung it serves, redistribution limits; no local paths, no participant IDs).
+2. Decision trees (`docs/DECISION_TREES.md`): the analysis choices and their branches: stranger reference (matched how), mask placement and size, registration (affine vs nonlinear, template), intensity normalisation, QC exclusions, what counts as "family member" when zygosity is unknown, segmenter (FastSurfer vs SynthSeg) and its failure branch, how many targets.
+3. `docs/PROTOCOL_real_cases.md`, frozen and committed BEFORE any real-data result is computed; Kate approves it.
+4. Then run it.
+
+Facts already checked (1 Nov, evening):
+- QTIM = OpenNeuro ds004169 v1.0.8, CC0, registered as `siblings-mri` (status partial) at `brain_images/siblings`. Only 23 of 1,202 participants are local (12 with two sessions). The public release has `family_id` but NO zygosity: the real rung is "family member (co-twin or sibling)". `group` marks the test-retest (about 3.5 months, N=78) and longitudinal (4 years) subsamples. T1w is about 13 MB per scan, about 18 GB for all T1w; full release 148 GB; C: has 105 GB free. Download T1w only, with the data-root maintenance lock from `C:\Projects\data\AGENTS.md`, and update the registry.
+- Docker images present: `deepmi/fastsurfer:latest`, `freesurfer/freesurfer:8.0.0` (has mri_synthseg). No GPU; 8 CPU, 16 GB RAM: budget segmentation runs.
+- Codex's real cases (1 QTIM MRI, 1 UTIRIS iris) stay private in `C:/Projects/data/projects/identity-ladder-metric/run-2026-11-01-detail/`.
+- A background literature agent was asked to write `docs/REPRODUCTION_BACKLOG.md` (independent search, bib-verify, reproduction priorities). Check whether it exists and review it before relying on it.
+
+Done today (all pushed to GitHub, public repo): Fig. 1 fixed and kept at IEEE size; all-metrics table; H19 topology test; README rebuilt (ladder figure with bilateral and population-mean rungs, domain-shift marker, regression-to-the-mean section citing the 2023 overview and 2025 winner); ISBI draft rebuilt (4 pages, title "Fighting regression to the mean in the evaluation of brain MRI inpainting"); licences MIT + CC BY 4.0. FastSurfer observation from the challenge is unpublished: it is a `\todo` for Florian in the paper.
+
+## Earlier status (verified 1 Nov 2026, detailed real cases and population-null experiment complete)
 - **Working convention from Kate (1 Nov 2026):** use the `token-hygiene` skill; record meaningful checkpoints here and commit completed, checked changes in small logical units rather than accumulating a large uncommitted batch. Reuse saved experiment results and avoid repeating checks without a new change or unresolved concern.
 - **Detailed MRI preparation complete:** `src/real_mri_detail.py` preserves native T1 intensities (native spacing about 0.9 x 0.9375 x 0.9375 mm) on a 1-mm affine template grid. Eighteen prepared images: first atlas target + later visit, 8 reference people/families, 8 template people from 7 families. Mean uses equal family weights after the pool audit, not 8 independent-family weights. First target and all 18 aligned slices visually reviewed; no gross alignment failure, no score-based case replacement. Fixed posterior cortical ROI: MNI z=55 mm, x=[-45,-13), y=[-65,-33), all 1,024 pixels within template brain. Private output: `C:/Projects/data/projects/identity-ladder-metric/run-2026-11-01-detail/`, registered in the shared dataset registry. Code preparation checkpoint: `3fca61e`.
 - **Population-null experiment complete:** `src/population_null.py`, `results/population_null_synthetic.json`, `results/population_null_summary.csv`, `results/population_null_report.md`. Three seeds x eight independent targets per modality: 24 tissue families and 24 eye people. Five controlled shrinkage steps plus repeat, side, stranger and noise controls. Tissue at 50% residual still has mean RMSE/SSIM c=1.000; the pure mean has c=0.995/0.950. Eye mean has c=0.797/0.835. Wrong-detail noise has residual magnitude about one but target projection about zero. Source hashes, exact oracle/null endpoints, metric counts and score/rank bounds checked. Full suite: **103 passed**, 5 existing torchmetrics warnings.
