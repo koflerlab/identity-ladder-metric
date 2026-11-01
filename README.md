@@ -78,7 +78,7 @@ voxel. The expected squared error of a fill is then:
 | MZ co-twin's tissue | non-shared part only | 2V (1 - h^2) |
 
 So the mean always has half the error of a real stranger's tissue. It beats a co-twin whenever the genetic share
-h^2 < 1/2 (Proposition 5 in the ISBI draft). Squared error is minimised exactly at the conditional mean, so a network
+h^2 < 1/2. Squared error is minimised exactly at the conditional mean, so a network
 trained or selected on MSE, RMSE or PSNR is pushed towards blur by the metric itself. SSIM does the same in
 homogeneous regions through its constant C2 (Proposition 6). In the synthetic run the measured error ratio of the
 mean against a stranger is 0.50, against 0.504 predicted.
@@ -239,7 +239,7 @@ src/              experiment code, one script per experiment
 tests/            pytest suite (103 tests)
 results/          JSON/CSV outputs, reports, figures/
 docs/             research plan, experiment plan, hand-over notes
-paper/isbi2027/   make_figures.py; overleaf/ holds the LaTeX sources, ready to upload
+paper/            papers built on this project, each folder self-contained with its own README
 ```
 
 Key scripts:
@@ -276,10 +276,6 @@ python src/toy_ladder.py
 python src/population_null.py
 ```
 
-```bash
-python paper/isbi2027/make_figures.py
-```
-
 The synthetic experiments run without any data. Open-data pilots expect the datasets in the shared data root
 (`C:\Projects\data`), see `docs/Experiment_Plan_Available_Data.md`.
 
@@ -296,8 +292,6 @@ repository holds code, aggregate results and synthetic figures only.
 - Seed ranges in the reports are min/max of seed means, not confidence intervals.
 - Real-image demonstrations so far are one MRI and one iris case. No BraTS data, winner models or FastSurfer runs
   yet.
-- The ISBI 2027 draft in `paper/isbi2027/overleaf` was rebuilt on 1 Nov 2026 around the regression-to-the-mean
-  result. It is a draft: the FastSurfer statement and funding still need confirmation.
 
 ## Related documents
 
@@ -305,3 +299,8 @@ repository holds code, aggregate results and synthetic figures only.
   H19, baseline exam
 - [`docs/Experiment_Plan_Available_Data.md`](docs/Experiment_Plan_Available_Data.md): what can run on data in hand
 - [`docs/HANDOFF.md`](docs/HANDOFF.md): current state and next steps
+
+## License
+
+Code: MIT ([`LICENSE`](LICENSE)). Text, figures and results: CC BY 4.0 ([`LICENSE-CC-BY-4.0`](LICENSE-CC-BY-4.0)).
+Third-party datasets keep their own terms; this repository contains no images from them.
