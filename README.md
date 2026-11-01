@@ -29,6 +29,68 @@ use small samples. Nothing here is a validated clinical or biometric measure.
 
 ---
 
+## Why this matters: BraTS inpainting rewards regression to the mean
+
+This is the result that started the project.
+
+**What the challenge itself reports.** In the 2023 BraTS inpainting overview [1], the ranking by SSIM, RMSE and PSNR
+was clear. The top team (Ying-Weng et al.: SSIM 0.91, RMSE 0.07, PSNR 23.59) won. The authors note that apart from
+one 2D diffusion model, which had stripe artefacts in the sagittal and coronal views, the methods "produce blurry
+inpaintings across all three views". Looking at the images "painted a more faceted picture" than the ranking. They
+call for synthesis metrics that agree better with expert perception. The 2025 winner is again a U-Net trained to
+inpaint masked regions (SSIM 0.919, PSNR 26.93, RMSE 0.052 on the final test set) [2].
+
+**What the downstream check showed.** The organisers expected that segmenting the inpainted brains with FastSurfer
+would expose the blurry fills. It did the opposite: FastSurfer on the blurred fills came *closer* to the oracle
+segmentation of the real image. (Kate's account from the challenge; not yet published. A citable source is needed
+before this goes into a paper.)
+
+**Why both happen. It is arithmetic, not a bug in the models.** Write the tissue as x = mu + delta: mu is the
+population average, delta everything individual (genes, development, side, session, noise), with variance V per
+voxel. The expected squared error of a fill is then:
+
+| Fill | Error against the truth | Expected squared error |
+|---|---|---|
+| population mean mu | delta | V |
+| stranger's tissue | delta - delta' (independent) | 2V |
+| MZ co-twin's tissue | non-shared part only | 2V (1 - h^2) |
+
+So the mean always has half the error of a real stranger's tissue. It beats a co-twin whenever the genetic share
+h^2 < 1/2 (Proposition 5 in the ISBI draft). Squared error is minimised exactly at the conditional mean, so a network
+trained or selected on MSE, RMSE or PSNR is pushed towards blur by the metric itself. SSIM does the same in
+homogeneous regions through its constant C2 (Proposition 6). In the synthetic run the measured error ratio of the
+mean against a stranger is 0.50, against 0.504 predicted.
+
+Segmentation is a pointwise score too. Dice and voxel accuracy against the oracle count voxel matches, and when a fill
+carries no individual anatomy, the best guess for each voxel is the most typical label: the mode instead of the mean.
+A blurred fill pushes FastSurfer towards exactly that typical boundary. A realistic fill with someone else's folding
+puts boundaries in confident but wrong places and is penalised. So the honest fill loses twice:
+
+- in intensity, under MSE/PSNR, because of the mean;
+- in labels, under Dice against the oracle, because of the mode.
+
+A downstream check with a pointwise metric does not remove the bias. It inherits it (hypothesis H19).
+
+**What would break it.**
+
+- Treat the population mean as the floor, not the stranger. A fill means something only if it beats the mean, so
+  report its distance from the mean next to its distance from the truth.
+- Score the shape and topology of the segmentation instead of overlap. Blur simplifies folding: fewer sulci, a
+  different Euler characteristic, smoother boundaries.
+- Calibrate on the identity ladder in label space: re-scan, co-twin and stranger donor fills next to the mean.
+- Check realism at the population level: can the fill be told apart from real tissue at all?
+
+The synthetic experiments below test each step of this argument.
+
+[1] Kofler F, Meissen F, Steinbauer F, Graf R, Ehrlich SK, Reinke A, et al. The Brain Tumor Segmentation (BraTS)
+Challenge: Local Synthesis of Healthy Brain Tissue via Inpainting. arXiv:2305.08992v3, 2024.
+https://arxiv.org/abs/2305.08992
+
+[2] Zhang J, Weng Y, Chen K. Robust 3D Brain MRI Inpainting with Random Masking Augmentation. arXiv:2511.20202, 2025.
+https://arxiv.org/abs/2511.20202
+
+---
+
 ## Main finding so far: the average beats real tissue
 
 On squared-error metrics, an identity-free **population mean** fill can outrank real tissue of the same family, and
