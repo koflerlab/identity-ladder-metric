@@ -22,7 +22,7 @@ synthetic figures.
 
 | Dataset | Source | Licence as recorded | Local status | Rungs it serves | Redistribution |
 |---|---|---|---|---|---|
-| QTIM (Queensland Twin IMaging), registry id `siblings-mri` | OpenNeuro ds004169 v1.0.8, doi:10.18112/openneuro.ds004169.v1.0.8 | CC0 in the dataset's `dataset_description.json`; the registry entry still says "terms/consent to verify" and needs updating | partial: 23 of 1,202 participants local, 12 of them with two sessions; metadata complete | repeat scan (test-retest subsample, N = 78, interval about 3.5 months); later visit (longitudinal subsample, N = 62, interval about 3.5 years, adolescents); other hemisphere; family member; stranger; population mean | CC0 permits it; project rule above applies |
+| QTIM (Queensland Twin IMaging), registry id `siblings-mri` | OpenNeuro ds004169 v1.0.8, doi:10.18112/openneuro.ds004169.v1.0.8 | CC0 in the dataset's `dataset_description.json`; registry entry updated 2026-11-01 (licence, version, DOI, acquisitions with SHA-256 manifests) | partial: 244 of 1,202 participants local (278 T1w scans) after the 2026-11-01 download of the 244 frozen real-case scans and their JSON sidecars; metadata complete | repeat scan (test-retest subsample, N = 78, interval about 3.5 months); later visit (longitudinal subsample, N = 62, interval about 3.5 years, adolescents); other hemisphere; family member; stranger; population mean | CC0 permits it; project rule above applies |
 | SIMON | not recorded in the registry ("original URLs/licence must be retained") | "terms to verify" | raw present: one person, 73 sessions, 99 T1 acquisitions | same session, another day, other scanner or protocol, years later (one person only) | terms to verify: do not re-host |
 | IXI | https://brain-development.org/ixi-dataset/ | CC BY-SA 3.0, verified at the original site 2026-10-18 | raw present | strangers, other centres | allowed under CC BY-SA 3.0; project rule above applies |
 | SRPBS traveling subjects | not recorded | "agreement governed per user; no agent analysis before review" | archive present, not opened | other scanner, many people (planned) | agreement governs; no agent access until Kate reviews the terms |
@@ -39,7 +39,8 @@ QTIM facts checked against `participants.tsv`, `participants.json` and the datas
   sagittal), changed by a scanner software upgrade; the README warns that a vascular pulsation artefact varies with
   orientation. There is no same-session repeat, so the L0 rung is not available in QTIM.
 - MRIQC image quality metrics and FreeSurfer 5.3 measures are released as derivatives (not yet downloaded).
-- Local T1w: 22 first-session scans and 12 second-session scans; 12.4 MB per scan on average (34 local scans); the release has 1,342 T1w scans (1,202 first sessions, 140 second), about 17 GB at that average.
+- Local T1w before 2026-11-01: 22 first-session scans and 12 second-session scans; 12.4 MB per scan on average (34 local scans); the release has 1,342 T1w scans (1,202 first sessions, 140 second), about 17 GB at that average.
+- Downloaded 2026-11-01 (`src/real_cases_fetch.py`): the 244 T1w scans of the frozen real-case selection, 2.69 GB (11.0 MB per scan), from version-pinned snapshot 1.0.8 URLs, each verified by size and S3 ETag MD5, plus their 244 JSON sidecars for the descriptive data-QC report. SHA-256 manifests are private, next to the selection; the scan manifest hash is in `docs/PROTOCOL_real_cases.md`, Amendment 2. The expanded A1.1 set (826 scans) follows.
 
 ## Eye and iris
 
