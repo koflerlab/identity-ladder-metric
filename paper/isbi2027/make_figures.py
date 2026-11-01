@@ -33,7 +33,7 @@ STYLES = {"paper": dict(size=(7.0, 2.25), wspace=0.42, font=7, small=6, title=7,
 
 def main():
     r = json.load(open(RES, encoding="utf-8"))
-    draw(r, "paper", HERE)
+    draw(r, "paper", os.path.join(HERE, "overleaf"))
     draw(r, "display", os.path.join(HERE, "..", "..", "results", "figures"))
 
 
