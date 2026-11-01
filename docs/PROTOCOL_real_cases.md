@@ -236,6 +236,22 @@ analysis next to it; it does not replace the primary.
   from the same `participants.tsv`, seed 20261101: 287 targets, 260 with a co-twin, 49 with a sibling, 22 with both,
   24 with a repeat scan; mean pool 179; 826 scans.
 
+**A1.6 Data-QC report (2026-11-01, 21:35 +04, before any fill is scored).** Kate asked for a descriptive report on
+every downloaded scan ("Yes, add QC report", relayed). It changes nothing in the analysis and excludes nothing
+beyond D7; an exclusion it suggests goes to Kate as a proposed amendment, decided before any fill is scored.
+
+- Per scan: BIDS sidecar fields (TR, TE, TI, flip angle, field strength, scanner model, software version);
+  acquisition orientation from `participants.tsv`; header facts (voxel size, matrix, orientation code, data type,
+  count of non-finite voxels); SynthStrip brain-mask volume; N4-corrected intensity percentiles 1, 5, 50, 95 and 99
+  inside the mask, raw and relative to the white-matter peak; the native white-matter peak; an SNR proxy (mean of
+  voxels within 10% of the white-matter peak over the standard deviation of non-zero background below the Otsu
+  threshold, more than 10 mm outside the brain); template correlation; box coverage in the scan's own mask.
+- Flags: more than 3 MAD from the median on any variable; any departure from the most common acquisition value.
+- Outputs: per-scan table, histogram overlay and thumbnails of flagged scans in the private run folder
+  (`real-cases-run/data_qc/`); an aggregate summary without IDs in `results/real_cases_data_qc_summary.json`.
+- The T1w JSON sidecars of the 244 scans are fetched under the same data-root lock, with their own manifest
+  (`sidecar_manifest.json`, private).
+
 **A1.4 Consequence for the paper (not an analysis).** Proposition 2 is a one-line remark; the contribution is the
 measured answer to when and where Dice falls into the mode trap (A1.2, A1.3).
 
