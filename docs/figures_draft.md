@@ -7,7 +7,7 @@ named in the heading.
 
 ![Fig. 1](../results/figures/fig_ladder.png)
 
-(a) Closed form E c = P(F_{D,D} > rho) against simulation, D = 8 and 32. (b) Synthetic 2D tissue, genetic share 0.19,
+(a) Closed form $E,c = P(F_{D,D} > ho)$ against simulation, D = 8 and 32. (b) Synthetic 2D tissue, genetic share 0.19,
 32 x 32 mask, RMSE and SSIM from the official BraTS code; filled marks contrast 1, open marks contrast 0.1.
 
 ## Step-by-step shrinkage to the mean (`src/rebuild_visuals.py`)
