@@ -31,10 +31,43 @@ STYLES = {"paper": dict(size=(7.0, 2.25), wspace=0.42, font=7, small=6, title=7,
           "display": dict(size=(13.6, 5.6), wspace=0.47, font=11, small=10, title=13, legend=10, anchor=1.10, lw=2, dot=35, mark=44, dpi=180)}
 
 
+CASE_COLUMNS = [("shrink_1", "target"), ("repeat", "repeat capture"), ("later", "later visit"),
+                ("other_side", "other hemisphere"), ("stranger", "stranger"), ("shrink_0", "population mean")]
+
+
 def main():
     r = json.load(open(RES, encoding="utf-8"))
     draw(r, "paper", os.path.join(HERE, "overleaf"))
     draw(r, "display", os.path.join(HERE, "..", "..", "results", "figures"))
+    cases(os.path.join(HERE, "overleaf"))
+
+
+def cases(dest):
+    """Fig. 1 at two-column width from the saved synthetic example (results/null_example_tissue.npz); no new run."""
+    import label_ladder as ll
+    import rebuild_visuals as rv
+    from matplotlib.patches import Rectangle
+    data, values, _, roi, display = rv.load("tissue")
+    target, mask = data["target"], data["mask"]
+    y0, y1, x0, x1 = roi
+    plt.rcParams["font.size"] = 7
+    fig, axes = plt.subplots(3, len(CASE_COLUMNS), figsize=(7.0, 3.9), gridspec_kw={"wspace": 0.05, "hspace": 0.05})
+    for j, (name, title) in enumerate(CASE_COLUMNS):
+        fill = np.where(mask, data[name], target)
+        axes[0, j].imshow(fill, cmap="gray", vmin=display[0], vmax=display[1], interpolation="nearest")
+        axes[0, j].add_patch(Rectangle((x0 - .5, y0 - .5), x1 - x0, y1 - y0, fill=False, ec=ORANGE, lw=0.8))
+        axes[1, j].imshow(fill[y0:y1, x0:x1], cmap="gray", vmin=display[0], vmax=display[1], interpolation="nearest")
+        axes[2, j].imshow(ll.segment(fill)[y0:y1, x0:x1], cmap="gray", vmin=0, vmax=1, interpolation="nearest")
+        axes[0, j].set_title(title, fontsize=7, color=ORANGE if name == "shrink_0" else INK, pad=3)
+        d = values[name]["mean_control"]
+        axes[2, j].set_xlabel(f"distance to mean {d['residual_ratio']:.2f}\ntarget projection {d['target_projection']:.2f}",
+                              fontsize=6.5)
+        for ax in axes[:, j]:
+            ax.set(xticks=[], yticks=[])
+    for ax, text in zip(axes[:, 0], ("fill in context", "filled region", "segmentation")):
+        ax.set_ylabel(text, fontsize=7)
+    fig.savefig(os.path.join(dest, "fig_cases.pdf"), bbox_inches="tight")
+    plt.close(fig)
 
 
 def draw(r, style, dest):

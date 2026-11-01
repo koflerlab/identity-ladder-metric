@@ -22,10 +22,10 @@ python paper/isbi2027/make_figures.py
 latexmk -pdf -cd paper/isbi2027/overleaf/main.tex
 ```
 
-`overleaf/fig_cases.pdf` is a copy of `results/figures/visual_tissue_rebuilt.pdf` (made by `src/rebuild_visuals.py`).
+`overleaf/fig_cases.pdf` is drawn by `make_figures.py` from the saved example `results/null_example_tissue.npz` (no new run).
 
 ## Open before submission (deadline 2 Nov 2026, 23:59 ET)
 
-- FastSurfer sentence in the introduction: Florian to confirm whether it can be stated.
+- Downstream U-Net sentence in the introduction: Florian to confirm whether it can be stated.
 - Funding and conflicts of interest.
 - Real-data cases next to each synthetic result (protocol pending).
