@@ -24,8 +24,9 @@ ORCID: E.~Kondrateva 0000-0003-3623-6106; F.~Kofler 0000-0003-0642-7884}
 \maketitle
 
 \begin{abstract}
-Healthy-tissue inpainting in brain MRI is ranked by SSIM, PSNR and RMSE, and top-ranked methods in the BraTS inpainting challenge produce visibly blurred fills.
-We show that this is what the metrics ask for.
+The BraTS inpainting challenge ranks algorithms for healthy-tissue inpainting in brain MRI by SSIM, PSNR and RMSE.
+Even top-ranked challenge algorithms produce visibly blurred infills.
+We demonstrate that this is a consequence of the ranking metrics.
 Writing tissue as a population mean plus an individual part, the mean fill has half the expected squared error of another person's tissue and also beats a sibling's tissue, although the sibling shares part of the individual anatomy and the mean shares none of it.
 Pointwise label agreement has the same property with the mode in place of the mean, so a downstream segmentation scored by Dice against the oracle inherits the bias instead of exposing it.
 On synthetic tissue scored with the official challenge code, the identity-free mean scores $c\ge0.97$ against stranger fills under all nine metrics of the package, and a fill that keeps only half of the individual signal is indistinguishable from the truth.
