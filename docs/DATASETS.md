@@ -29,7 +29,7 @@ QTIM facts checked against `participants.tsv`, `participants.json` and the datas
   sagittal), changed by a scanner software upgrade; the README warns that a vascular pulsation artefact varies with
   orientation. There is no same-session repeat, so the L0 rung is not available in QTIM.
 - MRIQC image quality metrics and FreeSurfer 5.3 measures are released as derivatives (not yet downloaded).
-- Local T1w: 22 first-session scans and 12 second-session scans; 12.4 MB per scan on average (34 local scans), so about 18 GB for all T1w scans of the release.
+- Local T1w: 22 first-session scans and 12 second-session scans; 12.4 MB per scan on average (34 local scans); the release has 1,342 T1w scans (1,202 first sessions, 140 second), about 17 GB at that average.
 
 ## Eye and iris
 
