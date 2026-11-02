@@ -368,6 +368,23 @@ box, QC and the data-QC report done; no fill made or scored on any box.
 - Segmenter timing, the D8 choice and n_L are measured and recorded before any label-space fill is segmented (D8),
   after the intensity arms in the A1.7 order.
 
+### Amendment 3: implementation error in the white-matter peak (2026-11-02, about 10:05 +04, AFTER the first results)
+
+Found after the first results of both boxes were computed (commit 93de63d) and relayed to Kate, while checking an
+implausible sensitivity result (the 20-scan mean closer to targets than the 60-scan mean). The run session traced it
+to the white-matter-peak rule of part A (highest histogram peak with prominence at least 5% of the tallest): in 77 of
+244 scans white matter forms a broad shoulder without prominence, so the rule took the grey-matter peak, and those
+scans were scaled by their grey-matter level (box mean about 1.5 to 2.1 instead of about 0.89). Native and template
+estimates agree, so the rule failed, not the registration. Affected by role: set S targets 17, siblings 16, set R
+targets 11, repeats 11, strangers 10, mean pool 12.
+
+- Consequence: every c, rho and label in 93de63d that uses the white-matter scale is invalid, for both boxes. That
+  run stays in the repository, marked withdrawn, and is not cited as a result.
+- The protocol's definition (Definitions: "upper mode of the intensity histogram inside the template brain mask, box
+  excluded") is unchanged. The implementation did not meet it.
+- Fix: to be approved by Kate before any rescoring, and recorded here. The corrected run is labelled a post hoc
+  correction of an implementation error.
+
 ### Amendment 2 (planned, before any fill is scored)
 
 Scan manifest hashes after download (the original 244 and the expanded 826); the expanded selection file and its
