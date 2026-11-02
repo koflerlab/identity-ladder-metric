@@ -105,3 +105,17 @@ def test_score_dataset_end_to_end_on_toy_images(tmp_path):
     assert diag.loc[0.5, "target_projection"] == pytest.approx(0.5 * diag.loc[1.0, "target_projection"])
     agg = L.aggregate(df)
     assert agg["TOY"]["rungs"]["P | primary"]["same_eye_same_sitting"]["lambda=1"]["mean"] == 1.0
+
+
+def test_interpret_labels_only_the_time_and_camera_contrasts():
+    ci = {"mean": 0.9, "ci95": [0.8, 0.95]}
+    rungs = {f"{r} | primary": {"same_camera_<1y": {"lambda=1": ci}} for r in ("P", "D", "N")}
+    contrasts = {"same_camera_<1y": {f"{r} minus N (own)": ci for r in ("P", "D")} |
+                 {f"{r} mean minus own": {"mean": -0.1, "ci95": [-0.2, -0.05]} for r in ("P", "D")}}
+    diffs = {"same_camera_<1y minus other_camera | P": {"diff": 0.1, "ci95": [0.02, 0.2]},
+             "fellow_eye_same_visit minus same_camera_<1y | P": {"diff": -0.2, "ci95": [-0.3, -0.1]}}
+    lab = L.interpret({"GRAPE": {"rungs": rungs, "contrasts": contrasts, "rung_differences": diffs}})["GRAPE"]
+    assert lab["same_camera_<1y minus other_camera | P"] == "lowers the score"
+    assert "fellow_eye_same_visit minus same_camera_<1y | P" not in lab
+    assert lab["same_camera_<1y | P identity persists"] and lab["same_camera_<1y | nuisance-driven"]
+    assert lab["same_camera_<1y | P mean"] == "places the mean below the person"

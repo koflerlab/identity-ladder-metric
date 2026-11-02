@@ -378,7 +378,8 @@ def interpret(agg: dict) -> dict:
             n = r["rungs"]["N | primary"][rung]["lambda=1"]["ci95"]
             L[f"{rung} | nuisance-driven"] = bool(n[0] > 0.5)
         for name, d in r["rung_differences"].items():
-            L[name] = "lowers the score" if d["ci95"][0] > 0 else "no detectable effect"
+            if not name.startswith("fellow"):  # C2 only; the protocol gives the C3 (bilateral) contrast no label
+                L[name] = "lowers the score" if d["ci95"][0] > 0 else "no detectable effect"
         if ds == "GRAPE" and "same_camera_1y+" in r["contrasts"]:
             p_lab, v_lab = L.get("same_camera_1y+ | P mean"), L.get("same_camera_1y+ | V_dice mean")
             L["label space penalises the mean (primary rung)"] = bool(
@@ -389,7 +390,14 @@ def interpret(agg: dict) -> dict:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=0, help="first n pairs per dataset (timing only; no results written)")
+    ap.add_argument("--from-scores", action="store_true",
+                    help="re-aggregate the saved private pair_scores.csv (no image read, no score recomputed)")
     a = ap.parse_args()
+    if a.from_scores:
+        guard()
+        df = pd.read_csv(os.path.join(sel.OUT_DIR, "pair_scores.csv"), low_memory=False)
+        write_results(df, note="re-aggregated from the saved pair scores")
+        return
     t0 = time.time()
     hashes = guard()
     dino = Dino()
@@ -422,13 +430,23 @@ def main():
     df.to_csv(os.path.join(private, "pair_scores.csv"), index=False)
     with open(os.path.join(private, "image_sha256.json"), "w", encoding="utf-8") as fh:
         json.dump(image_hashes, fh, indent=0, sort_keys=True)
+    write_results(df)
+    write_manifest(hashes, image_hashes, t0)
+
+
+def write_results(df: pd.DataFrame, note: str = "") -> None:
     agg = aggregate(df)
     out = {"protocol": "docs/PROTOCOL_2d_ladder.md (frozen)", "seed": SEED, "n_boot": N_BOOT,
            "note": "c = P(d_stranger > d) + half ties against the pair's nuisance-matched strangers; lambda=1 own image, "
                    "lambda=0 population mean of 16 matched strangers; intervals are person-cluster bootstrap 95%",
+           "aggregation": note or "computed in the scoring run",
            "results": agg, "prespecified_labels": interpret(agg)}
     with open(os.path.join(PROJECT, "results", "ladder2d.json"), "w", encoding="utf-8") as fh:
         json.dump(out, fh, indent=1)
+    print(json.dumps(out["prespecified_labels"], indent=1))
+
+
+def write_manifest(hashes: dict, image_hashes: dict, t0: float) -> None:
     import skimage
     import torch
     import transformers
@@ -447,7 +465,6 @@ def main():
                 "private_outputs": "data root, projects/identity-ladder-metric/run-2026-11-02-2d-ladder"}
     with open(os.path.join(PROJECT, "results", "ladder2d_manifest.json"), "w", encoding="utf-8") as fh:
         json.dump(manifest, fh, indent=1)
-    print(json.dumps(out["prespecified_labels"], indent=1))
 
 
 if __name__ == "__main__":
