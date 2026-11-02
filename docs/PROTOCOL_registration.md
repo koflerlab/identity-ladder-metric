@@ -245,6 +245,49 @@ exemption determination for this secondary use: `[to confirm with Kate]`. Real i
 transforms, overlays and per-pair values never enter this public repository. Downloads (FIRE, SpeakingFaces) only
 under the storage-maintenance lock and with Kate's approval.
 
+## Amendment 1 (2 Nov 2026): implementation details, before any quality metric was computed
+
+Fixed while writing the code, after timing the operations on eight GRAPE images (time only, no metric). Nothing below
+changes a method, metric or decision rule; it settles what the frozen text left open.
+
+- Common form of every method: a mapping from the output grid to the coordinates of the raw image (GRAPE: the
+  512 base image; iris: the working image of `iris_codes`, width 320; I0 maps the 224 base crop to the working image),
+  the output image, a valid mask (GRAPE: red channel above 0.1; iris: non-zero canvas) and a failure reason. Q1a and
+  the iris Q1b distances are measured in raw pixels and rescaled to a 224 grid of the raw image (x 224/512 GRAPE,
+  x 224/320 iris), one unit for every method of a dataset. GRAPE Q1b landmark errors are measured on the output images
+  (512 for every method) and rescaled x 224/512.
+- Harmonisation reference (H1, H2): "50 images from people outside every selected pair" cannot be met, because every
+  image of the universe enters some pair as a stranger or mean member. The reference is 50 images drawn with the seed
+  from the whole dataset, one fixed reference for every image (per dataset for iris); it is never the anchor.
+- H1 on iris: histogram matching over the whole valid canonical region, not the annulus, because UPOL has no limbus.
+- Q1a: one random transform per image (seed plus image index); 16 x 16 grid inside the valid region of the anchor's
+  output; the anchor is the original image and the moving image is its moved copy, for per-image and pairwise methods
+  alike. Error per point = distance in raw coordinates between where the moved image's mapping lands after undoing
+  the known motion and where the original's mapping lands.
+- Q1b, fundus: vessel maps (primary 12% threshold) computed once per raw 512 image and carried through each mapping
+  (nearest neighbour); the ring is centred on the disc found on the anchor's output image, radius from its field of
+  view. Disc and fovea errors from `fundus_landmarks` on the output images, reported for every method and used as a
+  held-out structure for G2 to G4 only. Iris: pupil centre from `pupil_blob`, limbus centre from `segment`, both on
+  the raw working image, carried into the anchor's raw coordinates through the mappings. Q1b is not available for I2
+  on UPOL (no limbus) or for I3 and I4 (no structure left out of the fit); those cells are ranked on Q1a only.
+- I3 and I4: the unwrapped image is 64 x 256; its P representation is the unwrapped image resized to 64 x 64 (BOX),
+  z-scored, and its Q1c patch is the whole unwrapped image. I0 patch: the centred square (2D Amendment 1); I1, I2,
+  I5, H1: the iris box of 2D Amendment 2.
+- Q3c: per pair, one reference stranger drawn with the seed is passed through the candidate code path and scored
+  against the reference without that person. Q1d: own candidate, the null stranger and the first five reference
+  strangers of each pair. Q3d: the pair's reference stays the same strangers, re-registered and scored against the
+  new anchor. Q3e: same-eye pairs only; the candidate array is reflected, the reflection is recorded and undone by
+  exact index reversal before the method runs.
+- Fellow-eye pairs: the raw arrays of the candidate, every stranger, every mean member and the null stranger are
+  reflected before any method runs, as in 2D Amendment 1.
+- ECC: grey float images, mask = joint valid region, `gaussFiltSize` 5; failure if OpenCV raises, or the update moves
+  more than 10 px or rotates more than 5 degrees (224 grid for iris, 512 for GRAPE). G4 reuses the G3 result of the
+  same pair: DIS flow from the G3 output to the anchor output, each component smoothed (sigma 8), failure if any
+  Jacobian determinant of x + u(x) is at most 0 inside the joint field of view; Q1e on that field. G2: failure also
+  when `estimateAffinePartial2D` returns nothing.
+- N is standardised with the mean and SD over the anchors' outputs of the method. Four worker processes, OpenCV one
+  thread each.
+
 ## References
 
 1. Hernandez-Matas C, Zabulis X, Triantafyllou A, Anyfanti P, Douma S, Argyros AA. FIRE: fundus image registration dataset. Model Artif Intell Ophthalmol. 2017;1(4):16-28. doi:10.35119/maio.v1i4.42
