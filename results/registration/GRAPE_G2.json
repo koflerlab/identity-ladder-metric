@@ -1,0 +1,297 @@
+{
+ "dataset": "GRAPE",
+ "method": "G2",
+ "frame": "",
+ "n_pairs": 437,
+ "n_dropped": {
+  "anchor": 0,
+  "candidate": 122,
+  "few strangers": 315,
+  "few members": 0
+ },
+ "failure": {
+  "anchor": {
+   "fail": 0,
+   "attempts": 437,
+   "rate": 0.0
+  },
+  "own": {
+   "fail": 3,
+   "attempts": 318,
+   "rate": 0.009433962264150943
+  },
+  "fellow": {
+   "fail": 119,
+   "attempts": 119,
+   "rate": 1.0
+  },
+  "strangers": {
+   "fail": 26608,
+   "attempts": 26608,
+   "rate": 1.0
+  },
+  "members": {
+   "fail": 6992,
+   "attempts": 6992,
+   "rate": 1.0
+  }
+ },
+ "accuracy": {
+  "q1a_candidate": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "q1a_strangers": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "q1a_members": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "q1a_null": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  }
+ },
+ "fairness": {
+  "Q3a_strangers_minus_own": {
+   "mean": 0.9905660377358491,
+   "ci95": [
+    0.9735099337748344,
+    1.0
+   ],
+   "median": 1.0,
+   "n": 318
+  },
+  "Q3a_members_minus_own": {
+   "mean": 0.9905660377358491,
+   "ci95": [
+    0.9735099337748344,
+    1.0
+   ],
+   "median": 1.0,
+   "n": 318
+  },
+  "Q3a_fellow_minus_own": {
+   "diff": 0.9905660377358491,
+   "ci95": [
+    0.974839929160139,
+    1.0
+   ]
+  },
+  "Q3b_q1a_strangers_minus_own": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "Q3b_q1a_fellow_minus_own": {
+   "diff": null,
+   "ci95": [
+    null,
+    null
+   ]
+  },
+  "Q3b_disc_strangers_minus_own": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "Q3b_disc_fellow_minus_own": {
+   "diff": null,
+   "ci95": [
+    null,
+    null
+   ]
+  },
+  "Q3b_fovea_strangers_minus_own": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "Q3b_fovea_fellow_minus_own": {
+   "diff": null,
+   "ci95": [
+    null,
+    null
+   ]
+  },
+  "Q3c_null_c": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "Q3d_swap_minus_own": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "Q3e_reflect_minus_own": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "vessel_dice_own_minus_strangers": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  }
+ },
+ "eligibility": {
+  "eligible": false,
+  "biased": true,
+  "reasons": [
+   "failure fellow 1.000 > 0.1",
+   "failure strangers 1.000 > 0.1",
+   "failure members 1.000 > 0.1",
+   "Q3a_strangers_minus_own lower bound 0.974 > 0.05",
+   "Q3a_members_minus_own lower bound 0.974 > 0.05",
+   "Q3a_fellow_minus_own lower bound 0.975 > 0.05"
+  ]
+ },
+ "rank": {
+  "key": "q1a_candidate",
+  "value": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "higher_is_better": false
+ },
+ "downstream": {
+  "c_own_P": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_fellow_P": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_mean_P": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_mean_minus_own_P": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_own_minus_fellow_P": {
+   "diff": null,
+   "ci95": [
+    null,
+    null
+   ]
+  },
+  "c_own_N": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_fellow_N": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_mean_N": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_mean_minus_own_N": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_own_minus_fellow_N": {
+   "diff": null,
+   "ci95": [
+    null,
+    null
+   ]
+  },
+  "c_own_P_minus_none": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_mean_P_minus_none": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  }
+ }
+}

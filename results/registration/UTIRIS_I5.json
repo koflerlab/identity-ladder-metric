@@ -1,0 +1,450 @@
+{
+ "dataset": "UTIRIS",
+ "method": "I5",
+ "frame": "I1",
+ "n_pairs": 234,
+ "n_dropped": {
+  "anchor": 14,
+  "candidate": 78,
+  "few strangers": 141,
+  "few members": 0
+ },
+ "failure": {
+  "anchor": {
+   "fail": 14,
+   "attempts": 234,
+   "rate": 0.05982905982905983
+  },
+  "own": {
+   "fail": 37,
+   "attempts": 148,
+   "rate": 0.25
+  },
+  "fellow": {
+   "fail": 41,
+   "attempts": 72,
+   "rate": 0.5694444444444444
+  },
+  "strangers": {
+   "fail": 10207,
+   "attempts": 13420,
+   "rate": 0.7605812220566319
+  },
+  "members": {
+   "fail": 2658,
+   "attempts": 3520,
+   "rate": 0.7551136363636364
+  }
+ },
+ "accuracy": {
+  "q1a_candidate": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "q1b_pupil_candidate": {
+   "mean": 1.1098913345960761,
+   "ci95": [
+    1.1098913345960761,
+    1.1098913345960761
+   ],
+   "median": 1.1098913345960761,
+   "n": 1
+  },
+  "q1b_limbus_candidate": {
+   "mean": 1.489885907352077,
+   "ci95": [
+    1.489885907352077,
+    1.489885907352077
+   ],
+   "median": 1.489885907352077,
+   "n": 1
+  },
+  "q1c_candidate": {
+   "mean": 0.9712571142215268,
+   "ci95": [
+    0.9712571142215268,
+    0.9712571142215268
+   ],
+   "median": 0.9712571142215268,
+   "n": 1
+  },
+  "coverage_candidate": {
+   "mean": 1.0,
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "median": 1.0,
+   "n": 1
+  },
+  "q1d_candidate": {
+   "mean": 0.33876641407499225,
+   "ci95": [
+    0.33876641407499225,
+    0.33876641407499225
+   ],
+   "median": 0.33876641407499225,
+   "n": 1
+  },
+  "coverage_lt95_share_candidate": {
+   "mean": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "median": 0.0,
+   "n": 1
+  },
+  "q1a_strangers": {
+   "mean": 0.22322460849887593,
+   "ci95": [
+    0.22322460849887593,
+    0.22322460849887593
+   ],
+   "median": 0.22322460849887593,
+   "n": 1
+  },
+  "q1b_pupil_strangers": {
+   "mean": 3.546059050417303,
+   "ci95": [
+    3.546059050417303,
+    3.546059050417303
+   ],
+   "median": 3.546059050417303,
+   "n": 1
+  },
+  "q1b_limbus_strangers": {
+   "mean": 3.7181265929852176,
+   "ci95": [
+    3.7181265929852176,
+    3.7181265929852176
+   ],
+   "median": 3.7181265929852176,
+   "n": 1
+  },
+  "q1c_strangers": {
+   "mean": 0.7205539942467478,
+   "ci95": [
+    0.7205539942467478,
+    0.7205539942467478
+   ],
+   "median": 0.7205539942467478,
+   "n": 1
+  },
+  "coverage_strangers": {
+   "mean": 1.0,
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "median": 1.0,
+   "n": 1
+  },
+  "q1d_strangers": {
+   "mean": 0.3462655517554229,
+   "ci95": [
+    0.3462655517554229,
+    0.3462655517554229
+   ],
+   "median": 0.3462655517554229,
+   "n": 1
+  },
+  "coverage_lt95_share_strangers": {
+   "mean": 0.1,
+   "ci95": [
+    0.1,
+    0.1
+   ],
+   "median": 0.1,
+   "n": 1
+  },
+  "q1a_members": {
+   "mean": 0.24794672794954747,
+   "ci95": [
+    0.24794672794954747,
+    0.24794672794954747
+   ],
+   "median": 0.24794672794954747,
+   "n": 1
+  },
+  "q1b_pupil_members": {
+   "mean": 3.0164497858232586,
+   "ci95": [
+    3.0164497858232586,
+    3.0164497858232586
+   ],
+   "median": 3.0164497858232586,
+   "n": 1
+  },
+  "q1b_limbus_members": {
+   "mean": 3.718569775438417,
+   "ci95": [
+    3.718569775438417,
+    3.718569775438417
+   ],
+   "median": 3.718569775438417,
+   "n": 1
+  },
+  "q1c_members": {
+   "mean": 0.6591796567927253,
+   "ci95": [
+    0.6591796567927253,
+    0.6591796567927253
+   ],
+   "median": 0.6591796567927253,
+   "n": 1
+  },
+  "coverage_members": {
+   "mean": 1.0,
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "median": 1.0,
+   "n": 1
+  },
+  "coverage_lt95_share_members": {
+   "mean": 0.125,
+   "ci95": [
+    0.125,
+    0.125
+   ],
+   "median": 0.125,
+   "n": 1
+  },
+  "q1a_null": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  }
+ },
+ "fairness": {
+  "Q3a_strangers_minus_own": {
+   "mean": 0.5070890562693842,
+   "ci95": [
+    0.4458472175755548,
+    0.5702320595433149
+   ],
+   "median": 0.6967213114754098,
+   "n": 148
+  },
+  "Q3a_members_minus_own": {
+   "mean": 0.5050675675675675,
+   "ci95": [
+    0.4395833333333333,
+    0.571004857422421
+   ],
+   "median": 0.6875,
+   "n": 148
+  },
+  "Q3a_fellow_minus_own": {
+   "diff": 0.3194444444444444,
+   "ci95": [
+    0.19235509343533905,
+    0.4477274068247404
+   ]
+  },
+  "Q3b_q1a_strangers_minus_own": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "Q3b_q1a_fellow_minus_own": {
+   "diff": null,
+   "ci95": [
+    null,
+    null
+   ]
+  },
+  "Q3b_pupil_strangers_minus_own": {
+   "mean": 2.4361677158212265,
+   "ci95": [
+    2.4361677158212265,
+    2.4361677158212265
+   ],
+   "median": 2.4361677158212265,
+   "n": 1
+  },
+  "Q3b_pupil_fellow_minus_own": {
+   "diff": null,
+   "ci95": [
+    null,
+    null
+   ]
+  },
+  "Q3c_null_c": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "Q3d_swap_minus_own": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "Q3e_reflect_minus_own": {
+   "mean": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "median": 0.0,
+   "n": 1
+  },
+  "vessel_dice_own_minus_strangers": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  }
+ },
+ "eligibility": {
+  "eligible": false,
+  "biased": true,
+  "reasons": [
+   "failure own 0.250 > 0.1",
+   "failure fellow 0.569 > 0.1",
+   "failure strangers 0.761 > 0.1",
+   "failure members 0.755 > 0.1",
+   "Q3a_strangers_minus_own lower bound 0.446 > 0.05",
+   "Q3a_members_minus_own lower bound 0.440 > 0.05",
+   "Q3a_fellow_minus_own lower bound 0.192 > 0.05",
+   "Q3b pupil strangers minus own lower bound 2.44 px > 1.0"
+  ]
+ },
+ "rank": {
+  "key": "q1b_pupil_candidate",
+  "value": {
+   "mean": 1.1098913345960761,
+   "ci95": [
+    1.1098913345960761,
+    1.1098913345960761
+   ],
+   "median": 1.1098913345960761,
+   "n": 1
+  },
+  "higher_is_better": false
+ },
+ "downstream": {
+  "c_own_P": {
+   "mean": 0.9,
+   "ci95": [
+    0.9,
+    0.9
+   ],
+   "median": 0.9,
+   "n": 1
+  },
+  "c_fellow_P": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_mean_P": {
+   "mean": 0.7666666666666667,
+   "ci95": [
+    0.7666666666666667,
+    0.7666666666666667
+   ],
+   "median": 0.7666666666666667,
+   "n": 1
+  },
+  "c_mean_minus_own_P": {
+   "mean": -0.1333333333333333,
+   "ci95": [
+    -0.1333333333333333,
+    -0.1333333333333333
+   ],
+   "median": -0.1333333333333333,
+   "n": 1
+  },
+  "c_own_minus_fellow_P": {
+   "diff": null,
+   "ci95": [
+    null,
+    null
+   ]
+  },
+  "c_own_N": {
+   "mean": 1.0,
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "median": 1.0,
+   "n": 1
+  },
+  "c_fellow_N": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_mean_N": {
+   "mean": 0.06666666666666667,
+   "ci95": [
+    0.06666666666666667,
+    0.06666666666666667
+   ],
+   "median": 0.06666666666666667,
+   "n": 1
+  },
+  "c_mean_minus_own_N": {
+   "mean": -0.9333333333333333,
+   "ci95": [
+    -0.9333333333333333,
+    -0.9333333333333333
+   ],
+   "median": -0.9333333333333333,
+   "n": 1
+  },
+  "c_own_minus_fellow_N": {
+   "diff": null,
+   "ci95": [
+    null,
+    null
+   ]
+  },
+  "c_own_P_minus_none": {
+   "mean": -0.09999999999999998,
+   "ci95": [
+    -0.09999999999999998,
+    -0.09999999999999998
+   ],
+   "median": -0.09999999999999998,
+   "n": 1
+  },
+  "c_mean_P_minus_none": {
+   "mean": -0.09999999999999998,
+   "ci95": [
+    -0.09999999999999998,
+    -0.09999999999999998
+   ],
+   "median": -0.09999999999999998,
+   "n": 1
+  }
+ }
+}
