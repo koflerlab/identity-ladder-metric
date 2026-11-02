@@ -1,0 +1,208 @@
+{
+ "box_coverage_below_95": 0,
+ "categorical": {
+  "acq_orientation": {
+   "departing_from_mode": 0,
+   "values": {
+    "1": 244
+   }
+  },
+  "dtype": {
+   "departing_from_mode": 0,
+   "values": {
+    "float32": 244
+   }
+  },
+  "field_t": {
+   "departing_from_mode": 0,
+   "values": {
+    "3.95064": 244
+   }
+  },
+  "flip_deg": {
+   "departing_from_mode": 4,
+   "values": {
+    "15": 4,
+    "8": 240
+   }
+  },
+  "matrix": {
+   "departing_from_mode": 5,
+   "values": {
+    "240x256x256": 4,
+    "256x240x256": 1,
+    "256x256x256": 239
+   }
+  },
+  "orientation": {
+   "departing_from_mode": 0,
+   "values": {
+    "RAS": 244
+   }
+  },
+  "scanner": {
+   "departing_from_mode": 5,
+   "values": {
+    "MedSpec_4T": 239,
+    "Trio": 5
+   }
+  },
+  "software": {
+   "departing_from_mode": 5,
+   "values": {
+    "syngo_MR_2002B_4VA21A": 239,
+    "syngo_MR_2004A_4VA25A": 5
+   }
+  },
+  "te_s": {
+   "departing_from_mode": 4,
+   "values": {
+    "0.00335": 240,
+    "0.00393": 4
+   }
+  },
+  "ti_s": {
+   "departing_from_mode": 4,
+   "values": {
+    "0.7": 240,
+    "1.1": 4
+   }
+  },
+  "tr_s": {
+   "departing_from_mode": 4,
+   "values": {
+    "1.5": 240,
+    "2.5": 4
+   }
+  },
+  "voxel_mm": {
+   "departing_from_mode": 4,
+   "values": {
+    "0.9375x0.9x0.9375": 240,
+    "0.9x0.9375x0.9375": 4
+   }
+  }
+ },
+ "continuous": {
+  "box_in_own_brain": {
+   "flagged_3mad": 0,
+   "max": 1.0,
+   "median": 1.0,
+   "min": 1.0,
+   "n": 244
+  },
+  "mask_ml": {
+   "flagged_3mad": 4,
+   "max": 2108.318410945509,
+   "median": 1534.9578694937518,
+   "min": 1185.6082010139828,
+   "n": 244
+  },
+  "mirror_in_own_brain": {
+   "flagged_3mad": 0,
+   "max": 1.0,
+   "median": 1.0,
+   "min": 1.0,
+   "n": 244
+  },
+  "p01": {
+   "flagged_3mad": 19,
+   "max": 22.28956413269043,
+   "median": 3.5582671010494233,
+   "min": 1.353916229009628,
+   "n": 244
+  },
+  "p01_rel": {
+   "flagged_3mad": 15,
+   "max": 0.17587998675199146,
+   "median": 0.10012905801954772,
+   "min": 0.05197473513136962,
+   "n": 244
+  },
+  "p05": {
+   "flagged_3mad": 12,
+   "max": 52.50758171081543,
+   "median": 9.824054455757143,
+   "min": 3.7505557179450992,
+   "n": 244
+  },
+  "p05_rel": {
+   "flagged_3mad": 26,
+   "max": 0.43250656317659936,
+   "median": 0.2599730023421092,
+   "min": 0.1575166529111932,
+   "n": 244
+  },
+  "p50": {
+   "flagged_3mad": 9,
+   "max": 163.4649200439453,
+   "median": 28.42854118347168,
+   "min": 13.640569686889648,
+   "n": 244
+  },
+  "p50_rel": {
+   "flagged_3mad": 81,
+   "max": 1.2247316295322568,
+   "median": 0.7249392882303574,
+   "min": 0.6326082590044673,
+   "n": 244
+  },
+  "p95": {
+   "flagged_3mad": 15,
+   "max": 265.9735626220703,
+   "median": 42.923095512390134,
+   "min": 21.231408500671385,
+   "n": 244
+  },
+  "p95_rel": {
+   "flagged_3mad": 81,
+   "max": 2.3057090852869666,
+   "median": 1.0588494824505958,
+   "min": 1.0347583290432998,
+   "n": 244
+  },
+  "p99": {
+   "flagged_3mad": 18,
+   "max": 283.5049688720703,
+   "median": 45.63978929519652,
+   "min": 22.70594425201416,
+   "n": 244
+  },
+  "p99_rel": {
+   "flagged_3mad": 81,
+   "max": 2.5669966324029603,
+   "median": 1.1300035645056337,
+   "min": 1.0873067930639901,
+   "n": 244
+  },
+  "snr_proxy": {
+   "flagged_3mad": 36,
+   "max": 56.82038776321174,
+   "median": 43.958214738700676,
+   "min": 12.814266840049111,
+   "n": 244
+  },
+  "template_corr": {
+   "flagged_3mad": 7,
+   "max": 0.5804929785247513,
+   "median": 0.5129785248136816,
+   "min": 0.41285571909497454,
+   "n": 244
+  },
+  "wm_peak_native": {
+   "flagged_3mad": 13,
+   "max": 254.33401489257812,
+   "median": 35.56352233886719,
+   "min": 18.519580841064453,
+   "n": 244
+  }
+ },
+ "design": "frozen selection (244 scans)",
+ "generated": "2026-11-02",
+ "nonfinite_scans": 0,
+ "note": "descriptive only; no exclusion beyond D7; flags are 3 MAD from the median or departures from the most common acquisition value",
+ "prep_errors": 0,
+ "scans": 244,
+ "scans_with_any_flag": 117,
+ "sidecars_found": 244
+}
