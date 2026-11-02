@@ -243,6 +243,20 @@ median of 0.25 to 0.93 (UTIRIS) and 0.31 to 0.96 (UPOL, on the 30% of images tha
   ratio test, `cv2.estimateAffinePartial2D` (a similarity transform) with RANSAC, reprojection threshold 3 pixels,
   500 iterations, `cv2.setRNGSeed(20261101)`. Acceptance rules unchanged.
 
+## Amendment 2b (2 Nov 2026): GRAPE in an anatomical frame, before any registered score
+
+The registration check (quality only) showed that keypoint registration accepts every same-eye pair (patch
+correlation 0.92 to 0.97 and 0.83 to 0.95 across cameras) but none of the fellow-eye pairs (0 of 20), and it cannot
+match strangers either: it would align the person but not the strangers, a bias in the person's favour. GRAPE is
+therefore mapped, like iris, to one frame applied identically to every image: on the 512 image, optic disc = argmax of
+the Gaussian-smoothed (sigma 12) red + green sum inside the field of view eroded by 25 pixels; fovea = argmin of the
+smoothed green channel in a band 0.35 to 0.75 field-of-view radii from the disc and within 0.25 radii vertically. A
+similarity transform maps disc and fovea to (330, 256) and (181, 256) when the disc lies right of the fovea, and to the
+mirrored points (181, 256) and (330, 256) otherwise, so a flipped fellow eye lands in the same frame without
+rotation. Image excluded if no landmark is found. On 60 checked pairs: no failure; own-image patch correlation 0.98
+(same camera), 0.92 (other camera), 0.86 (fellow eye), stranger 0.80 to 0.82. Patch: the centred square, which now
+lies midway between disc and fovea. ORB is not used.
+
 ## References
 
 1. Oquab M, Darcet T, Moutakanni T, Vo H, Szafraniec M, Khalidov V, et al. DINOv2: learning robust visual features without supervision [Preprint]. arXiv:2304.07193. 2023.
