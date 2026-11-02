@@ -1,0 +1,3664 @@
+{
+  "status": "incomplete_endpoints",
+  "selection": "author_venous",
+  "scope": "Reaggregation of released author scores only; no image-level reproduction and no H19 test.",
+  "official_commit": "2443d490c59eebaac9e8420d56b45bffed113feb",
+  "n_selected_cases": 13,
+  "independent_participants": "Not established from score files and split.",
+  "n_metric_triplets": 108,
+  "n_values_compared": 324,
+  "n_matching_triplets": 0,
+  "mismatches": [
+    {
+      "method": "intratomo",
+      "care": false,
+      "metric": "ssim",
+      "median": 81.70134425163269,
+      "paper": {
+        "median": 82.7,
+        "q1": 80.9,
+        "q3": 84.7
+      },
+      "max_abs_error": 1.7049011707305937
+    },
+    {
+      "method": "intratomo",
+      "care": false,
+      "metric": "psnr",
+      "median": 23.911101091837445,
+      "paper": {
+        "median": 24.5,
+        "q1": 23.3,
+        "q3": 25.1
+      },
+      "max_abs_error": 0.5888989081625553
+    },
+    {
+      "method": "intratomo",
+      "care": false,
+      "metric": "large_nsd",
+      "median": 27.172671317174764,
+      "paper": {
+        "median": 2.4,
+        "q1": 1.6,
+        "q3": 3.6
+      },
+      "max_abs_error": 38.3328510895207
+    },
+    {
+      "method": "intratomo",
+      "care": false,
+      "metric": "small_nsd",
+      "median": null,
+      "paper": {
+        "median": 0.0,
+        "q1": 0.0,
+        "q3": 0.0
+      },
+      "max_abs_error": null
+    },
+    {
+      "method": "intratomo",
+      "care": false,
+      "metric": "intestine_cldice",
+      "median": 4.211079253211932,
+      "paper": {
+        "median": 6.3,
+        "q1": 1.2,
+        "q3": 17.4
+      },
+      "max_abs_error": 9.894022903377953
+    },
+    {
+      "method": "intratomo",
+      "care": false,
+      "metric": "vessel_cldice",
+      "median": 16.279069767441857,
+      "paper": {
+        "median": 4.7,
+        "q1": 0.0,
+        "q3": 21.6
+      },
+      "max_abs_error": 11.579069767441858
+    },
+    {
+      "method": "intratomo",
+      "care": true,
+      "metric": "ssim",
+      "median": 77.28661894798279,
+      "paper": {
+        "median": 76.7,
+        "q1": 74.0,
+        "q3": 79.7
+      },
+      "max_abs_error": 1.6107210636138944
+    },
+    {
+      "method": "intratomo",
+      "care": true,
+      "metric": "psnr",
+      "median": 21.470204678300878,
+      "paper": {
+        "median": 22.0,
+        "q1": 20.6,
+        "q3": 22.8
+      },
+      "max_abs_error": 0.5297953216991225
+    },
+    {
+      "method": "intratomo",
+      "care": true,
+      "metric": "large_nsd",
+      "median": 73.76007622548347,
+      "paper": {
+        "median": 30.9,
+        "q1": 26.4,
+        "q3": 40.6
+      },
+      "max_abs_error": 42.860076225483475
+    },
+    {
+      "method": "intratomo",
+      "care": true,
+      "metric": "small_nsd",
+      "median": 14.034014915313064,
+      "paper": {
+        "median": 7.1,
+        "q1": 3.3,
+        "q3": 13.3
+      },
+      "max_abs_error": 13.334110952384759
+    },
+    {
+      "method": "intratomo",
+      "care": true,
+      "metric": "intestine_cldice",
+      "median": 22.48359927077327,
+      "paper": {
+        "median": 33.5,
+        "q1": 24.4,
+        "q3": 43.6
+      },
+      "max_abs_error": 12.034843236135586
+    },
+    {
+      "method": "intratomo",
+      "care": true,
+      "metric": "vessel_cldice",
+      "median": 46.51917666191078,
+      "paper": {
+        "median": 47.9,
+        "q1": 35.4,
+        "q3": 62.2
+      },
+      "max_abs_error": 8.025144962302008
+    },
+    {
+      "method": "nerf",
+      "care": false,
+      "metric": "ssim",
+      "median": 85.58521866798401,
+      "paper": {
+        "median": 87.7,
+        "q1": 84.5,
+        "q3": 89.4
+      },
+      "max_abs_error": 2.114781332015994
+    },
+    {
+      "method": "nerf",
+      "care": false,
+      "metric": "psnr",
+      "median": 25.28431024639488,
+      "paper": {
+        "median": 26.6,
+        "q1": 24.7,
+        "q3": 27.4
+      },
+      "max_abs_error": 1.3156897536051204
+    },
+    {
+      "method": "nerf",
+      "care": false,
+      "metric": "large_nsd",
+      "median": 50.02248526898185,
+      "paper": {
+        "median": 22.1,
+        "q1": 8.2,
+        "q3": 35.8
+      },
+      "max_abs_error": 30.65203634964766
+    },
+    {
+      "method": "nerf",
+      "care": false,
+      "metric": "small_nsd",
+      "median": 14.39632691722993,
+      "paper": {
+        "median": 0.2,
+        "q1": 0.0,
+        "q3": 4.3
+      },
+      "max_abs_error": 19.60449308132546
+    },
+    {
+      "method": "nerf",
+      "care": false,
+      "metric": "intestine_cldice",
+      "median": 12.776201668066413,
+      "paper": {
+        "median": 17.2,
+        "q1": 9.0,
+        "q3": 28.0
+      },
+      "max_abs_error": 13.144752308511759
+    },
+    {
+      "method": "nerf",
+      "care": false,
+      "metric": "vessel_cldice",
+      "median": 33.5235957076834,
+      "paper": {
+        "median": 29.0,
+        "q1": 19.8,
+        "q3": 42.1
+      },
+      "max_abs_error": 5.120057934598378
+    },
+    {
+      "method": "nerf",
+      "care": true,
+      "metric": "ssim",
+      "median": 79.00226712226868,
+      "paper": {
+        "median": 80.5,
+        "q1": 78.5,
+        "q3": 83.0
+      },
+      "max_abs_error": 2.0071403980255127
+    },
+    {
+      "method": "nerf",
+      "care": true,
+      "metric": "psnr",
+      "median": 22.228358149652227,
+      "paper": {
+        "median": 23.4,
+        "q1": 21.9,
+        "q3": 24.4
+      },
+      "max_abs_error": 1.783547546343975
+    },
+    {
+      "method": "nerf",
+      "care": true,
+      "metric": "large_nsd",
+      "median": 77.42409643702524,
+      "paper": {
+        "median": 58.0,
+        "q1": 49.1,
+        "q3": 63.0
+      },
+      "max_abs_error": 26.599360982325713
+    },
+    {
+      "method": "nerf",
+      "care": true,
+      "metric": "small_nsd",
+      "median": 31.74499905632855,
+      "paper": {
+        "median": 25.3,
+        "q1": 14.2,
+        "q3": 30.1
+      },
+      "max_abs_error": 6.444999056328548
+    },
+    {
+      "method": "nerf",
+      "care": true,
+      "metric": "intestine_cldice",
+      "median": 25.375679355925882,
+      "paper": {
+        "median": 53.5,
+        "q1": 47.4,
+        "q3": 59.6
+      },
+      "max_abs_error": 30.47061529848463
+    },
+    {
+      "method": "nerf",
+      "care": true,
+      "metric": "vessel_cldice",
+      "median": 54.354733874026074,
+      "paper": {
+        "median": 55.0,
+        "q1": 45.3,
+        "q3": 65.6
+      },
+      "max_abs_error": 7.017433039615106
+    },
+    {
+      "method": "tensorf",
+      "care": false,
+      "metric": "ssim",
+      "median": 87.30685710906982,
+      "paper": {
+        "median": 89.3,
+        "q1": 87.3,
+        "q3": 91.1
+      },
+      "max_abs_error": 1.993142890930173
+    },
+    {
+      "method": "tensorf",
+      "care": false,
+      "metric": "psnr",
+      "median": 27.617600962369885,
+      "paper": {
+        "median": 28.0,
+        "q1": 27.3,
+        "q3": 29.7
+      },
+      "max_abs_error": 1.7385828774572758
+    },
+    {
+      "method": "tensorf",
+      "care": false,
+      "metric": "large_nsd",
+      "median": 60.55574063593758,
+      "paper": {
+        "median": 44.6,
+        "q1": 21.8,
+        "q3": 53.5
+      },
+      "max_abs_error": 30.835434130145767
+    },
+    {
+      "method": "tensorf",
+      "care": false,
+      "metric": "small_nsd",
+      "median": 23.276676109537306,
+      "paper": {
+        "median": 12.1,
+        "q1": 1.1,
+        "q3": 28.4
+      },
+      "max_abs_error": 14.15322300256933
+    },
+    {
+      "method": "tensorf",
+      "care": false,
+      "metric": "intestine_cldice",
+      "median": 12.12063346407842,
+      "paper": {
+        "median": 29.5,
+        "q1": 19.2,
+        "q3": 36.4
+      },
+      "max_abs_error": 18.988026214587137
+    },
+    {
+      "method": "tensorf",
+      "care": false,
+      "metric": "vessel_cldice",
+      "median": 57.594775406180304,
+      "paper": {
+        "median": 46.1,
+        "q1": 36.8,
+        "q3": 58.5
+      },
+      "max_abs_error": 11.494775406180302
+    },
+    {
+      "method": "tensorf",
+      "care": true,
+      "metric": "ssim",
+      "median": 88.74629139900208,
+      "paper": {
+        "median": 88.8,
+        "q1": 87.2,
+        "q3": 90.1
+      },
+      "max_abs_error": 0.711681556701663
+    },
+    {
+      "method": "tensorf",
+      "care": true,
+      "metric": "psnr",
+      "median": 27.267009726244883,
+      "paper": {
+        "median": 27.5,
+        "q1": 27.2,
+        "q3": 28.2
+      },
+      "max_abs_error": 0.671303037615445
+    },
+    {
+      "method": "tensorf",
+      "care": true,
+      "metric": "large_nsd",
+      "median": 84.44871961949484,
+      "paper": {
+        "median": 75.3,
+        "q1": 65.7,
+        "q3": 79.3
+      },
+      "max_abs_error": 12.848849655986996
+    },
+    {
+      "method": "tensorf",
+      "care": true,
+      "metric": "small_nsd",
+      "median": 45.95589329868606,
+      "paper": {
+        "median": 38.2,
+        "q1": 30.2,
+        "q3": 46.4
+      },
+      "max_abs_error": 10.008052205935577
+    },
+    {
+      "method": "tensorf",
+      "care": true,
+      "metric": "intestine_cldice",
+      "median": 36.075778796033475,
+      "paper": {
+        "median": 67.9,
+        "q1": 62.8,
+        "q3": 75.8
+      },
+      "max_abs_error": 37.835719083920765
+    },
+    {
+      "method": "tensorf",
+      "care": true,
+      "metric": "vessel_cldice",
+      "median": 62.72650724449682,
+      "paper": {
+        "median": 58.8,
+        "q1": 51.0,
+        "q3": 68.4
+      },
+      "max_abs_error": 3.9265072444968254
+    },
+    {
+      "method": "r2_gaussian",
+      "care": false,
+      "metric": "ssim",
+      "median": 92.41988062858582,
+      "paper": {
+        "median": 93.3,
+        "q1": 92.1,
+        "q3": 94.4
+      },
+      "max_abs_error": 2.357464647293085
+    },
+    {
+      "method": "r2_gaussian",
+      "care": false,
+      "metric": "psnr",
+      "median": 27.70889625479381,
+      "paper": {
+        "median": 28.8,
+        "q1": 27.4,
+        "q3": 29.7
+      },
+      "max_abs_error": 1.0911037452061905
+    },
+    {
+      "method": "r2_gaussian",
+      "care": false,
+      "metric": "large_nsd",
+      "median": 80.85933496946225,
+      "paper": {
+        "median": 76.3,
+        "q1": 65.9,
+        "q3": 84.6
+      },
+      "max_abs_error": 7.756605742404076
+    },
+    {
+      "method": "r2_gaussian",
+      "care": false,
+      "metric": "small_nsd",
+      "median": 63.67788731522961,
+      "paper": {
+        "median": 59.1,
+        "q1": 41.1,
+        "q3": 68.3
+      },
+      "max_abs_error": 6.090991522782211
+    },
+    {
+      "method": "r2_gaussian",
+      "care": false,
+      "metric": "intestine_cldice",
+      "median": 24.39042414864697,
+      "paper": {
+        "median": 53.9,
+        "q1": 45.6,
+        "q3": 68.1
+      },
+      "max_abs_error": 33.80903265580385
+    },
+    {
+      "method": "r2_gaussian",
+      "care": false,
+      "metric": "vessel_cldice",
+      "median": 74.67118416547238,
+      "paper": {
+        "median": 64.5,
+        "q1": 59.4,
+        "q3": 78.6
+      },
+      "max_abs_error": 10.171184165472383
+    },
+    {
+      "method": "r2_gaussian",
+      "care": true,
+      "metric": "ssim",
+      "median": 88.36262822151184,
+      "paper": {
+        "median": 89.6,
+        "q1": 87.9,
+        "q3": 90.7
+      },
+      "max_abs_error": 3.062926912307745
+    },
+    {
+      "method": "r2_gaussian",
+      "care": true,
+      "metric": "psnr",
+      "median": 27.317143205590494,
+      "paper": {
+        "median": 27.3,
+        "q1": 26.2,
+        "q3": 28.9
+      },
+      "max_abs_error": 1.2689604130704346
+    },
+    {
+      "method": "r2_gaussian",
+      "care": true,
+      "metric": "large_nsd",
+      "median": 84.47351394729915,
+      "paper": {
+        "median": 82.5,
+        "q1": 74.0,
+        "q3": 88.3
+      },
+      "max_abs_error": 1.9735139472991534
+    },
+    {
+      "method": "r2_gaussian",
+      "care": true,
+      "metric": "small_nsd",
+      "median": 51.338189806753064,
+      "paper": {
+        "median": 55.7,
+        "q1": 42.5,
+        "q3": 67.3
+      },
+      "max_abs_error": 4.361810193246939
+    },
+    {
+      "method": "r2_gaussian",
+      "care": true,
+      "metric": "intestine_cldice",
+      "median": 35.193995834579844,
+      "paper": {
+        "median": 75.4,
+        "q1": 68.0,
+        "q3": 82.8
+      },
+      "max_abs_error": 41.2930944850982
+    },
+    {
+      "method": "r2_gaussian",
+      "care": true,
+      "metric": "vessel_cldice",
+      "median": 75.92963708666997,
+      "paper": {
+        "median": 67.6,
+        "q1": 61.8,
+        "q3": 76.9
+      },
+      "max_abs_error": 8.329637086669976
+    },
+    {
+      "method": "naf",
+      "care": false,
+      "metric": "ssim",
+      "median": 91.95266366004944,
+      "paper": {
+        "median": 92.5,
+        "q1": 91.1,
+        "q3": 94.0
+      },
+      "max_abs_error": 1.2396099567413188
+    },
+    {
+      "method": "naf",
+      "care": false,
+      "metric": "psnr",
+      "median": 29.28316422083804,
+      "paper": {
+        "median": 29.4,
+        "q1": 28.9,
+        "q3": 30.8
+      },
+      "max_abs_error": 1.2380231028664603
+    },
+    {
+      "method": "naf",
+      "care": false,
+      "metric": "large_nsd",
+      "median": 87.06958965269173,
+      "paper": {
+        "median": 83.7,
+        "q1": 76.2,
+        "q3": 86.8
+      },
+      "max_abs_error": 3.3695896526917295
+    },
+    {
+      "method": "naf",
+      "care": false,
+      "metric": "small_nsd",
+      "median": 61.443509793254506,
+      "paper": {
+        "median": 61.0,
+        "q1": 51.1,
+        "q3": 70.2
+      },
+      "max_abs_error": 5.433010202421663
+    },
+    {
+      "method": "naf",
+      "care": false,
+      "metric": "intestine_cldice",
+      "median": 30.35447411664942,
+      "paper": {
+        "median": 71.6,
+        "q1": 62.2,
+        "q3": 77.8
+      },
+      "max_abs_error": 41.245525883350574
+    },
+    {
+      "method": "naf",
+      "care": false,
+      "metric": "vessel_cldice",
+      "median": 69.99880420764399,
+      "paper": {
+        "median": 75.4,
+        "q1": 70.1,
+        "q3": 81.8
+      },
+      "max_abs_error": 5.40119579235602
+    },
+    {
+      "method": "naf",
+      "care": true,
+      "metric": "ssim",
+      "median": 92.5762414932251,
+      "paper": {
+        "median": 92.8,
+        "q1": 91.5,
+        "q3": 93.5
+      },
+      "max_abs_error": 0.6911156177520752
+    },
+    {
+      "method": "naf",
+      "care": true,
+      "metric": "psnr",
+      "median": 29.51632980873444,
+      "paper": {
+        "median": 29.6,
+        "q1": 28.6,
+        "q3": 30.3
+      },
+      "max_abs_error": 0.4023998844910075
+    },
+    {
+      "method": "naf",
+      "care": true,
+      "metric": "large_nsd",
+      "median": 88.29585267908128,
+      "paper": {
+        "median": 87.9,
+        "q1": 83.8,
+        "q3": 91.3
+      },
+      "max_abs_error": 0.39585267908127264
+    },
+    {
+      "method": "naf",
+      "care": true,
+      "metric": "small_nsd",
+      "median": 65.04128795125483,
+      "paper": {
+        "median": 68.1,
+        "q1": 52.4,
+        "q3": 76.7
+      },
+      "max_abs_error": 5.908565803566802
+    },
+    {
+      "method": "naf",
+      "care": true,
+      "metric": "intestine_cldice",
+      "median": 38.756444022438174,
+      "paper": {
+        "median": 81.8,
+        "q1": 74.1,
+        "q3": 85.9
+      },
+      "max_abs_error": 45.23819525523445
+    },
+    {
+      "method": "naf",
+      "care": true,
+      "metric": "vessel_cldice",
+      "median": 79.51901088949336,
+      "paper": {
+        "median": 71.8,
+        "q1": 63.4,
+        "q3": 80.8
+      },
+      "max_abs_error": 7.719010889493362
+    },
+    {
+      "method": "FDK",
+      "care": false,
+      "metric": "ssim",
+      "median": 92.04273223876952,
+      "paper": {
+        "median": 92.5,
+        "q1": 91.1,
+        "q3": 94.2
+      },
+      "max_abs_error": 1.1257080554962187
+    },
+    {
+      "method": "FDK",
+      "care": false,
+      "metric": "psnr",
+      "median": 29.075882384761123,
+      "paper": {
+        "median": 29.5,
+        "q1": 28.9,
+        "q3": 30.9
+      },
+      "max_abs_error": 1.401012571425504
+    },
+    {
+      "method": "FDK",
+      "care": false,
+      "metric": "large_nsd",
+      "median": 86.57226524056394,
+      "paper": {
+        "median": 83.8,
+        "q1": 77.3,
+        "q3": 86.8
+      },
+      "max_abs_error": 4.646760355650116
+    },
+    {
+      "method": "FDK",
+      "care": false,
+      "metric": "small_nsd",
+      "median": 63.55913795985597,
+      "paper": {
+        "median": 62.4,
+        "q1": 52.4,
+        "q3": 70.6
+      },
+      "max_abs_error": 5.114853288298491
+    },
+    {
+      "method": "FDK",
+      "care": false,
+      "metric": "intestine_cldice",
+      "median": 28.585015611245055,
+      "paper": {
+        "median": 68.2,
+        "q1": 59.8,
+        "q3": 76.9
+      },
+      "max_abs_error": 39.61498438875495
+    },
+    {
+      "method": "FDK",
+      "care": false,
+      "metric": "vessel_cldice",
+      "median": 73.0527322589624,
+      "paper": {
+        "median": 76.5,
+        "q1": 66.2,
+        "q3": 80.3
+      },
+      "max_abs_error": 3.4472677410376065
+    },
+    {
+      "method": "FDK",
+      "care": true,
+      "metric": "ssim",
+      "median": 92.18012690544128,
+      "paper": {
+        "median": 92.4,
+        "q1": 91.5,
+        "q3": 93.4
+      },
+      "max_abs_error": 0.5640253067016658
+    },
+    {
+      "method": "FDK",
+      "care": true,
+      "metric": "psnr",
+      "median": 29.291937105583305,
+      "paper": {
+        "median": 29.7,
+        "q1": 29.0,
+        "q3": 30.6
+      },
+      "max_abs_error": 0.8823018238611375
+    },
+    {
+      "method": "FDK",
+      "care": true,
+      "metric": "large_nsd",
+      "median": 87.44830576200863,
+      "paper": {
+        "median": 87.1,
+        "q1": 82.3,
+        "q3": 90.9
+      },
+      "max_abs_error": 1.5322064556632
+    },
+    {
+      "method": "FDK",
+      "care": true,
+      "metric": "small_nsd",
+      "median": 66.41648944299166,
+      "paper": {
+        "median": 67.0,
+        "q1": 55.6,
+        "q3": 77.1
+      },
+      "max_abs_error": 3.783338751519217
+    },
+    {
+      "method": "FDK",
+      "care": true,
+      "metric": "intestine_cldice",
+      "median": 34.066837250374974,
+      "paper": {
+        "median": 81.5,
+        "q1": 75.5,
+        "q3": 85.7
+      },
+      "max_abs_error": 47.433162749625026
+    },
+    {
+      "method": "FDK",
+      "care": true,
+      "metric": "vessel_cldice",
+      "median": 78.62784584515188,
+      "paper": {
+        "median": 71.7,
+        "q1": 66.4,
+        "q3": 83.2
+      },
+      "max_abs_error": 6.927845845151879
+    },
+    {
+      "method": "SART",
+      "care": false,
+      "metric": "ssim",
+      "median": 91.8767273426056,
+      "paper": {
+        "median": 92.5,
+        "q1": 91.1,
+        "q3": 94.2
+      },
+      "max_abs_error": 1.5789894580841093
+    },
+    {
+      "method": "SART",
+      "care": false,
+      "metric": "psnr",
+      "median": 29.23814945830223,
+      "paper": {
+        "median": 29.5,
+        "q1": 28.9,
+        "q3": 31.0
+      },
+      "max_abs_error": 1.4218014665838972
+    },
+    {
+      "method": "SART",
+      "care": false,
+      "metric": "large_nsd",
+      "median": 84.33822160993606,
+      "paper": {
+        "median": 84.6,
+        "q1": 76.9,
+        "q3": 88.1
+      },
+      "max_abs_error": 2.358467959618679
+    },
+    {
+      "method": "SART",
+      "care": false,
+      "metric": "small_nsd",
+      "median": 63.745187546247905,
+      "paper": {
+        "median": 61.3,
+        "q1": 53.7,
+        "q3": 75.4
+      },
+      "max_abs_error": 2.445187546247908
+    },
+    {
+      "method": "SART",
+      "care": false,
+      "metric": "intestine_cldice",
+      "median": 27.638036995665452,
+      "paper": {
+        "median": 70.0,
+        "q1": 61.0,
+        "q3": 77.6
+      },
+      "max_abs_error": 42.36196300433455
+    },
+    {
+      "method": "SART",
+      "care": false,
+      "metric": "vessel_cldice",
+      "median": 76.05788342226478,
+      "paper": {
+        "median": 78.7,
+        "q1": 65.6,
+        "q3": 83.6
+      },
+      "max_abs_error": 2.642116577735223
+    },
+    {
+      "method": "SART",
+      "care": true,
+      "metric": "ssim",
+      "median": 93.25881600379944,
+      "paper": {
+        "median": 93.3,
+        "q1": 92.7,
+        "q3": 94.3
+      },
+      "max_abs_error": 0.402198362350461
+    },
+    {
+      "method": "SART",
+      "care": true,
+      "metric": "psnr",
+      "median": 29.958436487557563,
+      "paper": {
+        "median": 30.3,
+        "q1": 29.5,
+        "q3": 30.9
+      },
+      "max_abs_error": 0.6328765577219784
+    },
+    {
+      "method": "SART",
+      "care": true,
+      "metric": "large_nsd",
+      "median": 88.14453241442926,
+      "paper": {
+        "median": 88.2,
+        "q1": 84.2,
+        "q3": 90.8
+      },
+      "max_abs_error": 2.9248696713868583
+    },
+    {
+      "method": "SART",
+      "care": true,
+      "metric": "small_nsd",
+      "median": 64.21166908687375,
+      "paper": {
+        "median": 68.5,
+        "q1": 56.0,
+        "q3": 75.5
+      },
+      "max_abs_error": 5.4046824034567535
+    },
+    {
+      "method": "SART",
+      "care": true,
+      "metric": "intestine_cldice",
+      "median": 36.767382592062134,
+      "paper": {
+        "median": 83.5,
+        "q1": 77.8,
+        "q3": 87.5
+      },
+      "max_abs_error": 50.573260392346
+    },
+    {
+      "method": "SART",
+      "care": true,
+      "metric": "vessel_cldice",
+      "median": 77.7146428469724,
+      "paper": {
+        "median": 75.2,
+        "q1": 62.2,
+        "q3": 83.3
+      },
+      "max_abs_error": 7.552339938494725
+    },
+    {
+      "method": "ASD_POCS",
+      "care": false,
+      "metric": "ssim",
+      "median": 92.08744168281557,
+      "paper": {
+        "median": 92.3,
+        "q1": 91.6,
+        "q3": 94.2
+      },
+      "max_abs_error": 1.3218252182006864
+    },
+    {
+      "method": "ASD_POCS",
+      "care": false,
+      "metric": "psnr",
+      "median": 29.24227938644645,
+      "paper": {
+        "median": 29.5,
+        "q1": 28.9,
+        "q3": 30.7
+      },
+      "max_abs_error": 1.0352226632052002
+    },
+    {
+      "method": "ASD_POCS",
+      "care": false,
+      "metric": "large_nsd",
+      "median": 86.67737001996144,
+      "paper": {
+        "median": 83.8,
+        "q1": 76.5,
+        "q3": 87.2
+      },
+      "max_abs_error": 6.443772680567349
+    },
+    {
+      "method": "ASD_POCS",
+      "care": false,
+      "metric": "small_nsd",
+      "median": 58.72026882161033,
+      "paper": {
+        "median": 61.0,
+        "q1": 51.4,
+        "q3": 73.6
+      },
+      "max_abs_error": 4.161711072176118
+    },
+    {
+      "method": "ASD_POCS",
+      "care": false,
+      "metric": "intestine_cldice",
+      "median": 31.26163340207763,
+      "paper": {
+        "median": 71.3,
+        "q1": 61.8,
+        "q3": 77.4
+      },
+      "max_abs_error": 41.32748191843531
+    },
+    {
+      "method": "ASD_POCS",
+      "care": false,
+      "metric": "vessel_cldice",
+      "median": 72.32028177045615,
+      "paper": {
+        "median": 74.7,
+        "q1": 67.4,
+        "q3": 81.1
+      },
+      "max_abs_error": 2.4883708097997754
+    },
+    {
+      "method": "ASD_POCS",
+      "care": true,
+      "metric": "ssim",
+      "median": 92.16461777687071,
+      "paper": {
+        "median": 92.4,
+        "q1": 91.8,
+        "q3": 93.5
+      },
+      "max_abs_error": 0.7225391864776611
+    },
+    {
+      "method": "ASD_POCS",
+      "care": true,
+      "metric": "psnr",
+      "median": 28.841581358199253,
+      "paper": {
+        "median": 29.4,
+        "q1": 28.4,
+        "q3": 30.1
+      },
+      "max_abs_error": 0.8394639612801207
+    },
+    {
+      "method": "ASD_POCS",
+      "care": true,
+      "metric": "large_nsd",
+      "median": 85.42543158034216,
+      "paper": {
+        "median": 88.1,
+        "q1": 82.6,
+        "q3": 90.9
+      },
+      "max_abs_error": 2.674568419657831
+    },
+    {
+      "method": "ASD_POCS",
+      "care": true,
+      "metric": "small_nsd",
+      "median": 63.810515131608646,
+      "paper": {
+        "median": 67.8,
+        "q1": 56.2,
+        "q3": 75.4
+      },
+      "max_abs_error": 3.989484868391351
+    },
+    {
+      "method": "ASD_POCS",
+      "care": true,
+      "metric": "intestine_cldice",
+      "median": 35.04896677318415,
+      "paper": {
+        "median": 80.7,
+        "q1": 74.9,
+        "q3": 84.9
+      },
+      "max_abs_error": 46.04448741801864
+    },
+    {
+      "method": "ASD_POCS",
+      "care": true,
+      "metric": "vessel_cldice",
+      "median": 80.17322451788516,
+      "paper": {
+        "median": 76.4,
+        "q1": 66.6,
+        "q3": 79.9
+      },
+      "max_abs_error": 5.042354490278981
+    },
+    {
+      "method": "Lineformer",
+      "care": false,
+      "metric": "ssim",
+      "median": 93.24553608894348,
+      "paper": {
+        "median": 93.7,
+        "q1": 92.8,
+        "q3": 95.0
+      },
+      "max_abs_error": 0.9207499027252197
+    },
+    {
+      "method": "Lineformer",
+      "care": false,
+      "metric": "psnr",
+      "median": 29.26290767681689,
+      "paper": {
+        "median": 29.6,
+        "q1": 29.0,
+        "q3": 31.0
+      },
+      "max_abs_error": 1.4278952310045625
+    },
+    {
+      "method": "Lineformer",
+      "care": false,
+      "metric": "large_nsd",
+      "median": 83.5726972724019,
+      "paper": {
+        "median": 82.4,
+        "q1": 73.9,
+        "q3": 88.9
+      },
+      "max_abs_error": 2.94582226929613
+    },
+    {
+      "method": "Lineformer",
+      "care": false,
+      "metric": "small_nsd",
+      "median": 63.112690460279694,
+      "paper": {
+        "median": 66.5,
+        "q1": 55.0,
+        "q3": 78.0
+      },
+      "max_abs_error": 6.274031795368586
+    },
+    {
+      "method": "Lineformer",
+      "care": false,
+      "metric": "intestine_cldice",
+      "median": 26.66868324227932,
+      "paper": {
+        "median": 68.0,
+        "q1": 56.3,
+        "q3": 77.9
+      },
+      "max_abs_error": 41.33131675772068
+    },
+    {
+      "method": "Lineformer",
+      "care": false,
+      "metric": "vessel_cldice",
+      "median": 76.08958659154216,
+      "paper": {
+        "median": 79.3,
+        "q1": 62.4,
+        "q3": 85.1
+      },
+      "max_abs_error": 3.210413408457839
+    },
+    {
+      "method": "Lineformer",
+      "care": true,
+      "metric": "ssim",
+      "median": 92.33004450798036,
+      "paper": {
+        "median": 92.5,
+        "q1": 91.2,
+        "q3": 93.3
+      },
+      "max_abs_error": 0.3088832378387565
+    },
+    {
+      "method": "Lineformer",
+      "care": true,
+      "metric": "psnr",
+      "median": 29.672809717470376,
+      "paper": {
+        "median": 29.4,
+        "q1": 28.8,
+        "q3": 30.1
+      },
+      "max_abs_error": 0.27280971747037697
+    },
+    {
+      "method": "Lineformer",
+      "care": true,
+      "metric": "large_nsd",
+      "median": 89.05620221631551,
+      "paper": {
+        "median": 88.7,
+        "q1": 81.9,
+        "q3": 90.9
+      },
+      "max_abs_error": 2.196529679540106
+    },
+    {
+      "method": "Lineformer",
+      "care": true,
+      "metric": "small_nsd",
+      "median": 65.15066647937718,
+      "paper": {
+        "median": 67.1,
+        "q1": 54.5,
+        "q3": 75.1
+      },
+      "max_abs_error": 8.716031381804598
+    },
+    {
+      "method": "Lineformer",
+      "care": true,
+      "metric": "intestine_cldice",
+      "median": 36.19845729546629,
+      "paper": {
+        "median": 81.5,
+        "q1": 76.0,
+        "q3": 86.8
+      },
+      "max_abs_error": 49.09981143971031
+    },
+    {
+      "method": "Lineformer",
+      "care": true,
+      "metric": "vessel_cldice",
+      "median": 76.51581232906653,
+      "paper": {
+        "median": 72.0,
+        "q1": 62.9,
+        "q3": 84.1
+      },
+      "max_abs_error": 7.17113770851288
+    }
+  ],
+  "rows": [
+    {
+      "method": "intratomo",
+      "care": false,
+      "metric": "ssim",
+      "median": 81.70134425163269,
+      "q1": 79.9281895160675,
+      "q3": 82.99509882926941,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 82.7,
+        "q1": 80.9,
+        "q3": 84.7
+      },
+      "max_abs_error": 1.7049011707305937,
+      "matches_rounding": false
+    },
+    {
+      "method": "intratomo",
+      "care": false,
+      "metric": "psnr",
+      "median": 23.911101091837445,
+      "q1": 22.791254274784848,
+      "q3": 24.60460636347197,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 24.5,
+        "q1": 23.3,
+        "q3": 25.1
+      },
+      "max_abs_error": 0.5888989081625553,
+      "matches_rounding": false
+    },
+    {
+      "method": "intratomo",
+      "care": false,
+      "metric": "large_nsd",
+      "median": 27.172671317174764,
+      "q1": 16.25118005664272,
+      "q3": 41.9328510895207,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 2.4,
+        "q1": 1.6,
+        "q3": 3.6
+      },
+      "max_abs_error": 38.3328510895207,
+      "matches_rounding": false
+    },
+    {
+      "method": "intratomo",
+      "care": false,
+      "metric": "small_nsd",
+      "median": null,
+      "q1": null,
+      "q3": null,
+      "n_finite": 0,
+      "n_missing": 13,
+      "paper": {
+        "median": 0.0,
+        "q1": 0.0,
+        "q3": 0.0
+      },
+      "max_abs_error": null,
+      "matches_rounding": false
+    },
+    {
+      "method": "intratomo",
+      "care": false,
+      "metric": "intestine_cldice",
+      "median": 4.211079253211932,
+      "q1": 2.706990108180145,
+      "q3": 7.505977096622045,
+      "n_finite": 11,
+      "n_missing": 2,
+      "paper": {
+        "median": 6.3,
+        "q1": 1.2,
+        "q3": 17.4
+      },
+      "max_abs_error": 9.894022903377953,
+      "matches_rounding": false
+    },
+    {
+      "method": "intratomo",
+      "care": false,
+      "metric": "vessel_cldice",
+      "median": 16.279069767441857,
+      "q1": 8.139534883720929,
+      "q3": 24.418604651162788,
+      "n_finite": 2,
+      "n_missing": 11,
+      "paper": {
+        "median": 4.7,
+        "q1": 0.0,
+        "q3": 21.6
+      },
+      "max_abs_error": 11.579069767441858,
+      "matches_rounding": false
+    },
+    {
+      "method": "intratomo",
+      "care": true,
+      "metric": "ssim",
+      "median": 77.28661894798279,
+      "q1": 73.27287793159485,
+      "q3": 78.08927893638611,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 76.7,
+        "q1": 74.0,
+        "q3": 79.7
+      },
+      "max_abs_error": 1.6107210636138944,
+      "matches_rounding": false
+    },
+    {
+      "method": "intratomo",
+      "care": true,
+      "metric": "psnr",
+      "median": 21.470204678300878,
+      "q1": 20.231119561573912,
+      "q3": 22.2738001216516,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 22.0,
+        "q1": 20.6,
+        "q3": 22.8
+      },
+      "max_abs_error": 0.5297953216991225,
+      "matches_rounding": false
+    },
+    {
+      "method": "intratomo",
+      "care": true,
+      "metric": "large_nsd",
+      "median": 73.76007622548347,
+      "q1": 67.51056385306921,
+      "q3": 76.72317030260858,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 30.9,
+        "q1": 26.4,
+        "q3": 40.6
+      },
+      "max_abs_error": 42.860076225483475,
+      "matches_rounding": false
+    },
+    {
+      "method": "intratomo",
+      "care": true,
+      "metric": "small_nsd",
+      "median": 14.034014915313064,
+      "q1": 1.2251761691223573,
+      "q3": 26.63411095238476,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 7.1,
+        "q1": 3.3,
+        "q3": 13.3
+      },
+      "max_abs_error": 13.334110952384759,
+      "matches_rounding": false
+    },
+    {
+      "method": "intratomo",
+      "care": true,
+      "metric": "intestine_cldice",
+      "median": 22.48359927077327,
+      "q1": 17.678598196677747,
+      "q3": 31.565156763864415,
+      "n_finite": 12,
+      "n_missing": 1,
+      "paper": {
+        "median": 33.5,
+        "q1": 24.4,
+        "q3": 43.6
+      },
+      "max_abs_error": 12.034843236135586,
+      "matches_rounding": false
+    },
+    {
+      "method": "intratomo",
+      "care": true,
+      "metric": "vessel_cldice",
+      "median": 46.51917666191078,
+      "q1": 43.42514496230201,
+      "q3": 57.91330458511711,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 47.9,
+        "q1": 35.4,
+        "q3": 62.2
+      },
+      "max_abs_error": 8.025144962302008,
+      "matches_rounding": false
+    },
+    {
+      "method": "nerf",
+      "care": false,
+      "metric": "ssim",
+      "median": 85.58521866798401,
+      "q1": 84.24659371376038,
+      "q3": 88.30624222755432,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 87.7,
+        "q1": 84.5,
+        "q3": 89.4
+      },
+      "max_abs_error": 2.114781332015994,
+      "matches_rounding": false
+    },
+    {
+      "method": "nerf",
+      "care": false,
+      "metric": "psnr",
+      "median": 25.28431024639488,
+      "q1": 24.65096574505125,
+      "q3": 26.74705563995268,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 26.6,
+        "q1": 24.7,
+        "q3": 27.4
+      },
+      "max_abs_error": 1.3156897536051204,
+      "matches_rounding": false
+    },
+    {
+      "method": "nerf",
+      "care": false,
+      "metric": "large_nsd",
+      "median": 50.02248526898185,
+      "q1": 38.47492640140915,
+      "q3": 66.45203634964766,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 22.1,
+        "q1": 8.2,
+        "q3": 35.8
+      },
+      "max_abs_error": 30.65203634964766,
+      "matches_rounding": false
+    },
+    {
+      "method": "nerf",
+      "care": false,
+      "metric": "small_nsd",
+      "median": 14.39632691722993,
+      "q1": 9.217951249660016,
+      "q3": 23.904493081325462,
+      "n_finite": 8,
+      "n_missing": 5,
+      "paper": {
+        "median": 0.2,
+        "q1": 0.0,
+        "q3": 4.3
+      },
+      "max_abs_error": 19.60449308132546,
+      "matches_rounding": false
+    },
+    {
+      "method": "nerf",
+      "care": false,
+      "metric": "intestine_cldice",
+      "median": 12.776201668066413,
+      "q1": 5.142840720554554,
+      "q3": 14.855247691488241,
+      "n_finite": 12,
+      "n_missing": 1,
+      "paper": {
+        "median": 17.2,
+        "q1": 9.0,
+        "q3": 28.0
+      },
+      "max_abs_error": 13.144752308511759,
+      "matches_rounding": false
+    },
+    {
+      "method": "nerf",
+      "care": false,
+      "metric": "vessel_cldice",
+      "median": 33.5235957076834,
+      "q1": 16.165073365940415,
+      "q3": 47.22005793459838,
+      "n_finite": 10,
+      "n_missing": 3,
+      "paper": {
+        "median": 29.0,
+        "q1": 19.8,
+        "q3": 42.1
+      },
+      "max_abs_error": 5.120057934598378,
+      "matches_rounding": false
+    },
+    {
+      "method": "nerf",
+      "care": true,
+      "metric": "ssim",
+      "median": 79.00226712226868,
+      "q1": 78.39024662971497,
+      "q3": 80.99285960197449,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 80.5,
+        "q1": 78.5,
+        "q3": 83.0
+      },
+      "max_abs_error": 2.0071403980255127,
+      "matches_rounding": false
+    },
+    {
+      "method": "nerf",
+      "care": true,
+      "metric": "psnr",
+      "median": 22.228358149652227,
+      "q1": 21.12254173600929,
+      "q3": 22.616452453656024,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 23.4,
+        "q1": 21.9,
+        "q3": 24.4
+      },
+      "max_abs_error": 1.783547546343975,
+      "matches_rounding": false
+    },
+    {
+      "method": "nerf",
+      "care": true,
+      "metric": "large_nsd",
+      "median": 77.42409643702524,
+      "q1": 75.69936098232571,
+      "q3": 82.22407345614793,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 58.0,
+        "q1": 49.1,
+        "q3": 63.0
+      },
+      "max_abs_error": 26.599360982325713,
+      "matches_rounding": false
+    },
+    {
+      "method": "nerf",
+      "care": true,
+      "metric": "small_nsd",
+      "median": 31.74499905632855,
+      "q1": 20.314264386948196,
+      "q3": 34.901956918690345,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 25.3,
+        "q1": 14.2,
+        "q3": 30.1
+      },
+      "max_abs_error": 6.444999056328548,
+      "matches_rounding": false
+    },
+    {
+      "method": "nerf",
+      "care": true,
+      "metric": "intestine_cldice",
+      "median": 25.375679355925882,
+      "q1": 18.044100991228355,
+      "q3": 29.12938470151537,
+      "n_finite": 12,
+      "n_missing": 1,
+      "paper": {
+        "median": 53.5,
+        "q1": 47.4,
+        "q3": 59.6
+      },
+      "max_abs_error": 30.47061529848463,
+      "matches_rounding": false
+    },
+    {
+      "method": "nerf",
+      "care": true,
+      "metric": "vessel_cldice",
+      "median": 54.354733874026074,
+      "q1": 47.13998318059725,
+      "q3": 58.58256696038489,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 55.0,
+        "q1": 45.3,
+        "q3": 65.6
+      },
+      "max_abs_error": 7.017433039615106,
+      "matches_rounding": false
+    },
+    {
+      "method": "tensorf",
+      "care": false,
+      "metric": "ssim",
+      "median": 87.30685710906982,
+      "q1": 86.09088063240051,
+      "q3": 90.29234051704408,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 89.3,
+        "q1": 87.3,
+        "q3": 91.1
+      },
+      "max_abs_error": 1.993142890930173,
+      "matches_rounding": false
+    },
+    {
+      "method": "tensorf",
+      "care": false,
+      "metric": "psnr",
+      "median": 27.617600962369885,
+      "q1": 26.77073030094133,
+      "q3": 27.961417122542723,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 28.0,
+        "q1": 27.3,
+        "q3": 29.7
+      },
+      "max_abs_error": 1.7385828774572758,
+      "matches_rounding": false
+    },
+    {
+      "method": "tensorf",
+      "care": false,
+      "metric": "large_nsd",
+      "median": 60.55574063593758,
+      "q1": 52.63543413014577,
+      "q3": 67.15541054560738,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 44.6,
+        "q1": 21.8,
+        "q3": 53.5
+      },
+      "max_abs_error": 30.835434130145767,
+      "matches_rounding": false
+    },
+    {
+      "method": "tensorf",
+      "care": false,
+      "metric": "small_nsd",
+      "median": 23.276676109537306,
+      "q1": 15.25322300256933,
+      "q3": 34.278846753808054,
+      "n_finite": 9,
+      "n_missing": 4,
+      "paper": {
+        "median": 12.1,
+        "q1": 1.1,
+        "q3": 28.4
+      },
+      "max_abs_error": 14.15322300256933,
+      "matches_rounding": false
+    },
+    {
+      "method": "tensorf",
+      "care": false,
+      "metric": "intestine_cldice",
+      "median": 12.12063346407842,
+      "q1": 6.715430384871712,
+      "q3": 17.41197378541286,
+      "n_finite": 12,
+      "n_missing": 1,
+      "paper": {
+        "median": 29.5,
+        "q1": 19.2,
+        "q3": 36.4
+      },
+      "max_abs_error": 18.988026214587137,
+      "matches_rounding": false
+    },
+    {
+      "method": "tensorf",
+      "care": false,
+      "metric": "vessel_cldice",
+      "median": 57.594775406180304,
+      "q1": 47.62677587501556,
+      "q3": 68.55534217730695,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 46.1,
+        "q1": 36.8,
+        "q3": 58.5
+      },
+      "max_abs_error": 11.494775406180302,
+      "matches_rounding": false
+    },
+    {
+      "method": "tensorf",
+      "care": true,
+      "metric": "ssim",
+      "median": 88.74629139900208,
+      "q1": 86.48831844329834,
+      "q3": 89.68896865844727,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 88.8,
+        "q1": 87.2,
+        "q3": 90.1
+      },
+      "max_abs_error": 0.711681556701663,
+      "matches_rounding": false
+    },
+    {
+      "method": "tensorf",
+      "care": true,
+      "metric": "psnr",
+      "median": 27.267009726244883,
+      "q1": 26.920109833599284,
+      "q3": 27.528696962384554,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 27.5,
+        "q1": 27.2,
+        "q3": 28.2
+      },
+      "max_abs_error": 0.671303037615445,
+      "matches_rounding": false
+    },
+    {
+      "method": "tensorf",
+      "care": true,
+      "metric": "large_nsd",
+      "median": 84.44871961949484,
+      "q1": 78.548849655987,
+      "q3": 86.26917597336697,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 75.3,
+        "q1": 65.7,
+        "q3": 79.3
+      },
+      "max_abs_error": 12.848849655986996,
+      "matches_rounding": false
+    },
+    {
+      "method": "tensorf",
+      "care": true,
+      "metric": "small_nsd",
+      "median": 45.95589329868606,
+      "q1": 33.52691677676633,
+      "q3": 56.408052205935576,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 38.2,
+        "q1": 30.2,
+        "q3": 46.4
+      },
+      "max_abs_error": 10.008052205935577,
+      "matches_rounding": false
+    },
+    {
+      "method": "tensorf",
+      "care": true,
+      "metric": "intestine_cldice",
+      "median": 36.075778796033475,
+      "q1": 24.96428091607923,
+      "q3": 42.12256741082081,
+      "n_finite": 12,
+      "n_missing": 1,
+      "paper": {
+        "median": 67.9,
+        "q1": 62.8,
+        "q3": 75.8
+      },
+      "max_abs_error": 37.835719083920765,
+      "matches_rounding": false
+    },
+    {
+      "method": "tensorf",
+      "care": true,
+      "metric": "vessel_cldice",
+      "median": 62.72650724449682,
+      "q1": 51.634179846287886,
+      "q3": 69.99716337135423,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 58.8,
+        "q1": 51.0,
+        "q3": 68.4
+      },
+      "max_abs_error": 3.9265072444968254,
+      "matches_rounding": false
+    },
+    {
+      "method": "r2_gaussian",
+      "care": false,
+      "metric": "ssim",
+      "median": 92.41988062858582,
+      "q1": 89.74253535270691,
+      "q3": 93.4698522090912,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 93.3,
+        "q1": 92.1,
+        "q3": 94.4
+      },
+      "max_abs_error": 2.357464647293085,
+      "matches_rounding": false
+    },
+    {
+      "method": "r2_gaussian",
+      "care": false,
+      "metric": "psnr",
+      "median": 27.70889625479381,
+      "q1": 26.31700222365504,
+      "q3": 28.670585149409685,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 28.8,
+        "q1": 27.4,
+        "q3": 29.7
+      },
+      "max_abs_error": 1.0911037452061905,
+      "matches_rounding": false
+    },
+    {
+      "method": "r2_gaussian",
+      "care": false,
+      "metric": "large_nsd",
+      "median": 80.85933496946225,
+      "q1": 73.65660574240408,
+      "q3": 85.46154093436019,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 76.3,
+        "q1": 65.9,
+        "q3": 84.6
+      },
+      "max_abs_error": 7.756605742404076,
+      "matches_rounding": false
+    },
+    {
+      "method": "r2_gaussian",
+      "care": false,
+      "metric": "small_nsd",
+      "median": 63.67788731522961,
+      "q1": 47.19099152278221,
+      "q3": 69.30849480201395,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 59.1,
+        "q1": 41.1,
+        "q3": 68.3
+      },
+      "max_abs_error": 6.090991522782211,
+      "matches_rounding": false
+    },
+    {
+      "method": "r2_gaussian",
+      "care": false,
+      "metric": "intestine_cldice",
+      "median": 24.39042414864697,
+      "q1": 16.93243863554244,
+      "q3": 34.29096734419615,
+      "n_finite": 12,
+      "n_missing": 1,
+      "paper": {
+        "median": 53.9,
+        "q1": 45.6,
+        "q3": 68.1
+      },
+      "max_abs_error": 33.80903265580385,
+      "matches_rounding": false
+    },
+    {
+      "method": "r2_gaussian",
+      "care": false,
+      "metric": "vessel_cldice",
+      "median": 74.67118416547238,
+      "q1": 55.88325813751023,
+      "q3": 80.02230825845257,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 64.5,
+        "q1": 59.4,
+        "q3": 78.6
+      },
+      "max_abs_error": 10.171184165472383,
+      "matches_rounding": false
+    },
+    {
+      "method": "r2_gaussian",
+      "care": true,
+      "metric": "ssim",
+      "median": 88.36262822151184,
+      "q1": 84.83707308769226,
+      "q3": 89.93598818778992,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 89.6,
+        "q1": 87.9,
+        "q3": 90.7
+      },
+      "max_abs_error": 3.062926912307745,
+      "matches_rounding": false
+    },
+    {
+      "method": "r2_gaussian",
+      "care": true,
+      "metric": "psnr",
+      "median": 27.317143205590494,
+      "q1": 24.931039586929565,
+      "q3": 27.76634272983344,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 27.3,
+        "q1": 26.2,
+        "q3": 28.9
+      },
+      "max_abs_error": 1.2689604130704346,
+      "matches_rounding": false
+    },
+    {
+      "method": "r2_gaussian",
+      "care": true,
+      "metric": "large_nsd",
+      "median": 84.47351394729915,
+      "q1": 75.69701098137071,
+      "q3": 90.12261689400394,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 82.5,
+        "q1": 74.0,
+        "q3": 88.3
+      },
+      "max_abs_error": 1.9735139472991534,
+      "matches_rounding": false
+    },
+    {
+      "method": "r2_gaussian",
+      "care": true,
+      "metric": "small_nsd",
+      "median": 51.338189806753064,
+      "q1": 41.500571529691804,
+      "q3": 67.40842338264,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 55.7,
+        "q1": 42.5,
+        "q3": 67.3
+      },
+      "max_abs_error": 4.361810193246939,
+      "matches_rounding": false
+    },
+    {
+      "method": "r2_gaussian",
+      "care": true,
+      "metric": "intestine_cldice",
+      "median": 35.193995834579844,
+      "q1": 26.7069055149018,
+      "q3": 42.33486794752616,
+      "n_finite": 12,
+      "n_missing": 1,
+      "paper": {
+        "median": 75.4,
+        "q1": 68.0,
+        "q3": 82.8
+      },
+      "max_abs_error": 41.2930944850982,
+      "matches_rounding": false
+    },
+    {
+      "method": "r2_gaussian",
+      "care": true,
+      "metric": "vessel_cldice",
+      "median": 75.92963708666997,
+      "q1": 58.62719604202626,
+      "q3": 84.62884873203731,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 67.6,
+        "q1": 61.8,
+        "q3": 76.9
+      },
+      "max_abs_error": 8.329637086669976,
+      "matches_rounding": false
+    },
+    {
+      "method": "naf",
+      "care": false,
+      "metric": "ssim",
+      "median": 91.95266366004944,
+      "q1": 90.39365649223328,
+      "q3": 92.76039004325868,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 92.5,
+        "q1": 91.1,
+        "q3": 94.0
+      },
+      "max_abs_error": 1.2396099567413188,
+      "matches_rounding": false
+    },
+    {
+      "method": "naf",
+      "care": false,
+      "metric": "psnr",
+      "median": 29.28316422083804,
+      "q1": 28.048443665682225,
+      "q3": 29.56197689713354,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 29.4,
+        "q1": 28.9,
+        "q3": 30.8
+      },
+      "max_abs_error": 1.2380231028664603,
+      "matches_rounding": false
+    },
+    {
+      "method": "naf",
+      "care": false,
+      "metric": "large_nsd",
+      "median": 87.06958965269173,
+      "q1": 75.64266685867237,
+      "q3": 90.0944195142851,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 83.7,
+        "q1": 76.2,
+        "q3": 86.8
+      },
+      "max_abs_error": 3.3695896526917295,
+      "matches_rounding": false
+    },
+    {
+      "method": "naf",
+      "care": false,
+      "metric": "small_nsd",
+      "median": 61.443509793254506,
+      "q1": 56.533010202421664,
+      "q3": 69.26149398469416,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 61.0,
+        "q1": 51.1,
+        "q3": 70.2
+      },
+      "max_abs_error": 5.433010202421663,
+      "matches_rounding": false
+    },
+    {
+      "method": "naf",
+      "care": false,
+      "metric": "intestine_cldice",
+      "median": 30.35447411664942,
+      "q1": 21.489946993880437,
+      "q3": 41.45117263998638,
+      "n_finite": 12,
+      "n_missing": 1,
+      "paper": {
+        "median": 71.6,
+        "q1": 62.2,
+        "q3": 77.8
+      },
+      "max_abs_error": 41.245525883350574,
+      "matches_rounding": false
+    },
+    {
+      "method": "naf",
+      "care": false,
+      "metric": "vessel_cldice",
+      "median": 69.99880420764399,
+      "q1": 68.05719946105364,
+      "q3": 83.16088826451237,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 75.4,
+        "q1": 70.1,
+        "q3": 81.8
+      },
+      "max_abs_error": 5.40119579235602,
+      "matches_rounding": false
+    },
+    {
+      "method": "naf",
+      "care": true,
+      "metric": "ssim",
+      "median": 92.5762414932251,
+      "q1": 91.98487401008606,
+      "q3": 92.80888438224792,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 92.8,
+        "q1": 91.5,
+        "q3": 93.5
+      },
+      "max_abs_error": 0.6911156177520752,
+      "matches_rounding": false
+    },
+    {
+      "method": "naf",
+      "care": true,
+      "metric": "psnr",
+      "median": 29.51632980873444,
+      "q1": 29.00239988449101,
+      "q3": 30.01054598321205,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 29.6,
+        "q1": 28.6,
+        "q3": 30.3
+      },
+      "max_abs_error": 0.4023998844910075,
+      "matches_rounding": false
+    },
+    {
+      "method": "naf",
+      "care": true,
+      "metric": "large_nsd",
+      "median": 88.29585267908128,
+      "q1": 83.8617884266884,
+      "q3": 91.32871173001924,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 87.9,
+        "q1": 83.8,
+        "q3": 91.3
+      },
+      "max_abs_error": 0.39585267908127264,
+      "matches_rounding": false
+    },
+    {
+      "method": "naf",
+      "care": true,
+      "metric": "small_nsd",
+      "median": 65.04128795125483,
+      "q1": 56.83587069599379,
+      "q3": 70.7914341964332,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 68.1,
+        "q1": 52.4,
+        "q3": 76.7
+      },
+      "max_abs_error": 5.908565803566802,
+      "matches_rounding": false
+    },
+    {
+      "method": "naf",
+      "care": true,
+      "metric": "intestine_cldice",
+      "median": 38.756444022438174,
+      "q1": 28.861804744765543,
+      "q3": 45.69744173988488,
+      "n_finite": 12,
+      "n_missing": 1,
+      "paper": {
+        "median": 81.8,
+        "q1": 74.1,
+        "q3": 85.9
+      },
+      "max_abs_error": 45.23819525523445,
+      "matches_rounding": false
+    },
+    {
+      "method": "naf",
+      "care": true,
+      "metric": "vessel_cldice",
+      "median": 79.51901088949336,
+      "q1": 70.51501244885927,
+      "q3": 84.93209857900595,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 71.8,
+        "q1": 63.4,
+        "q3": 80.8
+      },
+      "max_abs_error": 7.719010889493362,
+      "matches_rounding": false
+    },
+    {
+      "method": "FDK",
+      "care": false,
+      "metric": "ssim",
+      "median": 92.04273223876952,
+      "q1": 90.2876615524292,
+      "q3": 93.07429194450378,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 92.5,
+        "q1": 91.1,
+        "q3": 94.2
+      },
+      "max_abs_error": 1.1257080554962187,
+      "matches_rounding": false
+    },
+    {
+      "method": "FDK",
+      "care": false,
+      "metric": "psnr",
+      "median": 29.075882384761123,
+      "q1": 28.318019552918106,
+      "q3": 29.498987428574495,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 29.5,
+        "q1": 28.9,
+        "q3": 30.9
+      },
+      "max_abs_error": 1.401012571425504,
+      "matches_rounding": false
+    },
+    {
+      "method": "FDK",
+      "care": false,
+      "metric": "large_nsd",
+      "median": 86.57226524056394,
+      "q1": 81.94676035565011,
+      "q3": 88.30911436871882,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 83.8,
+        "q1": 77.3,
+        "q3": 86.8
+      },
+      "max_abs_error": 4.646760355650116,
+      "matches_rounding": false
+    },
+    {
+      "method": "FDK",
+      "care": false,
+      "metric": "small_nsd",
+      "median": 63.55913795985597,
+      "q1": 57.51485328829849,
+      "q3": 68.02433107049936,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 62.4,
+        "q1": 52.4,
+        "q3": 70.6
+      },
+      "max_abs_error": 5.114853288298491,
+      "matches_rounding": false
+    },
+    {
+      "method": "FDK",
+      "care": false,
+      "metric": "intestine_cldice",
+      "median": 28.585015611245055,
+      "q1": 22.383334678919404,
+      "q3": 41.536564611732565,
+      "n_finite": 12,
+      "n_missing": 1,
+      "paper": {
+        "median": 68.2,
+        "q1": 59.8,
+        "q3": 76.9
+      },
+      "max_abs_error": 39.61498438875495,
+      "matches_rounding": false
+    },
+    {
+      "method": "FDK",
+      "care": false,
+      "metric": "vessel_cldice",
+      "median": 73.0527322589624,
+      "q1": 66.90633952635417,
+      "q3": 82.35502121640737,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 76.5,
+        "q1": 66.2,
+        "q3": 80.3
+      },
+      "max_abs_error": 3.4472677410376065,
+      "matches_rounding": false
+    },
+    {
+      "method": "FDK",
+      "care": true,
+      "metric": "ssim",
+      "median": 92.18012690544128,
+      "q1": 91.29316806793211,
+      "q3": 92.83597469329834,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 92.4,
+        "q1": 91.5,
+        "q3": 93.4
+      },
+      "max_abs_error": 0.5640253067016658,
+      "matches_rounding": false
+    },
+    {
+      "method": "FDK",
+      "care": true,
+      "metric": "psnr",
+      "median": 29.291937105583305,
+      "q1": 28.95637002153418,
+      "q3": 29.717698176138864,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 29.7,
+        "q1": 29.0,
+        "q3": 30.6
+      },
+      "max_abs_error": 0.8823018238611375,
+      "matches_rounding": false
+    },
+    {
+      "method": "FDK",
+      "care": true,
+      "metric": "large_nsd",
+      "median": 87.44830576200863,
+      "q1": 80.7677935443368,
+      "q3": 89.84960691958402,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 87.1,
+        "q1": 82.3,
+        "q3": 90.9
+      },
+      "max_abs_error": 1.5322064556632,
+      "matches_rounding": false
+    },
+    {
+      "method": "FDK",
+      "care": true,
+      "metric": "small_nsd",
+      "median": 66.41648944299166,
+      "q1": 59.38333875151922,
+      "q3": 73.68025073601362,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 67.0,
+        "q1": 55.6,
+        "q3": 77.1
+      },
+      "max_abs_error": 3.783338751519217,
+      "matches_rounding": false
+    },
+    {
+      "method": "FDK",
+      "care": true,
+      "metric": "intestine_cldice",
+      "median": 34.066837250374974,
+      "q1": 28.359561443115368,
+      "q3": 43.72170777656305,
+      "n_finite": 12,
+      "n_missing": 1,
+      "paper": {
+        "median": 81.5,
+        "q1": 75.5,
+        "q3": 85.7
+      },
+      "max_abs_error": 47.433162749625026,
+      "matches_rounding": false
+    },
+    {
+      "method": "FDK",
+      "care": true,
+      "metric": "vessel_cldice",
+      "median": 78.62784584515188,
+      "q1": 70.23800120215535,
+      "q3": 82.36754437640572,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 71.7,
+        "q1": 66.4,
+        "q3": 83.2
+      },
+      "max_abs_error": 6.927845845151879,
+      "matches_rounding": false
+    },
+    {
+      "method": "SART",
+      "care": false,
+      "metric": "ssim",
+      "median": 91.8767273426056,
+      "q1": 90.60185551643372,
+      "q3": 92.6210105419159,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 92.5,
+        "q1": 91.1,
+        "q3": 94.2
+      },
+      "max_abs_error": 1.5789894580841093,
+      "matches_rounding": false
+    },
+    {
+      "method": "SART",
+      "care": false,
+      "metric": "psnr",
+      "median": 29.23814945830223,
+      "q1": 28.18074707065117,
+      "q3": 29.578198533416103,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 29.5,
+        "q1": 28.9,
+        "q3": 31.0
+      },
+      "max_abs_error": 1.4218014665838972,
+      "matches_rounding": false
+    },
+    {
+      "method": "SART",
+      "care": false,
+      "metric": "large_nsd",
+      "median": 84.33822160993606,
+      "q1": 79.25846795961868,
+      "q3": 90.42975672934801,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 84.6,
+        "q1": 76.9,
+        "q3": 88.1
+      },
+      "max_abs_error": 2.358467959618679,
+      "matches_rounding": false
+    },
+    {
+      "method": "SART",
+      "care": false,
+      "metric": "small_nsd",
+      "median": 63.745187546247905,
+      "q1": 54.51834300508325,
+      "q3": 76.13505837321368,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 61.3,
+        "q1": 53.7,
+        "q3": 75.4
+      },
+      "max_abs_error": 2.445187546247908,
+      "matches_rounding": false
+    },
+    {
+      "method": "SART",
+      "care": false,
+      "metric": "intestine_cldice",
+      "median": 27.638036995665452,
+      "q1": 20.444172635272796,
+      "q3": 41.86846715135266,
+      "n_finite": 12,
+      "n_missing": 1,
+      "paper": {
+        "median": 70.0,
+        "q1": 61.0,
+        "q3": 77.6
+      },
+      "max_abs_error": 42.36196300433455,
+      "matches_rounding": false
+    },
+    {
+      "method": "SART",
+      "care": false,
+      "metric": "vessel_cldice",
+      "median": 76.05788342226478,
+      "q1": 65.37793167980855,
+      "q3": 83.84390793192817,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 78.7,
+        "q1": 65.6,
+        "q3": 83.6
+      },
+      "max_abs_error": 2.642116577735223,
+      "matches_rounding": false
+    },
+    {
+      "method": "SART",
+      "care": true,
+      "metric": "ssim",
+      "median": 93.25881600379944,
+      "q1": 92.6674783229828,
+      "q3": 93.89780163764954,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 93.3,
+        "q1": 92.7,
+        "q3": 94.3
+      },
+      "max_abs_error": 0.402198362350461,
+      "matches_rounding": false
+    },
+    {
+      "method": "SART",
+      "care": true,
+      "metric": "psnr",
+      "median": 29.958436487557563,
+      "q1": 29.53544609112642,
+      "q3": 30.26712344227802,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 30.3,
+        "q1": 29.5,
+        "q3": 30.9
+      },
+      "max_abs_error": 0.6328765577219784,
+      "matches_rounding": false
+    },
+    {
+      "method": "SART",
+      "care": true,
+      "metric": "large_nsd",
+      "median": 88.14453241442926,
+      "q1": 81.27513032861314,
+      "q3": 90.96854392882109,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 88.2,
+        "q1": 84.2,
+        "q3": 90.8
+      },
+      "max_abs_error": 2.9248696713868583,
+      "matches_rounding": false
+    },
+    {
+      "method": "SART",
+      "care": true,
+      "metric": "small_nsd",
+      "median": 64.21166908687375,
+      "q1": 50.59531759654325,
+      "q3": 77.52831595498866,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 68.5,
+        "q1": 56.0,
+        "q3": 75.5
+      },
+      "max_abs_error": 5.4046824034567535,
+      "matches_rounding": false
+    },
+    {
+      "method": "SART",
+      "care": true,
+      "metric": "intestine_cldice",
+      "median": 36.767382592062134,
+      "q1": 27.226739607653997,
+      "q3": 45.46202468849793,
+      "n_finite": 12,
+      "n_missing": 1,
+      "paper": {
+        "median": 83.5,
+        "q1": 77.8,
+        "q3": 87.5
+      },
+      "max_abs_error": 50.573260392346,
+      "matches_rounding": false
+    },
+    {
+      "method": "SART",
+      "care": true,
+      "metric": "vessel_cldice",
+      "median": 77.7146428469724,
+      "q1": 69.75233993849473,
+      "q3": 85.26844173035113,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 75.2,
+        "q1": 62.2,
+        "q3": 83.3
+      },
+      "max_abs_error": 7.552339938494725,
+      "matches_rounding": false
+    },
+    {
+      "method": "ASD_POCS",
+      "care": false,
+      "metric": "ssim",
+      "median": 92.08744168281557,
+      "q1": 90.65997004508972,
+      "q3": 92.87817478179932,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 92.3,
+        "q1": 91.6,
+        "q3": 94.2
+      },
+      "max_abs_error": 1.3218252182006864,
+      "matches_rounding": false
+    },
+    {
+      "method": "ASD_POCS",
+      "care": false,
+      "metric": "psnr",
+      "median": 29.24227938644645,
+      "q1": 28.153454112623287,
+      "q3": 29.6647773367948,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 29.5,
+        "q1": 28.9,
+        "q3": 30.7
+      },
+      "max_abs_error": 1.0352226632052002,
+      "matches_rounding": false
+    },
+    {
+      "method": "ASD_POCS",
+      "care": false,
+      "metric": "large_nsd",
+      "median": 86.67737001996144,
+      "q1": 82.94377268056735,
+      "q3": 88.49218502393974,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 83.8,
+        "q1": 76.5,
+        "q3": 87.2
+      },
+      "max_abs_error": 6.443772680567349,
+      "matches_rounding": false
+    },
+    {
+      "method": "ASD_POCS",
+      "care": false,
+      "metric": "small_nsd",
+      "median": 58.72026882161033,
+      "q1": 50.16931789368592,
+      "q3": 77.76171107217611,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 61.0,
+        "q1": 51.4,
+        "q3": 73.6
+      },
+      "max_abs_error": 4.161711072176118,
+      "matches_rounding": false
+    },
+    {
+      "method": "ASD_POCS",
+      "care": false,
+      "metric": "intestine_cldice",
+      "median": 31.26163340207763,
+      "q1": 20.472518081564687,
+      "q3": 39.18202258353445,
+      "n_finite": 12,
+      "n_missing": 1,
+      "paper": {
+        "median": 71.3,
+        "q1": 61.8,
+        "q3": 77.4
+      },
+      "max_abs_error": 41.32748191843531,
+      "matches_rounding": false
+    },
+    {
+      "method": "ASD_POCS",
+      "care": false,
+      "metric": "vessel_cldice",
+      "median": 72.32028177045615,
+      "q1": 64.91162919020023,
+      "q3": 83.46677075857575,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 74.7,
+        "q1": 67.4,
+        "q3": 81.1
+      },
+      "max_abs_error": 2.4883708097997754,
+      "matches_rounding": false
+    },
+    {
+      "method": "ASD_POCS",
+      "care": true,
+      "metric": "ssim",
+      "median": 92.16461777687071,
+      "q1": 91.57864451408386,
+      "q3": 92.77746081352234,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 92.4,
+        "q1": 91.8,
+        "q3": 93.5
+      },
+      "max_abs_error": 0.7225391864776611,
+      "matches_rounding": false
+    },
+    {
+      "method": "ASD_POCS",
+      "care": true,
+      "metric": "psnr",
+      "median": 28.841581358199253,
+      "q1": 28.31145871410737,
+      "q3": 29.26053603871988,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 29.4,
+        "q1": 28.4,
+        "q3": 30.1
+      },
+      "max_abs_error": 0.8394639612801207,
+      "matches_rounding": false
+    },
+    {
+      "method": "ASD_POCS",
+      "care": true,
+      "metric": "large_nsd",
+      "median": 85.42543158034216,
+      "q1": 81.27954580040804,
+      "q3": 89.71716189869669,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 88.1,
+        "q1": 82.6,
+        "q3": 90.9
+      },
+      "max_abs_error": 2.674568419657831,
+      "matches_rounding": false
+    },
+    {
+      "method": "ASD_POCS",
+      "care": true,
+      "metric": "small_nsd",
+      "median": 63.810515131608646,
+      "q1": 55.15380799947657,
+      "q3": 74.46921841842448,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 67.8,
+        "q1": 56.2,
+        "q3": 75.4
+      },
+      "max_abs_error": 3.989484868391351,
+      "matches_rounding": false
+    },
+    {
+      "method": "ASD_POCS",
+      "care": true,
+      "metric": "intestine_cldice",
+      "median": 35.04896677318415,
+      "q1": 28.855512581981365,
+      "q3": 46.247392565409044,
+      "n_finite": 12,
+      "n_missing": 1,
+      "paper": {
+        "median": 80.7,
+        "q1": 74.9,
+        "q3": 84.9
+      },
+      "max_abs_error": 46.04448741801864,
+      "matches_rounding": false
+    },
+    {
+      "method": "ASD_POCS",
+      "care": true,
+      "metric": "vessel_cldice",
+      "median": 80.17322451788516,
+      "q1": 71.64235449027898,
+      "q3": 83.18370854245478,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 76.4,
+        "q1": 66.6,
+        "q3": 79.9
+      },
+      "max_abs_error": 5.042354490278981,
+      "matches_rounding": false
+    },
+    {
+      "method": "Lineformer",
+      "care": false,
+      "metric": "ssim",
+      "median": 93.24553608894348,
+      "q1": 92.33271479606628,
+      "q3": 94.07925009727478,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 93.7,
+        "q1": 92.8,
+        "q3": 95.0
+      },
+      "max_abs_error": 0.9207499027252197,
+      "matches_rounding": false
+    },
+    {
+      "method": "Lineformer",
+      "care": false,
+      "metric": "psnr",
+      "median": 29.26290767681689,
+      "q1": 28.83013087641921,
+      "q3": 29.572104768995437,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 29.6,
+        "q1": 29.0,
+        "q3": 31.0
+      },
+      "max_abs_error": 1.4278952310045625,
+      "matches_rounding": false
+    },
+    {
+      "method": "Lineformer",
+      "care": false,
+      "metric": "large_nsd",
+      "median": 83.5726972724019,
+      "q1": 73.24385809755043,
+      "q3": 85.95417773070388,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 82.4,
+        "q1": 73.9,
+        "q3": 88.9
+      },
+      "max_abs_error": 2.94582226929613,
+      "matches_rounding": false
+    },
+    {
+      "method": "Lineformer",
+      "care": false,
+      "metric": "small_nsd",
+      "median": 63.112690460279694,
+      "q1": 48.725968204631414,
+      "q3": 78.02291026785186,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 66.5,
+        "q1": 55.0,
+        "q3": 78.0
+      },
+      "max_abs_error": 6.274031795368586,
+      "matches_rounding": false
+    },
+    {
+      "method": "Lineformer",
+      "care": false,
+      "metric": "intestine_cldice",
+      "median": 26.66868324227932,
+      "q1": 20.96018827007978,
+      "q3": 42.30238516649068,
+      "n_finite": 12,
+      "n_missing": 1,
+      "paper": {
+        "median": 68.0,
+        "q1": 56.3,
+        "q3": 77.9
+      },
+      "max_abs_error": 41.33131675772068,
+      "matches_rounding": false
+    },
+    {
+      "method": "Lineformer",
+      "care": false,
+      "metric": "vessel_cldice",
+      "median": 76.08958659154216,
+      "q1": 63.48862230930628,
+      "q3": 85.80649946270945,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 79.3,
+        "q1": 62.4,
+        "q3": 85.1
+      },
+      "max_abs_error": 3.210413408457839,
+      "matches_rounding": false
+    },
+    {
+      "method": "Lineformer",
+      "care": true,
+      "metric": "ssim",
+      "median": 92.33004450798036,
+      "q1": 91.50888323783876,
+      "q3": 93.27226281166077,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 92.5,
+        "q1": 91.2,
+        "q3": 93.3
+      },
+      "max_abs_error": 0.3088832378387565,
+      "matches_rounding": false
+    },
+    {
+      "method": "Lineformer",
+      "care": true,
+      "metric": "psnr",
+      "median": 29.672809717470376,
+      "q1": 28.925251172735077,
+      "q3": 29.94331928934128,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 29.4,
+        "q1": 28.8,
+        "q3": 30.1
+      },
+      "max_abs_error": 0.27280971747037697,
+      "matches_rounding": false
+    },
+    {
+      "method": "Lineformer",
+      "care": true,
+      "metric": "large_nsd",
+      "median": 89.05620221631551,
+      "q1": 81.46365640343586,
+      "q3": 93.09652967954011,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 88.7,
+        "q1": 81.9,
+        "q3": 90.9
+      },
+      "max_abs_error": 2.196529679540106,
+      "matches_rounding": false
+    },
+    {
+      "method": "Lineformer",
+      "care": true,
+      "metric": "small_nsd",
+      "median": 65.15066647937718,
+      "q1": 63.2160313818046,
+      "q3": 69.67047122681609,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 67.1,
+        "q1": 54.5,
+        "q3": 75.1
+      },
+      "max_abs_error": 8.716031381804598,
+      "matches_rounding": false
+    },
+    {
+      "method": "Lineformer",
+      "care": true,
+      "metric": "intestine_cldice",
+      "median": 36.19845729546629,
+      "q1": 26.90018856028969,
+      "q3": 43.828702956569266,
+      "n_finite": 12,
+      "n_missing": 1,
+      "paper": {
+        "median": 81.5,
+        "q1": 76.0,
+        "q3": 86.8
+      },
+      "max_abs_error": 49.09981143971031,
+      "matches_rounding": false
+    },
+    {
+      "method": "Lineformer",
+      "care": true,
+      "metric": "vessel_cldice",
+      "median": 76.51581232906653,
+      "q1": 70.07113770851288,
+      "q3": 84.96873308584381,
+      "n_finite": 13,
+      "n_missing": 0,
+      "paper": {
+        "median": 72.0,
+        "q1": 62.9,
+        "q3": 84.1
+      },
+      "max_abs_error": 7.17113770851288,
+      "matches_rounding": false
+    }
+  ],
+  "paired_changes": [
+    {
+      "method": "intratomo",
+      "metric": "ssim",
+      "n_pairs": 13,
+      "improved": 0,
+      "tied": 0,
+      "worsened": 13,
+      "median_paired_change": -5.739021301269531
+    },
+    {
+      "method": "intratomo",
+      "metric": "psnr",
+      "n_pairs": 13,
+      "improved": 0,
+      "tied": 0,
+      "worsened": 13,
+      "median_paired_change": -2.6906511380099296
+    },
+    {
+      "method": "intratomo",
+      "metric": "large_nsd",
+      "n_pairs": 13,
+      "improved": 12,
+      "tied": 0,
+      "worsened": 1,
+      "median_paired_change": 36.330155353182924
+    },
+    {
+      "method": "intratomo",
+      "metric": "small_nsd",
+      "n_pairs": 0,
+      "improved": 0,
+      "tied": 0,
+      "worsened": 0,
+      "median_paired_change": null
+    },
+    {
+      "method": "intratomo",
+      "metric": "intestine_cldice",
+      "n_pairs": 11,
+      "improved": 11,
+      "tied": 0,
+      "worsened": 0,
+      "median_paired_change": 14.698882209737022
+    },
+    {
+      "method": "intratomo",
+      "metric": "vessel_cldice",
+      "n_pairs": 2,
+      "improved": 2,
+      "tied": 0,
+      "worsened": 0,
+      "median_paired_change": 29.507191598795636
+    },
+    {
+      "method": "nerf",
+      "metric": "ssim",
+      "n_pairs": 13,
+      "improved": 0,
+      "tied": 0,
+      "worsened": 13,
+      "median_paired_change": -6.704103946685791
+    },
+    {
+      "method": "nerf",
+      "metric": "psnr",
+      "n_pairs": 13,
+      "improved": 0,
+      "tied": 0,
+      "worsened": 13,
+      "median_paired_change": -3.387766384166195
+    },
+    {
+      "method": "nerf",
+      "metric": "large_nsd",
+      "n_pairs": 13,
+      "improved": 12,
+      "tied": 0,
+      "worsened": 1,
+      "median_paired_change": 28.90268925115167
+    },
+    {
+      "method": "nerf",
+      "metric": "small_nsd",
+      "n_pairs": 8,
+      "improved": 6,
+      "tied": 0,
+      "worsened": 2,
+      "median_paired_change": 10.505207591794154
+    },
+    {
+      "method": "nerf",
+      "metric": "intestine_cldice",
+      "n_pairs": 12,
+      "improved": 10,
+      "tied": 0,
+      "worsened": 2,
+      "median_paired_change": 14.026395238420792
+    },
+    {
+      "method": "nerf",
+      "metric": "vessel_cldice",
+      "n_pairs": 10,
+      "improved": 8,
+      "tied": 0,
+      "worsened": 2,
+      "median_paired_change": 23.388799020230394
+    },
+    {
+      "method": "tensorf",
+      "metric": "ssim",
+      "n_pairs": 13,
+      "improved": 9,
+      "tied": 0,
+      "worsened": 4,
+      "median_paired_change": 0.8657753467559814
+    },
+    {
+      "method": "tensorf",
+      "metric": "psnr",
+      "n_pairs": 13,
+      "improved": 6,
+      "tied": 0,
+      "worsened": 7,
+      "median_paired_change": -0.08890399998533027
+    },
+    {
+      "method": "tensorf",
+      "metric": "large_nsd",
+      "n_pairs": 13,
+      "improved": 13,
+      "tied": 0,
+      "worsened": 0,
+      "median_paired_change": 23.903665980412995
+    },
+    {
+      "method": "tensorf",
+      "metric": "small_nsd",
+      "n_pairs": 9,
+      "improved": 8,
+      "tied": 0,
+      "worsened": 1,
+      "median_paired_change": 22.269118679992467
+    },
+    {
+      "method": "tensorf",
+      "metric": "intestine_cldice",
+      "n_pairs": 12,
+      "improved": 12,
+      "tied": 0,
+      "worsened": 0,
+      "median_paired_change": 20.890624195276605
+    },
+    {
+      "method": "tensorf",
+      "metric": "vessel_cldice",
+      "n_pairs": 13,
+      "improved": 9,
+      "tied": 0,
+      "worsened": 4,
+      "median_paired_change": 8.10456550161149
+    },
+    {
+      "method": "r2_gaussian",
+      "metric": "ssim",
+      "n_pairs": 13,
+      "improved": 1,
+      "tied": 0,
+      "worsened": 12,
+      "median_paired_change": -3.0875563621520996
+    },
+    {
+      "method": "r2_gaussian",
+      "metric": "psnr",
+      "n_pairs": 13,
+      "improved": 3,
+      "tied": 0,
+      "worsened": 10,
+      "median_paired_change": -0.5640981546488391
+    },
+    {
+      "method": "r2_gaussian",
+      "metric": "large_nsd",
+      "n_pairs": 13,
+      "improved": 9,
+      "tied": 0,
+      "worsened": 4,
+      "median_paired_change": 3.94916971685754
+    },
+    {
+      "method": "r2_gaussian",
+      "metric": "small_nsd",
+      "n_pairs": 13,
+      "improved": 4,
+      "tied": 0,
+      "worsened": 9,
+      "median_paired_change": -1.973995812161668
+    },
+    {
+      "method": "r2_gaussian",
+      "metric": "intestine_cldice",
+      "n_pairs": 12,
+      "improved": 11,
+      "tied": 0,
+      "worsened": 1,
+      "median_paired_change": 8.862333319904732
+    },
+    {
+      "method": "r2_gaussian",
+      "metric": "vessel_cldice",
+      "n_pairs": 13,
+      "improved": 9,
+      "tied": 0,
+      "worsened": 4,
+      "median_paired_change": 4.291895203802653
+    },
+    {
+      "method": "naf",
+      "metric": "ssim",
+      "n_pairs": 13,
+      "improved": 11,
+      "tied": 0,
+      "worsened": 2,
+      "median_paired_change": 0.8562207221984863
+    },
+    {
+      "method": "naf",
+      "metric": "psnr",
+      "n_pairs": 13,
+      "improved": 9,
+      "tied": 0,
+      "worsened": 4,
+      "median_paired_change": 0.44088052132945066
+    },
+    {
+      "method": "naf",
+      "metric": "large_nsd",
+      "n_pairs": 13,
+      "improved": 10,
+      "tied": 0,
+      "worsened": 3,
+      "median_paired_change": 2.7555810503757527
+    },
+    {
+      "method": "naf",
+      "metric": "small_nsd",
+      "n_pairs": 13,
+      "improved": 5,
+      "tied": 0,
+      "worsened": 8,
+      "median_paired_change": -2.03024825763989
+    },
+    {
+      "method": "naf",
+      "metric": "intestine_cldice",
+      "n_pairs": 12,
+      "improved": 11,
+      "tied": 0,
+      "worsened": 1,
+      "median_paired_change": 6.434633187614086
+    },
+    {
+      "method": "naf",
+      "metric": "vessel_cldice",
+      "n_pairs": 13,
+      "improved": 11,
+      "tied": 0,
+      "worsened": 2,
+      "median_paired_change": 2.419244633467528
+    },
+    {
+      "method": "FDK",
+      "metric": "ssim",
+      "n_pairs": 13,
+      "improved": 8,
+      "tied": 0,
+      "worsened": 5,
+      "median_paired_change": 0.6149590015411377
+    },
+    {
+      "method": "FDK",
+      "metric": "psnr",
+      "n_pairs": 13,
+      "improved": 8,
+      "tied": 0,
+      "worsened": 5,
+      "median_paired_change": 0.1459399754836106
+    },
+    {
+      "method": "FDK",
+      "metric": "large_nsd",
+      "n_pairs": 13,
+      "improved": 8,
+      "tied": 0,
+      "worsened": 5,
+      "median_paired_change": 1.9299477896092867
+    },
+    {
+      "method": "FDK",
+      "metric": "small_nsd",
+      "n_pairs": 13,
+      "improved": 9,
+      "tied": 0,
+      "worsened": 4,
+      "median_paired_change": 2.3969215465141502
+    },
+    {
+      "method": "FDK",
+      "metric": "intestine_cldice",
+      "n_pairs": 12,
+      "improved": 9,
+      "tied": 0,
+      "worsened": 3,
+      "median_paired_change": 4.566070226929952
+    },
+    {
+      "method": "FDK",
+      "metric": "vessel_cldice",
+      "n_pairs": 13,
+      "improved": 7,
+      "tied": 0,
+      "worsened": 6,
+      "median_paired_change": 0.4956306861026434
+    },
+    {
+      "method": "SART",
+      "metric": "ssim",
+      "n_pairs": 13,
+      "improved": 12,
+      "tied": 0,
+      "worsened": 1,
+      "median_paired_change": 1.5447974205017232
+    },
+    {
+      "method": "SART",
+      "metric": "psnr",
+      "n_pairs": 13,
+      "improved": 9,
+      "tied": 0,
+      "worsened": 4,
+      "median_paired_change": 1.0988556961437546
+    },
+    {
+      "method": "SART",
+      "metric": "large_nsd",
+      "n_pairs": 13,
+      "improved": 8,
+      "tied": 0,
+      "worsened": 5,
+      "median_paired_change": 2.01666236899446
+    },
+    {
+      "method": "SART",
+      "metric": "small_nsd",
+      "n_pairs": 13,
+      "improved": 5,
+      "tied": 0,
+      "worsened": 8,
+      "median_paired_change": -1.6136874837145285
+    },
+    {
+      "method": "SART",
+      "metric": "intestine_cldice",
+      "n_pairs": 12,
+      "improved": 10,
+      "tied": 0,
+      "worsened": 2,
+      "median_paired_change": 5.90784775169417
+    },
+    {
+      "method": "SART",
+      "metric": "vessel_cldice",
+      "n_pairs": 13,
+      "improved": 8,
+      "tied": 0,
+      "worsened": 5,
+      "median_paired_change": 2.812520583511045
+    },
+    {
+      "method": "ASD_POCS",
+      "metric": "ssim",
+      "n_pairs": 13,
+      "improved": 8,
+      "tied": 0,
+      "worsened": 5,
+      "median_paired_change": 0.3370344638824463
+    },
+    {
+      "method": "ASD_POCS",
+      "metric": "psnr",
+      "n_pairs": 13,
+      "improved": 5,
+      "tied": 0,
+      "worsened": 8,
+      "median_paired_change": -0.4199086296474839
+    },
+    {
+      "method": "ASD_POCS",
+      "metric": "large_nsd",
+      "n_pairs": 13,
+      "improved": 8,
+      "tied": 0,
+      "worsened": 5,
+      "median_paired_change": 1.7934626824017386
+    },
+    {
+      "method": "ASD_POCS",
+      "metric": "small_nsd",
+      "n_pairs": 13,
+      "improved": 7,
+      "tied": 0,
+      "worsened": 6,
+      "median_paired_change": 3.04032442882
+    },
+    {
+      "method": "ASD_POCS",
+      "metric": "intestine_cldice",
+      "n_pairs": 12,
+      "improved": 10,
+      "tied": 0,
+      "worsened": 2,
+      "median_paired_change": 4.651425955514464
+    },
+    {
+      "method": "ASD_POCS",
+      "metric": "vessel_cldice",
+      "n_pairs": 13,
+      "improved": 9,
+      "tied": 0,
+      "worsened": 4,
+      "median_paired_change": 2.3716355747038307
+    },
+    {
+      "method": "Lineformer",
+      "metric": "ssim",
+      "n_pairs": 13,
+      "improved": 3,
+      "tied": 0,
+      "worsened": 10,
+      "median_paired_change": -0.5408167839050151
+    },
+    {
+      "method": "Lineformer",
+      "metric": "psnr",
+      "n_pairs": 13,
+      "improved": 8,
+      "tied": 0,
+      "worsened": 5,
+      "median_paired_change": 0.34186705118712624
+    },
+    {
+      "method": "Lineformer",
+      "metric": "large_nsd",
+      "n_pairs": 13,
+      "improved": 12,
+      "tied": 0,
+      "worsened": 1,
+      "median_paired_change": 5.971349963354925
+    },
+    {
+      "method": "Lineformer",
+      "metric": "small_nsd",
+      "n_pairs": 13,
+      "improved": 5,
+      "tied": 0,
+      "worsened": 8,
+      "median_paired_change": -4.445158163829703
+    },
+    {
+      "method": "Lineformer",
+      "metric": "intestine_cldice",
+      "n_pairs": 12,
+      "improved": 11,
+      "tied": 0,
+      "worsened": 1,
+      "median_paired_change": 7.586920407880424
+    },
+    {
+      "method": "Lineformer",
+      "metric": "vessel_cldice",
+      "n_pairs": 13,
+      "improved": 6,
+      "tied": 0,
+      "worsened": 7,
+      "median_paired_change": -0.03592777905826949
+    }
+  ],
+  "input_issues": [
+    {
+      "method": "intratomo",
+      "care": false,
+      "metric": "small_nsd",
+      "issue": "Endpoint has no finite cases"
+    }
+  ],
+  "manifest": {
+    "retrieved_at_utc": "2026-11-02T07:10:55.309147+00:00",
+    "protocol_sha256": "696f1093394844bf323ca7f934352e142743e2722702e29931fa1c7a6ef8d796",
+    "code_sha256": "0de699ada1b2324229087e639175c8b1b07d67c4795132600fe9e968a66db14d",
+    "input_manifest_sha256": "2232f5d9118f82a67794831125a1596ee528c6fd80a3ae4f29816271d3bcd45a",
+    "amendment_sha256": "51bf25e01dcfa28b0358d414fc782e96b21ccb9988fbff0c0df95662d456503f",
+    "git_commit": "9805a5cdf820d0eac0d4c0faa8ce4f220bae88e3",
+    "versions": {
+      "numpy": "1.26.4",
+      "pandas": "2.3.3",
+      "requests": "2.32.5",
+      "PyMuPDF": "1.27.2.3"
+    }
+  },
+  "limits": [
+    "Author-produced scores are reused, not independently recomputed from CT images.",
+    "The table and selected reference numbers were seen before protocol writing.",
+    "No mean-fill, domain-shift or identity experiment has been executed here.",
+    "Missing values follow authors' nan-aware rules; endpoint denominators are reported.",
+    "Lineformer CSV mapping to SAX-NeRF is provisional and judged against table agreement."
+  ]
+}

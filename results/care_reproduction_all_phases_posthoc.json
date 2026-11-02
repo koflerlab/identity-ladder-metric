@@ -1,0 +1,340 @@
+{
+  "status": "blocked_case_coverage",
+  "selection": "paper_all_phases_posthoc",
+  "n_selected_cases": 36,
+  "official_commit": "2443d490c59eebaac9e8420d56b45bffed113feb",
+  "scope": "No score aggregation performed for this selection; incomplete case coverage.",
+  "coverage": [
+    {
+      "method": "intratomo",
+      "care": false,
+      "kind": "pixel",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "intratomo",
+      "care": false,
+      "kind": "seg",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "intratomo",
+      "care": true,
+      "kind": "pixel",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "intratomo",
+      "care": true,
+      "kind": "seg",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "nerf",
+      "care": false,
+      "kind": "pixel",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "nerf",
+      "care": false,
+      "kind": "seg",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "nerf",
+      "care": true,
+      "kind": "pixel",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "nerf",
+      "care": true,
+      "kind": "seg",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "tensorf",
+      "care": false,
+      "kind": "pixel",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "tensorf",
+      "care": false,
+      "kind": "seg",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "tensorf",
+      "care": true,
+      "kind": "pixel",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "tensorf",
+      "care": true,
+      "kind": "seg",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "r2_gaussian",
+      "care": false,
+      "kind": "pixel",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "r2_gaussian",
+      "care": false,
+      "kind": "seg",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "r2_gaussian",
+      "care": true,
+      "kind": "pixel",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "r2_gaussian",
+      "care": true,
+      "kind": "seg",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "naf",
+      "care": false,
+      "kind": "pixel",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "naf",
+      "care": false,
+      "kind": "seg",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "naf",
+      "care": true,
+      "kind": "pixel",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "naf",
+      "care": true,
+      "kind": "seg",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "FDK",
+      "care": false,
+      "kind": "pixel",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "FDK",
+      "care": false,
+      "kind": "seg",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "FDK",
+      "care": true,
+      "kind": "pixel",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "FDK",
+      "care": true,
+      "kind": "seg",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "SART",
+      "care": false,
+      "kind": "pixel",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "SART",
+      "care": false,
+      "kind": "seg",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "SART",
+      "care": true,
+      "kind": "pixel",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "SART",
+      "care": true,
+      "kind": "seg",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "ASD_POCS",
+      "care": false,
+      "kind": "pixel",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "ASD_POCS",
+      "care": false,
+      "kind": "seg",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "ASD_POCS",
+      "care": true,
+      "kind": "pixel",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "ASD_POCS",
+      "care": true,
+      "kind": "seg",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "Lineformer",
+      "care": false,
+      "kind": "pixel",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "Lineformer",
+      "care": false,
+      "kind": "seg",
+      "n_expected": 36,
+      "n_present": 35,
+      "n_missing": 1,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "Lineformer",
+      "care": true,
+      "kind": "pixel",
+      "n_expected": 36,
+      "n_present": 36,
+      "n_missing": 0,
+      "n_duplicate_keys": 0
+    },
+    {
+      "method": "Lineformer",
+      "care": true,
+      "kind": "seg",
+      "n_expected": 36,
+      "n_present": 35,
+      "n_missing": 1,
+      "n_duplicate_keys": 0
+    }
+  ],
+  "manifest": {
+    "protocol_sha256": "696f1093394844bf323ca7f934352e142743e2722702e29931fa1c7a6ef8d796",
+    "code_sha256": "0de699ada1b2324229087e639175c8b1b07d67c4795132600fe9e968a66db14d",
+    "input_manifest_sha256": "2232f5d9118f82a67794831125a1596ee528c6fd80a3ae4f29816271d3bcd45a",
+    "amendment_sha256": "51bf25e01dcfa28b0358d414fc782e96b21ccb9988fbff0c0df95662d456503f",
+    "retrieved_at_utc": "2026-11-02T07:10:55.497951+00:00"
+  }
+}

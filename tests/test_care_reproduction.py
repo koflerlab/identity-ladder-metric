@@ -41,3 +41,21 @@ def test_missing_denominators_and_infinite_rejection():
         cr.summarize([np.nan])
     with pytest.raises(ValueError, match="Infinite"):
         cr.summarize([1, np.inf])
+
+
+def test_posthoc_all_phase_selection_preserves_original_rule():
+    split = pd.DataFrame({"bdmap_id": ["fixture1_V", "fixture2_A"]})
+    assert cr.selected_ids(split) == {"fixture1"}
+    assert cr.selected_ids(split, "paper_all_phases_posthoc") == {"fixture1", "fixture2"}
+    with pytest.raises(ValueError, match="Duplicate|duplicate"):
+        cr.selected_ids(pd.DataFrame({"bdmap_id": ["fixture1_V", "fixture1_A"]}), "paper_all_phases_posthoc")
+
+
+def test_coverage_failure_reports_counts_without_case_keys(monkeypatch):
+    monkeypatch.setattr(cr, "METHODS", ("fixture_method",))
+    data = {cr.csv_path("fixture_method", care, kind): b"case_name,value\nfixture_case,1\n"
+            for care in (False, True) for kind in ("pixel", "seg")}
+    rows = cr.coverage_diagnostics(data, {"fixture_case", "absent_case"})
+    assert len(rows) == 4
+    assert all(r["n_present"] == 1 and r["n_missing"] == 1 for r in rows)
+    assert "fixture_case" not in str(rows) and "absent_case" not in str(rows)
