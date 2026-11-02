@@ -257,6 +257,17 @@ rotation. Image excluded if no landmark is found. On 60 checked pairs: no failur
 (same camera), 0.92 (other camera), 0.86 (fellow eye), stranger 0.80 to 0.82. Patch: the centred square, which now
 lies midway between disc and fovea. ORB is not used.
 
+## Display note (2 Nov 2026): which case the real-data figures show
+
+Display only; no table, score or claim changes. Kate found the first iris case too shifted to read. The pictured case
+of every real-data figure is now the first person in ID order who has every column AND whose non-stranger columns
+(repeat or later visit, other camera, flipped fellow eye) lie within 8 pixels of the original's landmarks in the
+224-pixel base image: the pupil centre (`iris_codes.pupil_blob`) for iris, the optic disc and fovea
+(`ladder2d_register.fundus_landmarks`) for GRAPE. Landmark positions only; no metric value is looked at. The
+threshold was fixed before redrawing. If no person meets it (UTIRIS: none does, because its photographs frame the
+whole eye loosely), the person with the smallest worst-case landmark offset is shown, again without any metric.
+Figures stay in the private run folder.
+
 ## References
 
 1. Oquab M, Darcet T, Moutakanni T, Vo H, Szafraniec M, Khalidov V, et al. DINOv2: learning robust visual features without supervision [Preprint]. arXiv:2304.07193. 2023.
