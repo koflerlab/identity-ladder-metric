@@ -1,5 +1,10 @@
 # Handoff: identity-ladder-metric (updated 2026-11-02)
 
+## PRIORITY: registration and visual QC gate (Kate, 2026-11-02)
+- Stop further metric experiments. Registration and exact crop correspondence, including mirrored same-person comparisons, must be solved and visual QC must pass at least 90% of the predefined review set before other metrics resume. No such passing QC has been established here.
+- New-chat handoff: `docs/REGISTRATION_QC_HANDOFF.md`. Current unregistered 2D and unvalidated QTIM numbers are provisional, not accepted evidence; the metric board must flag them. Existing registration jobs and another session's `ladder2d_register.py` must not be duplicated or overwritten.
+- Completed before this pause: CARE iteration 2 has SSIM 18/18 and PSNR 18/18 matched triplets, anatomy 63 mismatches / 8 coverage-blocked / 1 unavailable. Saved in `results/care_iteration2*`; this was author-score aggregation only, not image-level CARE or H19. Full suite: 162 passed, 10 existing warnings. Metric visibility/workflow commit: `bccf8ca`. Preserve outputs; do not launch further experiments.
+
 ## Split of the literature work between Codex and Claude (2026-11-02, Kate's request)
 - Codex owns execution: `src/care_reproduction.py`, its tests, `docs/PROTOCOL_care_reproduction*.md`, `results/care_reproduction*`, `docs/REPRODUCTION_BACKLOG.md`, and LS-01/LS-03 feasibility. Claude does not edit these.
 - Claude owns read-only review and citation checking: `docs/REVIEW_care_reproduction.md` (independent review of R1) and a bib-verified note on the seven closest papers (separate docs file). No code, no runs, no backlog edits.

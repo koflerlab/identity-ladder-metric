@@ -1,5 +1,6 @@
 # Identity Ladder: metric visibility and reproduction
 
+- PRIORITY, Kate's decision 2026-11-02: pause further metric experiments until registration is solved and visual QC passes at least 90% of the prospectively defined comparisons, including mirrored cases. See `docs/REGISTRATION_QC_HANDOFF.md`. Existing unregistered 2D and unvalidated MRI results are provisional, not evidence for identity/metric conclusions. Do registration and visual QC only until this gate is met.
 - Follow `docs/HANDOFF.md` and `docs/REPRODUCTION_WORKFLOW.md`; preserve concurrent ownership and frozen protocols.
 - Kate wants current metrics and results visible throughout every iteration. Run `python src/metrics_board.py` before and after an experiment and before the final reply. Keep `results/METRICS_STATUS.md` open in the existing side panel; update it in place.
 - Every reported metric needs a named definition/direction, data/split, denominator, raw-versus-calibrated scale, result and evidence status. Mark unavailable, invalid, blocked and not run distinctly. Do not fill gaps with zeros.

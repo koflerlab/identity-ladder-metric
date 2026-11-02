@@ -36,7 +36,7 @@ def extract_brats(data):
                              "c_mean": c.get("mean", .5), "c_ci_low": c.get("ci95", [None, None])[0],
                              "c_ci_high": c.get("ci95", [None, None])[1], "n_pairs": entry.get("n_pairs"),
                              "n_people": entry.get("n_people"), "n_reference_fills": entry.get("n_fills"),
-                             "status": "saved_descriptive_result" if c else "reference_by_construction",
+                             "status": "provisional_unregistered" if c else "reference_by_construction",
                              "source": "ladder2d_brats_baseline.json"})
     return rows
 
@@ -51,11 +51,11 @@ def build():
     sources = ["ladder2d_brats_baseline.json", "ladder2d.json", "care_reproduction.json",
                "care_reproduction_all_phases_posthoc.json", "care_iteration2.json", "care_iteration2_state.json"]
     stamp = datetime.now(timezone.utc).isoformat()
-    lines = ["# Текущие метрики и результаты", "", f"Обновлено (UTC): {stamp}. Генерируется из сохранённых агрегатов; исходные результаты не перезаписываются.",
+    lines = ["# Текущие метрики и результаты", "", "**СТОП: сначала регистрация и визуальный QC ≥90%, включая зеркальные сравнения. Другие метрические эксперименты приостановлены. Приведённые ниже 2D-числа получены БЕЗ регистрации и пока не годятся для выводов о качестве метрик. QTIM также не прошёл необходимый QC.**", "", f"Обновлено (UTC): {stamp}. Генерируется из сохранённых агрегатов; исходные результаты не перезаписываются.",
              "", "## Что сейчас проверяется", "",
              "| Блок | Метрики | Данные | Текущий статус |", "|---|---|---|---|",
-             "| BraTS 2D | Все 9 выходов: RMSE, MSE, MAE, MSLE, PSNR, PSNR_eps, PSNR_01, PSNR_01_eps, SSIM | GRAPE, UPOL, UTIRIS; центральная область 64×64 из 224×224 | Посчитано; описательные результаты |",
-             "| Признаки 2D | Пиксели P, DINOv2 D, контроль яркости N; RETFound R и сосудистые Dice/компоненты/ветвления для GRAPE | Отдельный протокол и представление | Посчитано отдельно; см. ниже |",
+             "| BraTS 2D | Все 9 выходов: RMSE, MSE, MAE, MSLE, PSNR, PSNR_eps, PSNR_01, PSNR_01_eps, SSIM | GRAPE, UPOL, UTIRIS; центральная область 64×64 из 224×224 | Исторические числа БЕЗ регистрации; выводы отложены до QC ≥90% |",
+             "| Признаки 2D | Пиксели P, DINOv2 D, контроль яркости N; RETFound R и сосудистые Dice/компоненты/ветвления для GRAPE | Отдельный протокол и представление | Исторические числа БЕЗ регистрации; выводы отложены |",
              "| QTIM MRI | 9 BraTS-метрик; сегментационные проверки отдельным этапом | SyN + P90 | Текущих проверенных чисел нет; прежние affine-результаты не используем |",
              "| CARE, итерация 2 | SSIM, PSNR; NSD крупных/малых органов; clDice кишечника/сосудов | 36 тестовых КТ; результаты авторов | " + (state.get("stage", "ещё не запущено") if state else "ещё не запущено") + " |",
              "| H19 на CARE | Dice, NSD 2 мм, clDice на mean/shrinkage/wrong-detail | Изображения через фиксированный сегментатор | Ещё не выполнено |", "",
@@ -82,17 +82,19 @@ def build():
     lines += ["", "На скриншоте нет: семи остальных выходов пакета, исходных значений, 95% интервалов c, размеров выборок, строки посторонних, shrinkage-пути, других представлений, семейных сравнений и готовых QTIM-значений. Пустая клетка не равна нулю.",
               "", "## CARE: каждая метрика отдельно", "",
               "Воспроизводится агрегация опубликованных оценок, а не генерация КТ или запуск сегментатора. Сравнение — медиана и два квартиля с таблицей 2, допуск округления 0.050001.", "",
-              "| Метрика | Совпало | Не совпало | Нет покрытия | Нет конечной оценки | Статус |", "|---|---|---|---|---|---|"]
+              "| Метрика | Совпало | Не совпало | Нет покрытия | Нет конечной оценки | NAF до CARE: статья → пересчёт | Статус |", "|---|---|---|---|---|---|---|"]
     names = {"ssim": "SSIM ↑", "psnr": "PSNR ↑", "large_nsd": "NSD крупных органов ↑", "small_nsd": "NSD малых органов ↑",
              "intestine_cldice": "clDice кишечника ↑", "vessel_cldice": "clDice сосудов ↑"}
     for metric, label in names.items():
         rr = [r for r in care.get("rows", []) if r["metric"] == metric] if care else []
         counts = {s: sum(r["status"] == s for r in rr) for s in ("matched", "mismatch", "blocked_coverage", "unavailable")}
         if not rr:
-            lines.append(f"| {label} | — | — | — | — | ожидается итерация 2 |")
+            lines.append(f"| {label} | — | — | — | — | — | ожидается итерация 2 |")
         else:
             status = "воспроизведено" if counts["matched"] == 18 else "частичное покрытие" if counts["blocked_coverage"] else "не воспроизведено"
-            lines.append(f"| {label} | {counts['matched']}/18 | {counts['mismatch']} | {counts['blocked_coverage']} | {counts['unavailable']} | {status} |")
+            example = next((r for r in rr if r["method"] == "naf" and not r["care"]), None)
+            value = "не готово" if example is None else f"{example['paper']['median']:.1f} → {number(example['median'])}; n={example['n_finite']}"
+            lines.append(f"| {label} | {counts['matched']}/18 | {counts['mismatch']} | {counts['blocked_coverage']} | {counts['unavailable']} | {value} | {status} |")
     lines += ["", "[CARE: текущие численные значения и сравнение с публикацией](care_iteration2_report.md). История: [13 случаев](care_reproduction_report.md), [36 случаев: прежняя остановка по покрытию](care_reproduction_all_phases_posthoc_report.md). Это не результат проверки H19."]
     ladder = load("ladder2d.json")
     if ladder:
