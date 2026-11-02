@@ -312,6 +312,14 @@ QC gate's threshold). On the canonical iris frame the 2D iris box reaches 87.5 p
 radius of 80, so about one eighth of its width lies beyond the limbus by construction; eyelid and lash cover inside the
 box is not measured by any metric of this protocol and is left to the visual gate. No decision rule changes.
 
+## Amendment 4 (2 Nov 2026): thresholds left open by Amendment 2, before any quality metric was computed
+
+- Q3b on landmark position errors uses the same limit as Q1a: a method is biased if the 95% interval of the error
+  difference (stranger or fellow minus own) lies entirely above 1 px on the 224 grid.
+- Degrees of freedom for the tie rule: none 0; per-image frames and harmonisation on a frame (G1, H1, H2, I1 to I3)
+  1; pairwise similarity or rotation (G2, G3, I4, I5) 2; deformable (G4) 4.
+- Q3a also compares mean members with own candidates, under the same 5-point limit.
+
 ## References
 
 1. Hernandez-Matas C, Zabulis X, Triantafyllou A, Anyfanti P, Douma S, Argyros AA. FIRE: fundus image registration dataset. Model Artif Intell Ophthalmol. 2017;1(4):16-28. doi:10.35119/maio.v1i4.42
