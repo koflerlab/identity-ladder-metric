@@ -278,7 +278,9 @@ box statistics being recomputed for the new box; no fill made or scored on any b
   the template brain mask (221,857 candidates), ranked by the mean within-box correlation with the template over the
   frozen mean pool (59 scans). No target, relative, repeat or stranger scan and no fill entered the search.
 - Result: x [-32, 0), y [-19, 13), z [-2, 22) mm, mean r 0.85, 99.996% inside the template brain mask; mirror x [1,
-  33), same y and z. By its coordinates it covers left deep grey matter (thalamus, caudate, putamen), adjacent white
+  33), same y and z. The search ran while one mean-pool scan was still being registered; rerun on all 60 as a check
+  (box fixed whatever it showed), it returned the same box, mean r 0.853 (parietal 0.592; candidate percentiles 5, 50,
+  95: 0.381, 0.568, 0.771). By its coordinates it covers left deep grey matter (thalamus, caudate, putamen), adjacent white
   matter and the edge of the lateral ventricle; it was not segmented.
 - Kate's decision: offered the new box as primary with the parietal box kept as a sensitivity, and then five boxes
   fixed before scoring, she answered "ну не делай все пять делай один и смотри по результатам" ("don't do all five,
