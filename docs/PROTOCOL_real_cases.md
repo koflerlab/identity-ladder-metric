@@ -264,6 +264,44 @@ separate virtual environment, so the frozen environment (numpy 1.26.4, antspyx 0
 **A1.4 Consequence for the paper (not an analysis).** Proposition 2 is a one-line remark; the contribution is the
 measured answer to when and where Dice falls into the mode trap (A1.2, A1.3).
 
+### Amendment 2, part 0: Kate's decisions (2026-11-02, before any fill is scored)
+
+Written by the protocol session from Kate's messages to the run session. State of the run at this point: all 244
+frozen scans skull-stripped (SynthStrip) and registered; registration QC computed (6 scans flagged for visual review);
+box statistics being recomputed for the new box; no fill made or scored on any box.
+
+**A2.1 One evaluation box, chosen for registration quality.**
+
+- Why the box changed: after registration, the frozen parietal box aligned poorly across people. Mean within-box
+  correlation with the template over the mean pool: 0.59 (median over all candidate boxes 0.57).
+- Search, run before any fill existed: every 32 x 32 x 24 mm box in the left hemisphere whose box and mirror lie inside
+  the template brain mask (221,857 candidates), ranked by the mean within-box correlation with the template over the
+  frozen mean pool (59 scans). No target, relative, repeat or stranger scan and no fill entered the search.
+- Result: x [-32, 0), y [-19, 13), z [-2, 22) mm, mean r 0.85, 99.996% inside the template brain mask; mirror x [1,
+  33), same y and z. By its coordinates it covers left deep grey matter (thalamus, caudate, putamen), adjacent white
+  matter and the edge of the lateral ventricle; it was not segmented.
+- Kate's decision: offered the new box as primary with the parietal box kept as a sensitivity, and then five boxes
+  fixed before scoring, she answered "ну не делай все пять делай один и смотри по результатам" ("don't do all five,
+  do one and look at the results"). The best-aligned box is the primary box for C1 and C2 and for every intensity
+  arm: C3 to C8, sensitivities 2, 3 and 5, A1.1 (C1-all, C2-all, C11, C12) and C10.
+- What the criterion costs, stated before any result: it picks the place where people are most alike after
+  registration, so the place where a person's own deviation from the population is smallest. That favours the
+  population mean under RMSE, the direction of C1's first label. The run session told Kate this before she decided.
+  A C1 label "the population mean outranks the sibling" on this box is weaker evidence than on a box fixed before
+  any data, and it is reported together with this paragraph.
+- A box added after any result has been seen is labelled post hoc and does not replace this one.
+- Relation to the frozen design (Amendment 1: "reported as written"): open, to be decided by Kate before any fill is
+  scored and recorded here.
+
+**A2.2 Box coverage rule of D7.** Open: Kate decides from the distribution of box coverage in each scan's own brain
+mask (a QC quantity, reported before any fill is scored). Until then D7 holds as written: a box less than 95% inside
+the scan's own brain mask excludes the scan.
+
+**A2.3 Label-space budget, a check, no change.** D9 gives n_L = floor(budget / (24 x time per volume)). At the
+measured 215 s per SynthSeg volume, the frozen C9 (28,800 s) gets n_L = 5, the minimum. Each A1.2 box (9,600 s) gets
+n_L = 1, so by A1.5 A1.2 runs only if the measured throughput with segmentations in parallel reaches 80 s per volume
+or less (120 volumes in 9,600 s); otherwise it is reported as not run. Both come last in the A1.7 order.
+
 ### Amendment 2 (planned, before any fill is scored)
 
 Scan manifest hashes after download (the original 244 and the expanded 826); the expanded selection file and its
