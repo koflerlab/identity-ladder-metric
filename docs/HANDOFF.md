@@ -1,5 +1,11 @@
 # Handoff: identity-ladder-metric (updated 2026-11-02)
 
+## Start here for the ISBI paper (new chat, 2 Nov; Kate's scope)
+- The ISBI 2027 paper (`paper/isbi2027/overleaf/`, deadline 2 Nov 23:59 ET) reports only what we see in BraTS inpainting: its metrics reward regression to the mean, and so does downstream segmentation. The identity ladder is NOT in this paper.
+- To do: (1) a high-quality review of recent inpainting methods and papers (BraTS 2023 to 2026 entries, diffusion vs U-Net, evaluation critiques), every citation verified with the `bib-verify` skill; starting points are `docs/REPRODUCTION_BACKLOG.md` themes 1 to 3 and the six "other fields" references already in `refs.bib`; (2) demonstrate the result: synthetic evidence exists (`results/toy_ladder.json`, `results/label_ladder.json`, `results/population_null_report.md`); real QTIM numbers are being recomputed by Codex (block below) and none are valid yet; the 2D baseline with all nine BraTS metrics is in `results/ladder2d*`.
+- Open in the paper: the downstream sentence needs Florian's confirmation; conflicts of interest. Florian edits in Overleaf (one sentence per line; pull before editing, merge by hand if Overleaf makes a branch).
+- Other active work in the same checkout: Codex on QTIM (owns `src/real_cases*`, `docs/PROTOCOL_real_cases.md`, `results/real_cases*`), the Claude 2D thread (owns `ladder2d*`). Commit with explicit paths, check `git diff --cached`.
+
 ## SyN implementation checkpoint (2026-11-02, Codex)
 - Amendment 4 committed as 6a533b2 before this rerun. No SyN metric results exist yet.
 - Added `src/real_cases_syn.py`, isolated preparation pilot using the frozen inputs and version/hash guards:
