@@ -99,7 +99,7 @@ def fairness(recs: list, method: str, frame: str = "") -> dict:
     f_ok = [r for r in ok if fellow(r)]
     geo = ("q1a",) + tuple(held_out(method, frame))
     for k in geo:
-        get = (lambda r, role: r["q1a"][role]) if k == "q1a" else (lambda r, role: r["q1b"][role].get(k, np.nan))
+        get = (lambda r, role: r["q1a"][role]) if k == "q1a" else (lambda r, role: r["q1b"].get(role, {}).get(k, np.nan))
         q[f"Q3b_{k}_strangers_minus_own"] = boot([get(r, "strangers") - get(r, "candidate") for r in s_ok],
                                                  pe(s_ok), cc)
         q[f"Q3b_{k}_fellow_minus_own"] = boot_unpaired([get(r, "candidate") for r in f_ok], pe(f_ok),
@@ -108,7 +108,7 @@ def fairness(recs: list, method: str, frame: str = "") -> dict:
     q["Q3d_swap_minus_own"] = boot([r["c"]["swap_P"] - r["c"]["own_P"] for r in ok], pe(ok), cc)
     q["Q3e_reflect_minus_own"] = boot([r["c"]["reflect_P"] - r["c"]["own_P"] for r in s_ok], pe(s_ok), cc)
     q["vessel_dice_own_minus_strangers"] = boot(  # descriptive only (Amendment 2)
-        [r["q1b"]["candidate"].get("dice", np.nan) - r["q1b"]["strangers"].get("dice", np.nan) for r in s_ok],
+        [r["q1b"].get("candidate", {}).get("dice", np.nan) - r["q1b"].get("strangers", {}).get("dice", np.nan) for r in s_ok],
         pe(s_ok), cc)
     return q
 
@@ -159,7 +159,7 @@ def accuracy(recs: list, method: str, frame: str = "") -> dict:
         rs = same if role != "candidate" else same
         out[f"q1a_{role}"] = boot([r["q1a"].get(role, np.nan) for r in rs], pe(rs), cc)
         for k in ("dice", "disc", "fovea", "pupil", "limbus"):
-            vals = [r["q1b"][role].get(k, np.nan) for r in rs]
+            vals = [r["q1b"].get(role, {}).get(k, np.nan) for r in rs]
             if np.isfinite(np.asarray(vals, float)).any():
                 out[f"q1b_{k}_{role}"] = boot(vals, pe(rs), cc)
         for k in ("q1c", "coverage", "q1d"):
