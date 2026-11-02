@@ -280,3 +280,13 @@ def test_run_constants_match_the_frozen_protocol():
     assert rc.SEED == 20261101 and rc.N_BOOT == 2000 and rc.K == 16 and rc.LAMBDAS == (0.75, 0.5, 0.25)
     for image in rc.SEGMENTERS.values():
         assert image.split("@")[1] in text
+
+
+def test_parietal_box_gets_its_own_outputs():
+    try:
+        rc.use_box("parietal")
+        assert rc.BOX == rc.PARIETAL_BOX and rc.boxed("scores") == "scores_parietal"
+        assert rc.boxed("real_cases.json") == "real_cases_parietal.json"
+    finally:
+        rc.use_box("deep")
+    assert rc.boxed("plan.json") == "plan.json" and rc.BOX[0] == (-32, 0)

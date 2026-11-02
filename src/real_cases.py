@@ -53,6 +53,24 @@ PARIETAL_BOX = ((-45, -13), (-65, -33), (43, 67))  # frozen primary, replaced be
 PARIETAL_MIRROR = ((13, 45), (-65, -33), (43, 67))
 BOX = ((-32, 0), (-19, 13), (-2, 22))  # Kate 2026-11-01: best-aligned box (box_search on the mean pool)
 MIRROR = ((1, 33), (-19, 13), (-2, 22))  # exact reflection on the 1 mm grid
+BOXES = {"deep": (BOX, MIRROR), "parietal": (PARIETAL_BOX, PARIETAL_MIRROR)}
+BOX_NAME = "deep"
+
+
+def use_box(name):
+    """Score another box: its own scores, cache, plan and results files (the deep box keeps the plain names)."""
+    global BOX, MIRROR, BOX_NAME
+    BOX, MIRROR = BOXES[name]
+    BOX_NAME = name
+    os.environ["REAL_CASES_BOX"] = name
+    space.cache_clear()
+
+
+def boxed(name):
+    if BOX_NAME == "deep":
+        return name
+    stem, dot, ext = name.partition(".")
+    return f"{stem}_{BOX_NAME}{dot}{ext}"
 MEAN20 = 20
 Z_OFFSET = 10.0  # z-scores shifted so the package's clip at zero never acts; the constant cancels in every difference
 MODEL_RHO_MEAN = 0.5 * (1 + 1 / 60)
@@ -262,6 +280,7 @@ def normalized(i, meta, kind="wm", raw=None):
     import nibabel as nib
     _, brain, _, _ = space()
     v = nib.load(os.path.join(RUN, "prep", f"scan_{i:03d}.nii.gz")).get_fdata(dtype=np.float32) if raw is None else raw
+    meta = meta.get("parietal", meta) if BOX_NAME == "parietal" else meta  # stats with this box excluded
     v = v / meta["wm_peak"] if kind == "wm" else (v - meta["brain_mean"]) / meta["brain_sd"] + Z_OFFSET
     v[~brain] = 0
     return v.astype(np.float32)
@@ -718,7 +737,7 @@ def _init_worker(cache_path, threads):
 
 def score_target(job):
     t, set_name, metas = job["target"], job["set"], job["metas"]
-    out = os.path.join(RUN, "scores", f"{job['id']}.json")
+    out = os.path.join(RUN, boxed("scores"), f"{job['id']}.json")
     if os.path.exists(out):
         return job["id"]
     _, brain, box, mirror = space()
@@ -749,14 +768,22 @@ def score_target(job):
 
 
 def excluded_scans():
-    return read_json(os.path.join(RUN, "qc", "qc_summary.json"))["excluded"]
+    """D7 exclusions; on the parietal box the 95% coverage rule uses that box's coverage (stored under 'parietal')."""
+    out = dict(read_json(os.path.join(RUN, "qc", "qc_summary.json"))["excluded"])
+    if BOX_NAME == "parietal":
+        for f in sorted(os.listdir(os.path.join(RUN, "prep"))):
+            if f.endswith(".json"):
+                m = read_json(os.path.join(RUN, "prep", f))
+                if m.get("parietal", {}).get("box_in_own_brain", 1) < 0.95:
+                    out[m["scan"]] = f"parietal box {100 * m['parietal']['box_in_own_brain']:.1f}% inside own brain mask"
+    return out
 
 
 def score(workers):
     design = load_design()
     plan = assign(design, excluded_scans())
     metas = [read_json(os.path.join(RUN, "prep", f"scan_{i:03d}.json")) for i in range(design["n_scans"])]
-    cache_path = os.path.join(RUN, "box_cache.npz")
+    cache_path = os.path.join(RUN, boxed("box_cache.npz"))
     if not os.path.exists(cache_path):
         import nibabel as nib
         _, _, box, _ = space()
@@ -770,14 +797,14 @@ def score(workers):
     jobs = [{"id": t["id"], "order": t["order"], "set": s, "target": t, "metas": metas,
              "mean_pool": plan["mean_pool"], "stranger_pool": plan["stranger_pool"]}
             for s in ("S", "R") for t in plan[s]]
-    os.makedirs(os.path.join(RUN, "scores"), exist_ok=True)
+    os.makedirs(os.path.join(RUN, boxed("scores")), exist_ok=True)
     start = time.monotonic()
     with ProcessPoolExecutor(workers, initializer=_init_worker, initargs=(cache_path, max(1, 8 // workers))) as ex:
         for n, done in enumerate(ex.map(score_target, jobs), 1):
             if n % 10 == 0:
                 print({"scored_targets": n, "of": len(jobs), "minutes": round((time.monotonic() - start) / 60, 1)},
                       flush=True)
-    write_json(os.path.join(RUN, "plan.json"), plan)
+    write_json(os.path.join(RUN, boxed("plan.json")), plan)
     print({"scored_targets": len(jobs), "dropped_by_qc": plan["dropped"]})
 
 
@@ -852,7 +879,7 @@ def assign_expanded(design, excluded):
 
 def score_target_expanded(job):
     t, metas = job["target"], job["metas"]
-    out = os.path.join(RUN, "scores", f"{t['id']}.json")
+    out = os.path.join(RUN, boxed("scores"), f"{t['id']}.json")
     if os.path.exists(out):
         return t["id"]
     _, brain, box, mirror = space()
@@ -880,7 +907,7 @@ def score_expanded(workers):
     plan = assign_expanded(design, excluded_scans())
     start = read_json(os.path.join(RUN, "a11_start.json"))["epoch"]
     metas = [read_json(os.path.join(RUN, "prep", f"scan_{i:03d}.json")) for i in range(design["n_scans"])]
-    cache_path = os.path.join(RUN, "box_cache.npz")
+    cache_path = os.path.join(RUN, boxed("box_cache.npz"))
     if not os.path.exists(cache_path):
         _, _, box, _ = space()
         arr = np.zeros((design["n_scans"], int(box.sum())), np.float32)
@@ -889,7 +916,7 @@ def score_expanded(workers):
                 raw = nib.load(os.path.join(RUN, "prep", f"scan_{i:03d}.nii.gz")).get_fdata(dtype=np.float32)
                 arr[i] = normalized(i, m, "wm", raw)[box]
         np.savez(cache_path, box_wm=arr, box_z=arr[:1])
-    os.makedirs(os.path.join(RUN, "scores"), exist_ok=True)
+    os.makedirs(os.path.join(RUN, boxed("scores")), exist_ok=True)
     todo = iter(plan["targets"])
     done, stopped = 0, False
     with ProcessPoolExecutor(workers, initializer=_init_worker, initargs=(cache_path, max(1, 8 // workers))) as ex:
@@ -911,7 +938,7 @@ def score_expanded(workers):
                 f.result()
             if done % 20 == 0:
                 print({"scored_targets": done, "hours": round((time.time() - start) / 3600, 2)}, flush=True)
-    write_json(os.path.join(RUN, "plan.json"), {**plan, "budget_stopped": stopped, "scored": done})
+    write_json(os.path.join(RUN, boxed("plan.json")), {**plan, "budget_stopped": stopped, "scored": done})
     print({"scored_targets": done, "of": len(plan["targets"]), "budget_stopped": stopped,
            "dropped_targets": plan["dropped_targets"], "dropped_rows": plan["dropped_rows"]})
 
@@ -1208,10 +1235,10 @@ def label(tool, n_l, parallel=1):
     from scipy.ndimage import gaussian_filter
     if n_l < 5:
         raise SystemExit("n_L below 5: label space is reported as not run (D9)")
-    plan = read_json(os.path.join(RUN, "plan.json"))
+    plan = read_json(os.path.join(RUN, boxed("plan.json")))
     metas = [read_json(os.path.join(RUN, "prep", f"scan_{i:03d}.json")) for i in range(load_design()["n_scans"])]
     ni, brain, box, mirror = space()
-    with np.load(os.path.join(RUN, "box_cache.npz")) as f:
+    with np.load(os.path.join(RUN, boxed("box_cache.npz"))) as f:
         cache = f["box_wm"]
     sl = box_slices(box)
     for t in plan["S"][:n_l]:
@@ -1284,8 +1311,8 @@ def analyse_labels(rows):
 
 def report():
     hashes = guard("report")
-    rows = [read_json(os.path.join(RUN, "scores", f)) for f in sorted(os.listdir(os.path.join(RUN, "scores")))]
-    plan = read_json(os.path.join(RUN, "plan.json"))
+    rows = [read_json(os.path.join(RUN, boxed("scores"), f)) for f in sorted(os.listdir(os.path.join(RUN, boxed("scores"))))]
+    plan = read_json(os.path.join(RUN, boxed("plan.json")))
     qcs = read_json(os.path.join(RUN, "qc", "qc_summary.json"))
     res, claims = analyse(rows)
     lab_dir = os.path.join(RUN, "label")
@@ -1305,10 +1332,10 @@ def report():
            "sensitivity_not_run": {"1_orientation_unmatched": "no sagittal scans in the frozen download list",
                                    "4_syn": "not run in this pass", "6_other_boxes": "coordinates not yet amended",
                                    "7_other_segmenter": "not run in this pass"}}
-    write_json(os.path.join(ROOT, "results", "real_cases.json"), out)
+    write_json(os.path.join(ROOT, "results", boxed("real_cases.json")), out)
     code = {f: sha256(os.path.join(ROOT, "src", f)) for f in ("real_cases.py", "atlas_common.py", "population_null.py",
                                                             "toy_ladder.py")}
-    write_json(os.path.join(ROOT, "results", "real_cases_manifest.json"), {
+    write_json(os.path.join(ROOT, "results", boxed("real_cases_manifest.json")), {
         "protocol_sha256": sha256(PROTOCOL), "protocol_commit": git("log", "-1", "--format=%H", "--", PROTOCOL),
         "git_commit": git("rev-parse", "HEAD"), "code_sha256": code, "input_sha256": hashes, "seed": SEED,
         "n_bootstrap": N_BOOT, "versions": {**{p: version(p) for p in VERSIONS}, "python": platform.python_version(),
@@ -1319,8 +1346,8 @@ def report():
 
 def report_expanded():
     hashes = guard("report")
-    rows = [read_json(os.path.join(RUN, "scores", f)) for f in sorted(os.listdir(os.path.join(RUN, "scores")))]
-    plan = read_json(os.path.join(RUN, "plan.json"))
+    rows = [read_json(os.path.join(RUN, boxed("scores"), f)) for f in sorted(os.listdir(os.path.join(RUN, boxed("scores"))))]
+    plan = read_json(os.path.join(RUN, boxed("plan.json")))
     qcs = read_json(os.path.join(RUN, "qc", "qc_summary.json"))
     res, claims = analyse_expanded(rows)
     claims["rho_mean_vs_model"]["model_value"] = 0.5 * (1 + 1 / len(plan["mean_pool"]))
@@ -1343,11 +1370,16 @@ def report_expanded():
                       if k in ("C1-all", "C11")}))
 
 
+if os.environ.get("REAL_CASES_BOX", "deep") != "deep":  # spawned workers inherit the box
+    use_box(os.environ["REAL_CASES_BOX"])
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("stage", choices=["seed", "strip", "prepare", "rescale", "qc", "dataqc", "segtime", "score", "label",
                                       "report"])
     ap.add_argument("--design", choices=list(DESIGNS), default="frozen")
+    ap.add_argument("--box", choices=["deep", "parietal"], default="deep")
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--limit", type=int)
     ap.add_argument("--visual-fail", default="", help="comma-separated flagged scans with a visible failure (D7)")
@@ -1355,6 +1387,7 @@ def main():
     ap.add_argument("--n-l", type=int)
     a = ap.parse_args()
     use_design(a.design)
+    use_box(a.box)
     guard(a.stage)
     if DESIGN == "expanded" and a.stage in ("seed", "strip", "prepare"):
         start = os.path.join(RUN, "a11_start.json")  # the 12-hour A1.1 budget runs from the first preparation step
@@ -1385,3 +1418,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
