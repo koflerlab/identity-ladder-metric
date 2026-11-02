@@ -290,12 +290,30 @@ box statistics being recomputed for the new box; no fill made or scored on any b
   A C1 label "the population mean outranks the sibling" on this box is weaker evidence than on a box fixed before
   any data, and it is reported together with this paragraph.
 - A box added after any result has been seen is labelled post hoc and does not replace this one.
-- Relation to the frozen design (Amendment 1: "reported as written"): open, to be decided by Kate before any fill is
-  scored and recorded here.
+- Relation to the frozen design (Amendment 1: "reported as written"). Kate was asked, with the cost stated (about
+  40 minutes of CPU, 32 of 244 scans lost to D7 on that box), whether the frozen parietal box is also scored, and
+  answered "Да, оба бокса" (2026-11-02, about 08:50 +04). Frozen scoring on the A2.1 box had started, but no score of
+  any box had been reported to her or to the protocol session. So:
+  - the frozen parietal box is scored as written: C1 to C8, D7 as written (A2.2), white-matter peak with the parietal
+    box excluded, its own mirror x [13, 45). It runs right after the frozen scoring of the A2.1 box, before A1.1;
+  - C1 and C2 carry their prespecified labels on both boxes, reported side by side; neither replaces the other. That
+    makes four labelled primary results (two claims, two boxes), stated as such, with no correction beyond that;
+  - sensitivities 2, 3 and 5, A1.1 and C10 use the A2.1 box only; C9 stays on the parietal box (A1.5);
+  - the sentence of part A that running the parietal box later "would be post hoc" is superseded by this decision.
+    The parietal box is the frozen primary (19e47a7), and the decision to score it was taken before any result was
+    seen by Kate.
 
-**A2.2 Box coverage rule of D7.** Open: Kate decides from the distribution of box coverage in each scan's own brain
-mask (a QC quantity, reported before any fill is scored). Until then D7 holds as written: a box less than 95% inside
-the scan's own brain mask excludes the scan.
+**A2.4 Sensitivity 8: without the Siemens Trio scans (Kate, 2026-11-02, about 08:50 +04, "Да, добавить", before any
+result was reported).** The data-QC report (part A) found 5 of the 244 scans from a Siemens Trio, 4 of them with
+another sequence; all others share one scanner and protocol. On the A2.1 box, the frozen C1 to C8 are repeated
+without them: a target whose own, sibling or repeat scan is a Trio scan is dropped (no replacement, as in D7); a Trio
+stranger is removed from each target's 16 strangers, and c uses the remaining ones; the mean pool holds no Trio scan.
+Reported apart, never replacing the primary.
+
+**A2.2 Box coverage rule of D7.** D7 holds as written: a box less than 95% inside the scan's own brain mask excludes
+the scan. On the A2.1 box every scan has 100% coverage (part A), so nothing is excluded and no decision is needed. On
+the frozen parietal box 32 of 244 scans fall below 95% (minimum 91.4%); if that box is scored, the rule applies to it
+as written.
 
 **A2.3 Label-space budget, a check, no change.** D9 gives n_L = floor(budget / (24 x time per volume)). At the
 measured 215 s per SynthSeg volume, the frozen C9 (28,800 s) gets n_L = 5, the minimum. Each A1.2 box (9,600 s) gets
