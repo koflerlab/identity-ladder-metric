@@ -181,6 +181,29 @@ thread count, run time. Per-pair scores, image names, segmentations and any imag
 - Not used: RIDB (eye split and session timing not stated, so neither a clean bilateral nor a clean repeat rung);
   PAPILA (bilateral only, no repeat); ChestX-ray14 (see the change note above).
 
+## Amendment 1 (2 Nov 2026): BraTS inpainting metric baseline (descriptive)
+
+Requested by Kate after the primary results were committed (98d16f8) and before any of the scores below were
+computed: how close test-retest and mirrored patches are under the BraTS inpainting metrics, per dataset. Descriptive;
+it replaces nothing above and adds no claim.
+
+- Truth: the anchor x as a grey base image (224 x 224, as above). Mask: one fixed centred square of 64 x 64 pixels
+  (rows and columns 80 to 143) for every dataset. On iris this square covers mostly the pupil and inner iris; on
+  fundus the centre of the field between disc and macula. Fixed now, not tuned.
+- Fill: the candidate-slot image of the same pair, inserted inside the mask only. Rows: same-sitting repeat (iris
+  L0), other visit (GRAPE same camera under 1 year and 1 year or more, and other camera), mirrored other side (the
+  fellow eye flipped left-right, as in S1, with the strangers flipped the same way), population mean (lambda = 0),
+  and strangers (the pair's own reference set).
+- Scores: all nine outputs of the official `inpainting` package through `toy_ladder.panel` (RMSE, MSE, MAE, MSLE,
+  PSNR, PSNR_eps, PSNR_01, PSNR_01_eps, SSIM), with the package's normalisation from the voided truth. Report raw
+  medians with interquartile range per dataset and row, and c against the pair's matched strangers with the
+  direction of each metric (higher is better for SSIM and the PSNR family) and half credit for ties; mean c with the
+  person-cluster bootstrap interval as above.
+- Output: `results/ladder2d_brats_baseline.json` and `.csv` (aggregates only) and a short figure-free summary
+  `results/ladder2d_brats_baseline.md`. A column for the QTIM MRI run (repeat 3.5 months, other hemisphere) is left
+  empty, to be filled from that run's own aggregate output, not recomputed here.
+- SpeakingFaces is added to this table by a later amendment once its frame subset is downloaded and selected.
+
 ## References
 
 1. Oquab M, Darcet T, Moutakanni T, Vo H, Szafraniec M, Khalidov V, et al. DINOv2: learning robust visual features without supervision [Preprint]. arXiv:2304.07193. 2023.
