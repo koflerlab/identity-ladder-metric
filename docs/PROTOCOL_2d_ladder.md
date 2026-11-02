@@ -204,6 +204,31 @@ it replaces nothing above and adds no claim.
   empty, to be filled from that run's own aggregate output, not recomputed here.
 - SpeakingFaces is added to this table by a later amendment once its frame subset is downloaded and selected.
 
+## Amendment 2 (2 Nov 2026): registration before patch comparison
+
+Kate, after looking at the real figures: the unregistered numbers are distorted by misalignment. Measured before this
+amendment, on 60 same-sitting UTIRIS pairs: the pupil centre moves by a median of 32 pixels of 224 between two captures
+of the same eye, half the width of the 64-pixel patch. Results computed without registration (the primary run and
+Amendment 1) are kept and labelled "unregistered"; they are not relabelled. From here on, every patch comparison is
+made after registration; this applies to the Amendment 1 baseline and the real-data figures first, and to a rerun of
+the primary ladder second.
+
+- Iris (UPOL, UTIRIS): each image is mapped to one canonical frame with the existing segmentation
+  (`iris_codes.segment`, integro-differential pupil and limbus circles): limbus centre to the image centre, limbus
+  radius to 80 pixels, 224 x 224 output. Images failing the existing checks (pupil/iris ratio 0.15 to 0.75, centre
+  offset at most 0.25 of the iris radius, or a segmentation error) are excluded and counted; a pair whose anchor or
+  candidate fails is dropped; strangers and mean members that fail are skipped (a pair keeps at least 30 strangers and
+  8 mean members, or is dropped). The fellow eye is flipped in the canonical frame. Patch: rows 80 to 143, columns 136
+  to 199 of the canonical image, which covers the pupil margin, the iris band and the limbus on one side, instead of
+  the centred square that lay on the pupil.
+- Fundus (GRAPE): every candidate-slot image (own later image, fellow eye after flipping, each stranger, each mean
+  member) is registered to the anchor at 512 pixels: ORB keypoints (800) on the CLAHE green channel inside the field
+  of view eroded by 15 pixels, cross-checked matches with ratio 0.8, RANSAC similarity transform (residual 3 pixels,
+  500 trials, fixed seed). Accepted if at least 12 inliers, scale 0.8 to 1.25 and rotation under 20 degrees;
+  otherwise the image is used unregistered and counted. The registered 512 image is resized to the 224 base (BOX).
+  Patch: the centred square, as before.
+- The population mean is the mean of registered members. Metrics, c, strangers and bootstrap as in Amendment 1.
+
 ## References
 
 1. Oquab M, Darcet T, Moutakanni T, Vo H, Szafraniec M, Khalidov V, et al. DINOv2: learning robust visual features without supervision [Preprint]. arXiv:2304.07193. 2023.
