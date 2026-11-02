@@ -394,6 +394,21 @@ targets 11, repeats 11, strangers 10, mean pool 12.
   8; the A1.6 values relative to the white-matter peak). The corrected run is labelled a post hoc correction of an
   implementation error, and the withdrawn run is reported as such, with this paragraph. The A2.1 box search and D7
   coverage do not depend on intensity scale and stand.
+- Check (b) failed for the approved rule (run session, box statistics only, no scoring): box mean in units of each
+  candidate scale over the 244 scans, count beyond 5 MAD: part A rule 77; mode above Otsu 75 (Otsu falls below grey
+  matter in these scans); mode above the brain median 82; 90th percentile of brain intensities, box excluded, 0
+  (range 0.808 to 1.017). Nothing was scored. As written above, the choice of another rule goes to Kate. Any rule
+  other than an upper mode departs from the Definitions and is a post hoc deviation in the scale, chosen after the
+  withdrawn results. The median inside template white-matter probability above 0.9 (box excluded) also fails as a
+  scale (23 beyond 5 MAD): under affine registration that region includes individual grey matter. It is therefore
+  dropped as check (c), and replaced by native against template agreement of the chosen scale plus a visual check of
+  the 77 histograms with the chosen value marked. Sensitivity 5 (z-scores) uses no white-matter peak and is not
+  affected. The A1.6 summary is affected in wm_peak_native, the percentiles relative to it and snr_proxy.
+- Kate's choice (2026-11-02, after the withdrawn results, "P90 + z-score рядом"): every scan is divided by the 90th
+  percentile of its intensities inside the template brain mask, box excluded (per box). This is a post hoc deviation
+  from the Definitions and is labelled so wherever it is reported. Sensitivity 5 (z-scores, prespecified, not
+  affected by the error) is reported next to it for C1 and C2 on both boxes. The acceptance checks are (a), (b) and
+  the visual check of the 77 histograms; nothing is scored before they pass.
 
 ### Amendment 2 (planned, before any fill is scored)
 
