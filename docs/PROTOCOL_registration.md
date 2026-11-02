@@ -303,6 +303,15 @@ criterion, it would mark every method as biased. Kate chose "geometry-only parit
   distance for iris (lower is better), whichever is held out for the method; methods without a held-out structure are
   ranked on Q1a.
 
+## Amendment 3 (2 Nov 2026): crop coverage reported, before any quality metric was computed
+
+Prompted by the parallel QC pilot (`docs/REGISTRATION_QC_PROTOCOL.md`, another session), which reported crops partly
+outside the iris and low crop support in UTIRIS; taken as a reason to measure, not as a result. Added, descriptive:
+the fraction of the Q1c patch with valid source support, per role, and the share of patches under 95% support (the
+QC gate's threshold). On the canonical iris frame the 2D iris box reaches 87.5 px from the centre against a limbus
+radius of 80, so about one eighth of its width lies beyond the limbus by construction; eyelid and lash cover inside the
+box is not measured by any metric of this protocol and is left to the visual gate. No decision rule changes.
+
 ## References
 
 1. Hernandez-Matas C, Zabulis X, Triantafyllou A, Anyfanti P, Douma S, Argyros AA. FIRE: fundus image registration dataset. Model Artif Intell Ophthalmol. 2017;1(4):16-28. doi:10.35119/maio.v1i4.42
