@@ -1,0 +1,283 @@
+{
+ "dataset": "UPOL",
+ "method": "I5",
+ "frame": "I2",
+ "n_pairs": 192,
+ "n_dropped": {
+  "anchor": 115,
+  "candidate": 42,
+  "few strangers": 35,
+  "few members": 0
+ },
+ "failure": {
+  "anchor": {
+   "fail": 115,
+   "attempts": 192,
+   "rate": 0.5989583333333334
+  },
+  "own": {
+   "fail": 27,
+   "attempts": 52,
+   "rate": 0.5192307692307693
+  },
+  "fellow": {
+   "fail": 15,
+   "attempts": 25,
+   "rate": 0.6
+  },
+  "strangers": {
+   "fail": 3418,
+   "attempts": 3619,
+   "rate": 0.9444597955236254
+  },
+  "members": {
+   "fail": 1174,
+   "attempts": 1232,
+   "rate": 0.952922077922078
+  }
+ },
+ "accuracy": {
+  "q1a_candidate": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "q1a_strangers": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "q1a_members": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "q1a_null": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  }
+ },
+ "fairness": {
+  "Q3a_strangers_minus_own": {
+   "mean": 0.42512274959083474,
+   "ci95": [
+    0.297862669245648,
+    0.5463758020938871
+   ],
+   "median": 0.0,
+   "n": 52
+  },
+  "Q3a_members_minus_own": {
+   "mean": 0.43028846153846156,
+   "ci95": [
+    0.3058297872340425,
+    0.5513392857142857
+   ],
+   "median": 0.0,
+   "n": 52
+  },
+  "Q3a_fellow_minus_own": {
+   "diff": 0.0807692307692307,
+   "ci95": [
+    -0.1417038131041891,
+    0.27555954554676404
+   ]
+  },
+  "Q3b_q1a_strangers_minus_own": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "Q3b_q1a_fellow_minus_own": {
+   "diff": null,
+   "ci95": [
+    null,
+    null
+   ]
+  },
+  "Q3b_limbus_strangers_minus_own": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "Q3b_limbus_fellow_minus_own": {
+   "diff": null,
+   "ci95": [
+    null,
+    null
+   ]
+  },
+  "Q3c_null_c": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "Q3d_swap_minus_own": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "Q3e_reflect_minus_own": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "vessel_dice_own_minus_strangers": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  }
+ },
+ "eligibility": {
+  "eligible": false,
+  "biased": true,
+  "reasons": [
+   "failure anchor 0.599 > 0.1",
+   "failure own 0.519 > 0.1",
+   "failure fellow 0.600 > 0.1",
+   "failure strangers 0.944 > 0.1",
+   "failure members 0.953 > 0.1",
+   "Q3a_strangers_minus_own lower bound 0.298 > 0.05",
+   "Q3a_members_minus_own lower bound 0.306 > 0.05"
+  ]
+ },
+ "rank": {
+  "key": "q1a_candidate",
+  "value": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "higher_is_better": false
+ },
+ "downstream": {
+  "c_own_P": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_fellow_P": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_mean_P": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_mean_minus_own_P": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_own_minus_fellow_P": {
+   "diff": null,
+   "ci95": [
+    null,
+    null
+   ]
+  },
+  "c_own_N": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_fellow_N": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_mean_N": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_mean_minus_own_N": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_own_minus_fellow_N": {
+   "diff": null,
+   "ci95": [
+    null,
+    null
+   ]
+  },
+  "c_own_P_minus_none": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_mean_P_minus_none": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  }
+ }
+}

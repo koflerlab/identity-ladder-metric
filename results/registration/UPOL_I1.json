@@ -1,0 +1,283 @@
+{
+ "dataset": "UPOL",
+ "method": "I1",
+ "frame": "",
+ "n_pairs": 192,
+ "n_dropped": {
+  "anchor": 150,
+  "candidate": 7,
+  "few strangers": 35,
+  "few members": 0
+ },
+ "failure": {
+  "anchor": {
+   "fail": 150,
+   "attempts": 192,
+   "rate": 0.78125
+  },
+  "own": {
+   "fail": 5,
+   "attempts": 29,
+   "rate": 0.1724137931034483
+  },
+  "fellow": {
+   "fail": 2,
+   "attempts": 13,
+   "rate": 0.15384615384615385
+  },
+  "strangers": {
+   "fail": 1560,
+   "attempts": 1974,
+   "rate": 0.790273556231003
+  },
+  "members": {
+   "fail": 544,
+   "attempts": 672,
+   "rate": 0.8095238095238095
+  }
+ },
+ "accuracy": {
+  "q1a_candidate": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "q1a_strangers": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "q1a_members": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "q1a_null": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  }
+ },
+ "fairness": {
+  "Q3a_strangers_minus_own": {
+   "mean": 0.6162876008804108,
+   "ci95": [
+    0.4402414075286416,
+    0.7415081288606716
+   ],
+   "median": 0.7872340425531915,
+   "n": 29
+  },
+  "Q3a_members_minus_own": {
+   "mean": 0.6400862068965517,
+   "ci95": [
+    0.47451255341880344,
+    0.7583617424242423
+   ],
+   "median": 0.75,
+   "n": 29
+  },
+  "Q3a_fellow_minus_own": {
+   "diff": -0.018567639257294433,
+   "ci95": [
+    -0.23515948275862067,
+    0.2000137362637362
+   ]
+  },
+  "Q3b_q1a_strangers_minus_own": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "Q3b_q1a_fellow_minus_own": {
+   "diff": null,
+   "ci95": [
+    null,
+    null
+   ]
+  },
+  "Q3b_pupil_strangers_minus_own": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "Q3b_pupil_fellow_minus_own": {
+   "diff": null,
+   "ci95": [
+    null,
+    null
+   ]
+  },
+  "Q3c_null_c": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "Q3d_swap_minus_own": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "Q3e_reflect_minus_own": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "vessel_dice_own_minus_strangers": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  }
+ },
+ "eligibility": {
+  "eligible": false,
+  "biased": true,
+  "reasons": [
+   "failure anchor 0.781 > 0.1",
+   "failure own 0.172 > 0.1",
+   "failure fellow 0.154 > 0.1",
+   "failure strangers 0.790 > 0.1",
+   "failure members 0.810 > 0.1",
+   "Q3a_strangers_minus_own lower bound 0.440 > 0.05",
+   "Q3a_members_minus_own lower bound 0.475 > 0.05"
+  ]
+ },
+ "rank": {
+  "key": "q1a_candidate",
+  "value": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "higher_is_better": false
+ },
+ "downstream": {
+  "c_own_P": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_fellow_P": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_mean_P": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_mean_minus_own_P": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_own_minus_fellow_P": {
+   "diff": null,
+   "ci95": [
+    null,
+    null
+   ]
+  },
+  "c_own_N": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_fellow_N": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_mean_N": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_mean_minus_own_N": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_own_minus_fellow_N": {
+   "diff": null,
+   "ci95": [
+    null,
+    null
+   ]
+  },
+  "c_own_P_minus_none": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  },
+  "c_mean_P_minus_none": {
+   "mean": null,
+   "ci95": [
+    null,
+    null
+   ],
+   "n": 0
+  }
+ }
+}
