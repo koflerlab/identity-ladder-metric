@@ -275,7 +275,8 @@ def test_run_constants_match_the_frozen_protocol():
     for _, want in rc.INPUTS.values():
         assert want in text
     assert "x [-45, -13), y [-65, -33), z [43, 67)" in text and "x [13, 45)" in text
-    assert rc.BOX == ((-45, -13), (-65, -33), (43, 67)) and rc.MIRROR[0] == (13, 45)
+    assert rc.PARIETAL_BOX == ((-45, -13), (-65, -33), (43, 67)) and rc.PARIETAL_MIRROR[0] == (13, 45)
+    assert rc.MIRROR[0] == (1 - rc.BOX[0][1], 1 - rc.BOX[0][0]) and rc.MIRROR[1:] == rc.BOX[1:]  # exact reflection
     assert rc.SEED == 20261101 and rc.N_BOOT == 2000 and rc.K == 16 and rc.LAMBDAS == (0.75, 0.5, 0.25)
     for image in rc.SEGMENTERS.values():
         assert image.split("@")[1] in text

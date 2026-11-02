@@ -49,8 +49,10 @@ NILEARN_DATA = os.path.join(os.path.dirname(importlib.util.find_spec("nilearn").
 SEED, N_BOOT, K = 20261101, 2000, 16
 LAMBDAS = (0.75, 0.5, 0.25)
 BLUR_SIGMAS = (1, 2, 3, 4)
-BOX = ((-45, -13), (-65, -33), (43, 67))
-MIRROR = ((13, 45), (-65, -33), (43, 67))
+PARIETAL_BOX = ((-45, -13), (-65, -33), (43, 67))  # frozen primary, replaced before scoring (Amendment 2 part A)
+PARIETAL_MIRROR = ((13, 45), (-65, -33), (43, 67))
+BOX = ((-32, 0), (-19, 13), (-2, 22))  # Kate 2026-11-01: best-aligned box (box_search on the mean pool)
+MIRROR = ((1, 33), (-19, 13), (-2, 22))  # exact reflection on the 1 mm grid
 MEAN20 = 20
 Z_OFFSET = 10.0  # z-scores shifted so the package's clip at zero never acts; the constant cancels in every difference
 MODEL_RHO_MEAN = 0.5 * (1 + 1 / 60)
@@ -281,7 +283,16 @@ def native_qc(img, mask, spacing):
     pct = np.percentile(inside, [1, 5, 50, 95, 99])
     return {"mask_ml": float(mask.sum() * np.prod(spacing) / 1000), "wm_peak_native": peak,
             **{f"p{q:02d}": float(v) for q, v in zip((1, 5, 50, 95, 99), pct)},
-            "snr_proxy": float(wm.mean() / bg.std()) if bg.size > 100 and bg.std() > 0 else None}
+            "snr_proxy": snr_robust(wm, bg)}
+
+
+def snr_robust(wm, bg):
+    """Mean white matter over a robust background SD (1.4826 MAD): a few bright background voxels (vessels,
+    ghosting) otherwise inflate the plain SD and drive the ratio towards zero."""
+    if bg.size <= 100:
+        return None
+    sd = 1.4826 * float(np.median(np.abs(bg - np.median(bg))))
+    return float(wm.mean() / sd) if sd > 0 else None
 
 
 def scan_jobs(limit=None):
@@ -435,6 +446,82 @@ def qc_view(i, meta, path):
     plt.close(fig)
 
 
+# ---------------------------------------------------------------------------------------------------- box search
+
+def box_sums(a, size):
+    """Sum of a over every axis-aligned box of the given voxel size, indexed by the box's first voxel."""
+    sx, sy, sz = size
+    c = np.zeros(tuple(n + 1 for n in a.shape))
+    c[1:, 1:, 1:] = a.cumsum(0).cumsum(1).cumsum(2)
+    return (c[sx:, sy:, sz:] - c[:-sx, sy:, sz:] - c[sx:, :-sy, sz:] - c[sx:, sy:, :-sz]
+            + c[:-sx, :-sy, sz:] + c[:-sx, sy:, :-sz] + c[sx:, :-sy, :-sz] - c[:-sx, :-sy, :-sz])
+
+
+def box_search(size=(32, 32, 24), min_inside=0.99):
+    """Kate (2026-11-01): place the box where registration aligns people best. Every box of the protocol size in the
+    left hemisphere, >= min_inside in the template brain mask together with its exact mirror, is scored by the mean
+    over the frozen mean-pool scans (never targets) of the correlation between registered scan and template inside
+    it. No fill, donor or score is involved."""
+    import nibabel as nib
+    ni, brain, _, _ = space()
+    box_p = box_mask(ni.shape, ni.affine, PARIETAL_BOX)
+    t = ni.get_fdata().astype(np.float64)
+    n = float(np.prod(size))
+    st, stt = box_sums(t, size), box_sums(t * t, size)
+    inside = box_sums(brain.astype(float), size) / n
+    pool = [i for i in load_design()["mean_pool"]
+            if os.path.exists(os.path.join(RUN, "prep", f"scan_{i:03d}.json"))
+            and "error" not in read_json(os.path.join(RUN, "prep", f"scan_{i:03d}.json"))]
+    r = np.zeros_like(st)
+    for i in pool:
+        s = nib.load(os.path.join(RUN, "prep", f"scan_{i:03d}.nii.gz")).get_fdata().astype(np.float64) * brain
+        ss, sss, sst = box_sums(s, size), box_sums(s * s, size), box_sums(s * t, size)
+        r += (n * sst - ss * st) / np.sqrt(np.maximum((n * sss - ss ** 2) * (n * stt - st ** 2), 1e-12))
+    r /= len(pool)
+    x0 = ni.affine[0, 3]
+    valid = np.zeros(r.shape, bool)
+    for i in range(r.shape[0]):
+        last_x = x0 + i + size[0] - 1
+        j = int(round(-last_x - x0))  # exact mirror: voxel centre x -> -x
+        if last_x <= -1 and 0 <= j < r.shape[0]:
+            valid[i] = (inside[i] >= min_inside) & (inside[j] >= min_inside)
+    best = np.unravel_index(np.argmax(np.where(valid, r, -np.inf)), r.shape)
+    lo = [float(ni.affine[a, 3] + best[a]) for a in range(3)]
+    bounds = [[lo[a], lo[a] + size[a]] for a in range(3)]
+    mirror = [[-bounds[0][1] + 1, -bounds[0][0] + 1]] + bounds[1:]
+    p = tuple(int(np.argwhere(box_p).min(0)[a]) for a in range(3))
+    out = {"criterion": "mean within-box correlation with the template over the frozen mean pool",
+           "n_scans": len(pool), "box_mm": bounds, "mirror_mm": mirror, "mean_r": float(r[best]),
+           "inside_template_brain": float(inside[best]), "candidates": int(valid.sum()),
+           "parietal_box_mean_r": float(r[p]), "candidate_r_percentiles_5_50_95":
+           [float(v) for v in np.percentile(r[valid], [5, 50, 95])]}
+    write_json(os.path.join(RUN, "box_search.json"), out)
+    print(out)
+
+
+def rescale():
+    """Recompute the box-dependent scan statistics for the current BOX (white-matter peak and z-score moments with
+    the box excluded, box and mirror coverage in the scan's own mask); the parietal values are kept under 'parietal'."""
+    import nibabel as nib
+    _, brain, box, mirror = space()
+    n = len(read_json(INPUTS["selection.json"][0])["scans"])
+    for i in range(n):
+        path = os.path.join(RUN, "prep", f"scan_{i:03d}.json")
+        m = read_json(path)
+        if "error" in m or m.get("box") == list(map(list, BOX)):
+            continue
+        keys = ("wm_peak", "brain_mean", "brain_sd", "box_in_own_brain", "mirror_in_own_brain")
+        m.setdefault("parietal", {k: m[k] for k in keys})
+        v = nib.load(os.path.join(RUN, "prep", f"scan_{i:03d}.nii.gz")).get_fdata(dtype=np.float32)
+        own = nib.load(os.path.join(RUN, "prep", f"scan_{i:03d}_brain.nii.gz")).get_fdata() > 0
+        visible = v[brain & ~box]
+        m.update(wm_peak=wm_peak(visible), brain_mean=float(visible.mean()), brain_sd=float(visible.std()),
+                 box_in_own_brain=float(own[box].mean()), mirror_in_own_brain=float(own[mirror].mean()),
+                 box=list(map(list, BOX)))
+        write_json(path, m)
+    print({"rescaled": n, "box": BOX})
+
+
 # ---------------------------------------------------------------------------------------------------- data QC report
 
 ACQ_FIELDS = {"RepetitionTime": "tr_s", "EchoTime": "te_s", "InversionTime": "ti_s", "FlipAngle": "flip_deg",
@@ -479,7 +566,18 @@ def qc_table():
                    dtype=str(ni.get_data_dtype()), nonfinite=int(np.size(data) - np.isfinite(data).sum()))
         meta_path = os.path.join(RUN, "prep", f"scan_{i:03d}.json")
         meta = read_json(meta_path) if os.path.exists(meta_path) else {}
-        nq = meta.get("native_qc", {})
+        nq = dict(meta.get("native_qc", {}))
+        mpath = os.path.join(RUN, "strip", f"scan_{i:03d}_mask.nii.gz")
+        if nq and os.path.exists(mpath):  # SNR recomputed with the robust SD on the raw scan (descriptive only)
+            from scipy import ndimage
+            from skimage.filters import threshold_otsu
+            img = np.asarray(data, np.float64)
+            mask = np.asanyarray(nib.load(mpath).dataobj) > 0.5
+            inside = img[mask]
+            pk = wm_peak(inside)
+            far = ~ndimage.binary_dilation(mask, iterations=max(1, int(round(10 / min(ni.header.get_zooms()[:3])))))
+            bg = img[far & (img > 0) & (img < threshold_otsu(img[img > 0]))]
+            nq["snr_proxy"] = snr_robust(inside[np.abs(inside - pk) < 0.1 * pk], bg)
         row.update(nq)
         if nq:
             row.update({f"{q}_rel": nq[q] / nq["wm_peak_native"] for q in ("p01", "p05", "p50", "p95", "p99")})
@@ -1247,7 +1345,7 @@ def report_expanded():
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("stage", choices=["seed", "strip", "prepare", "qc", "dataqc", "segtime", "score", "label",
+    ap.add_argument("stage", choices=["seed", "strip", "prepare", "rescale", "qc", "dataqc", "segtime", "score", "label",
                                       "report"])
     ap.add_argument("--design", choices=list(DESIGNS), default="frozen")
     ap.add_argument("--workers", type=int, default=4)
@@ -1268,6 +1366,8 @@ def main():
         strip(a.limit)
     elif a.stage == "prepare":
         prepare(a.limit, a.workers)
+    elif a.stage == "rescale":
+        rescale()
     elif a.stage == "qc":
         qc([s for s in a.visual_fail.split(",") if s])
     elif a.stage == "dataqc":

@@ -302,6 +302,47 @@ measured 215 s per SynthSeg volume, the frozen C9 (28,800 s) gets n_L = 5, the m
 n_L = 1, so by A1.5 A1.2 runs only if the measured throughput with segmentations in parallel reaches 80 s per volume
 or less (120 volumes in 9,600 s); otherwise it is reported as not run. Both come last in the A1.7 order.
 
+### Amendment 2, part A: frozen-design inputs, QC and implementation (2026-11-02, before any fill is scored)
+
+Written by the run session. State: 244 scans skull-stripped and registered, box statistics recomputed for the A2.1
+box, QC and the data-QC report done; no fill made or scored on any box.
+
+- Scan manifest (244 T1w, OpenNeuro snapshot 1.0.8, size and S3 ETag MD5 verified, 2.69 GB): SHA-256
+  `4016dcf4a30ab95c76170ba714598c435792a260d70a39780dd6701928b0dcb8`. Sidecar manifest (244 JSON, data-QC report):
+  `96e0cad07beba51f724bc71eeb60435673c50fcb34c5849b68575420bd01f947`. Both private, next to `selection.json`.
+- Registration: median 25 s per scan, measured with two registrations and SynthStrip running at once (17 s on one
+  scan with the machine otherwise idle). Template correlation 0.41 to 0.58, median 0.51.
+- QC (D7): 6 scans below median - 3 MAD (0.448) were reviewed on three orthogonal slices: aligned, darker or
+  lower in contrast, no visible failure; none excluded. Box coverage in each scan's own SynthStrip mask: 100% for
+  every scan on the A2.1 box, so D7 excludes nothing and A2.2 needs no decision for it (on the parietal box, 32 of 244
+  scans would have fallen below 95%, minimum 91.4%; that box is not scored). Exclusions: 0.
+- Relation to the frozen design (A2.1, open point): following Kate's "do one", only the A2.1 box is scored; the frozen
+  parietal box is not run, and running it later would be post hoc.
+- Data-QC report (A1.6), descriptive, nothing excluded: 5 of 244 scans come from a Siemens Trio instead of the 4 T
+  MedSpec (2 set S targets, 1 set S sibling, 2 strangers), 4 of them with another sequence (TR 2.5 s, TI 1.1 s, flip
+  15 degrees); all others share one protocol. Proposed to Kate as a possible sensitivity (without these scans), not
+  applied.
+- Implementation details the protocol left open, fixed now:
+  - brain masks: SynthStrip (`mri_synthstrip`, pinned FreeSurfer 8.0.0 image) on each native scan; the mask serves the
+    affine registration (skull-stripped N4 scan to the 2 mm template, ANTs, template brain mask, seed 123) and is "the
+    scan's own brain mask" of D7. The crude Otsu strip of the image ladder covered only 76% of the parietal box on the
+    first scan (mask check only, no score);
+  - N4 on a 2 mm copy (shrink factor 4), bias field resampled to the native grid; the N4 native scan is resampled once
+    to the 1 mm template grid (linear);
+  - every volume is multiplied by the template brain mask (skull-stripped input, as in the challenge);
+  - white-matter peak: highest-intensity peak of the smoothed (Gaussian, 2 bins) 256-bin histogram between the 0.5 and
+    99.5 percentiles with height and prominence at least 10% and 5% of the tallest peak, inside the template brain
+    mask with the box excluded (prominence added after a synthetic test where tail noise won);
+  - metrics on the whole template-grid volume, tensor shape [1, 197, 233, 189] as in the package's file interface;
+  - mirrored box: the exact reflection on the grid (A2.1); restored spread over box voxels inside the template mask;
+  - strangers: 16 without replacement from the QC-passing pool, numpy default_rng(20261101), set S targets first in
+    selection order, then set R; sex-matched (sensitivity 2) from default_rng([20261101, 2]); mean pool of 20
+    (sensitivity 3) = the first 20 in selection order; z-scores (sensitivity 5) inside the template mask, box excluded,
+    plus 10 so the package's clip at zero never acts; Kendall tau-b over all fills of a target with its 16 strangers;
+  - sensitivity 1 cannot run (no sagittal scan in the frozen download); 4, 6 and 7 are not run in this pass.
+- Segmenter timing, the D8 choice and n_L are measured and recorded before any label-space fill is segmented (D8),
+  after the intensity arms in the A1.7 order.
+
 ### Amendment 2 (planned, before any fill is scored)
 
 Scan manifest hashes after download (the original 244 and the expanded 826); the expanded selection file and its
