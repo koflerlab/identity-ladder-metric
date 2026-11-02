@@ -229,6 +229,20 @@ the primary ladder second.
   Patch: the centred square, as before.
 - The population mean is the mean of registered members. Metrics, c, strangers and bootstrap as in Amendment 1.
 
+## Amendment 2a (2 Nov 2026): implementation changes found in a registration check, before any registered score
+
+Checked on 30 same-sitting pairs per iris set and 30 GRAPE pairs (registration quality only; no metric, c or result
+computed): canonical iris registration raises the patch correlation between two captures of the same eye from a
+median of 0.25 to 0.93 (UTIRIS) and 0.31 to 0.96 (UPOL, on the 30% of images that pass).
+- UPOL: the limbus search fails (no room: the iris fills the frame) or the centring check fails on most images. UPOL
+  images are already iris-centred crops, so UPOL is registered by the pupil centre only (`iris_codes.pupil_blob` on
+  the working image): pupil centre to the image centre, the whole working width mapped to 224 pixels (the dataset's
+  own scale kept). An image is excluded only if the pupil blob search fails. UTIRIS keeps the limbus-based frame.
+- GRAPE: the scikit-image ORB module is blocked on this machine by an application control policy. The same method runs
+  through OpenCV 4.13: ORB (800 keypoints) inside the eroded field of view, brute-force Hamming matching with a 0.8
+  ratio test, `cv2.estimateAffinePartial2D` (a similarity transform) with RANSAC, reprojection threshold 3 pixels,
+  500 iterations, `cv2.setRNGSeed(20261101)`. Acceptance rules unchanged.
+
 ## References
 
 1. Oquab M, Darcet T, Moutakanni T, Vo H, Szafraniec M, Khalidov V, et al. DINOv2: learning robust visual features without supervision [Preprint]. arXiv:2304.07193. 2023.
