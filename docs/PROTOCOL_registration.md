@@ -1,7 +1,7 @@
 # Protocol: registration before identity distances (a separate study)
 
-Status: DRAFT 1, 2 Nov 2026, for Kate's approval. Nothing under this protocol has been computed: no registration
-quality metric, no c, no figure. On approval it is frozen; any later change is a dated amendment, and results computed
+Status: FROZEN 2 Nov 2026 on Kate's approval of draft 1 ("Approve, freeze it"), before any registration quality
+metric, c or figure was computed under this protocol. Any later change is a dated amendment, and results computed
 before an amendment are never relabelled. Git commit and file hashes give provenance, not external preregistration.
 Scope: the next paper (the identity ladder). Nothing here goes into the ISBI 2027 paper.
 
