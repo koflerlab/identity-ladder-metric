@@ -1,5 +1,11 @@
 # Handoff: identity-ladder-metric (updated 2026-11-02)
 
+## Literature reproduction queue (2026-11-02, Codex)
+- Kate accepted the seven ranked recent papers and requested backlog entries and reproduction work. `docs/REPRODUCTION_BACKLOG.md` now has LS-01 to LS-11: seven accepted papers plus four secondary candidates already discussed.
+- Start with CARE Table 2 reaggregation, then separately image-level reproduction and the population-mean H19 extension. Protocol: `docs/PROTOCOL_care_reproduction.md`. Code: `src/care_reproduction.py`; tests: `tests/test_care_reproduction.py`. Inputs frozen without aggregation in `results/care_reproduction_inputs.json` (42 sources, official CARE commit `2443d490c59eebaac9e8420d56b45bffed113feb`). `python src/care_reproduction.py --run` refuses source/protocol drift.
+- Important correction: primary CARE anatomy endpoints are 2 mm NSD for large/small organs and clDice for intestine/vessels. Ordinary Dice is discussed as a less sensitive comparator. Reaggregation cannot establish H19 or independently validate nnU-Net.
+- Full suite before scoring: 156 passed, 10 existing torchmetrics warnings. No CT/weight downloads or modifications to concurrent QTIM/SyN jobs. Official CSVs are streamed in memory; only hashes and aggregate scores enter git. Final run outcome will be recorded here.
+
 ## Start here for the ISBI paper (new chat, 2 Nov; Kate's scope)
 - The ISBI 2027 paper (`paper/isbi2027/overleaf/`, deadline 2 Nov 23:59 ET) reports only what we see in BraTS inpainting: its metrics reward regression to the mean, and so does downstream segmentation. The identity ladder is NOT in this paper.
 - To do: (1) a high-quality review of recent inpainting methods and papers (BraTS 2023 to 2026 entries, diffusion vs U-Net, evaluation critiques), every citation verified with the `bib-verify` skill; starting points are `docs/REPRODUCTION_BACKLOG.md` themes 1 to 3 and the six "other fields" references already in `refs.bib`; (2) demonstrate the result: synthetic evidence exists (`results/toy_ladder.json`, `results/label_ladder.json`, `results/population_null_report.md`); real QTIM numbers are being recomputed by Codex (block below) and none are valid yet; the 2D baseline with all nine BraTS metrics is in `results/ladder2d*`.

@@ -1,0 +1,216 @@
+{
+  "official_commit": "2443d490c59eebaac9e8420d56b45bffed113feb",
+  "protocol_sha256": "696f1093394844bf323ca7f934352e142743e2722702e29931fa1c7a6ef8d796",
+  "inputs": {
+    "STEP3-CAREModel/splits/BDMAP_O_AV_meta_test.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/STEP3-CAREModel/splits/BDMAP_O_AV_meta_test.csv",
+      "sha256": "dcb2eda1060cb2aa6cde5bde3d1a6f35733ff67c806a301ae27ccb488f73fc0e",
+      "bytes": 2954
+    },
+    "LICENSE": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/LICENSE",
+      "sha256": "3581c0055b9652dd9e7a8e55755879fde7ab2ea511878ae268fd6fae3546ff81",
+      "bytes": 15379
+    },
+    "ReconstructionPipeline/metric_utils.py": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/metric_utils.py",
+      "sha256": "805f347fa9d3b7b4804c78e367f8f5ecee3bb259fde704425f3915c31db10baa",
+      "bytes": 3424
+    },
+    "ReconstructionPipeline/step5_calculateMetrics.py": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/step5_calculateMetrics.py",
+      "sha256": "7baac03e2bc740007735ccfa7d9cd724484ff44bb82e749c52c921e24a14f4d6",
+      "bytes": 10127
+    },
+    "ReconstructionPipeline/step6_read_result_csv_for_table1st2nd.py": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/step6_read_result_csv_for_table1st2nd.py",
+      "sha256": "42bd910bf05c6760630bdbe2c2546b6d93156521b565263591d998472ea15c8f",
+      "bytes": 10732
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_intratomo_50_pixel.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_intratomo_50_pixel.csv",
+      "sha256": "81ded9da09dec8287ba9facae2d28d72cc66f7150a0744e1de6b27c390a8e2d1",
+      "bytes": 3223
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_intratomo_50_seg.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_intratomo_50_seg.csv",
+      "sha256": "fc9d8d6a3b3079e4196572eb938a916a56f54fbee746492188370d59faa14efe",
+      "bytes": 8189
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_intratomo_50_pixel_care.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_intratomo_50_pixel_care.csv",
+      "sha256": "5d5413286871288bc26d9cb8db17eee4525cc43d48c5f2e01198faedb22cfffe",
+      "bytes": 1912
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_intratomo_50_seg_care.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_intratomo_50_seg_care.csv",
+      "sha256": "04c0544b5e962b6763f0571f8212d9d83c91b772238f63eb1cc303e7b9fb92b4",
+      "bytes": 8856
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_nerf_50_pixel.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_nerf_50_pixel.csv",
+      "sha256": "f9fcbce8be3f7af70499ea8b2a418369fa67714ab1b4f3e356a9ca2e4c45d82e",
+      "bytes": 3225
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_nerf_50_seg.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_nerf_50_seg.csv",
+      "sha256": "7a3bf646462cf690abd6f0a44a4abb5a9af9c17821adb8a296e150c177fa127a",
+      "bytes": 11677
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_nerf_50_pixel_care.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_nerf_50_pixel_care.csv",
+      "sha256": "524aeef6c7de82829a6488bc8fd3fda0bc80176bf4b4a3429eee4cc3a79ea795",
+      "bytes": 1914
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_nerf_50_seg_care.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_nerf_50_seg_care.csv",
+      "sha256": "1152f1f915b84cc4465a69bcb60b13d35eb6d510a8af81ba24a155251792daee",
+      "bytes": 10182
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_tensorf_50_pixel.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_tensorf_50_pixel.csv",
+      "sha256": "24e69a37014ac987dd44514efb8f7d729390fee98abc3750518e792d2c82570c",
+      "bytes": 3226
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_tensorf_50_seg.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_tensorf_50_seg.csv",
+      "sha256": "e3a6bb20bb7aa7ebd0d79f2d5efcd15a6e2919c304c0d132db33d905b0558910",
+      "bytes": 15324
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_tensorf_50_pixel_care.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_tensorf_50_pixel_care.csv",
+      "sha256": "2b3f44dc6297653cc2c5c90bf2f05ca50490924d8ee7d35c6a5373e19f45ad83",
+      "bytes": 1922
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_tensorf_50_seg_care.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_tensorf_50_seg_care.csv",
+      "sha256": "cb847090458033bde858613e5de7ecd6273378b370c09b6ccd9f0fbbd759c98a",
+      "bytes": 11065
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_r2_gaussian_50_pixel.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_r2_gaussian_50_pixel.csv",
+      "sha256": "5d82e6af76c05eee4fbe135c550652fb7edbfcb010e328b8358ccef2080e0f75",
+      "bytes": 3231
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_r2_gaussian_50_seg.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_r2_gaussian_50_seg.csv",
+      "sha256": "a842fc8cce6ef5850bdc76690cfab4fd7d867502359229342718e608b9541555",
+      "bytes": 19727
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_r2_gaussian_50_pixel_care.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_r2_gaussian_50_pixel_care.csv",
+      "sha256": "c56edb43d7d06ff026b5404f49021f8a1fe32dff8e1c5845494b3a83264f6970",
+      "bytes": 1911
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_r2_gaussian_50_seg_care.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_r2_gaussian_50_seg_care.csv",
+      "sha256": "2d568b358788c35123c0d33445a1c28ddad5ea1e11b1bfd0481d5e9ded7dc3fb",
+      "bytes": 11649
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_naf_50_pixel.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_naf_50_pixel.csv",
+      "sha256": "e8327b5d8d5946ff6952aee168b6f3807a47c0e7670b414119c4aacb19add4a5",
+      "bytes": 3224
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_naf_50_seg.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_naf_50_seg.csv",
+      "sha256": "cdd1d16482743a45c37519099f27b9739e8a94d2607053f3c83a97673cddd5e5",
+      "bytes": 19888
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_naf_50_pixel_care.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_naf_50_pixel_care.csv",
+      "sha256": "5d5844f5ef9d7c95982d14d6dce075437ea294c9b9b0d81a93248aa13c25f69d",
+      "bytes": 1908
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_naf_50_seg_care.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_naf_50_seg_care.csv",
+      "sha256": "a6c230f467c5e5efcea595c06dab3c46b8d2feb8d93bba5413ee51b47d51c6f7",
+      "bytes": 11825
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_FDK_50_pixel.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_FDK_50_pixel.csv",
+      "sha256": "8c3c8627a95096199ff4309a04991619bc69479ca33078b6307ae9e23c99f3b5",
+      "bytes": 3230
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_FDK_50_seg.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_FDK_50_seg.csv",
+      "sha256": "8392e74f90ac2f1b4746c88c5583c2198c25d565d733bb9119c58acc65edd46b",
+      "bytes": 19683
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_FDK_50_pixel_care.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_FDK_50_pixel_care.csv",
+      "sha256": "ddce479fe9d58bd23a26967c4256bf60f54639439680f47a7ac749ce6ac20aca",
+      "bytes": 1917
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_FDK_50_seg_care.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_FDK_50_seg_care.csv",
+      "sha256": "90f63335e5d97ce157835ae2046623aa2476099bed0e217108641b10dab4186f",
+      "bytes": 11911
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_SART_50_pixel.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_SART_50_pixel.csv",
+      "sha256": "4c30271fd0e8cdaf82ba3a93e3e0f786a4900a8a515a866460f7793fdbe51634",
+      "bytes": 3229
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_SART_50_seg.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_SART_50_seg.csv",
+      "sha256": "83ac727ef8601f4b6f38f73a013b4a2ede4b70d550f1bc17b59975c40aa9c99d",
+      "bytes": 19865
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_SART_50_pixel_care.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_SART_50_pixel_care.csv",
+      "sha256": "938930022ca3cb61e5d127a41c79c3b4c0d85a601ce8fe18b77862a1d17abf12",
+      "bytes": 1912
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_SART_50_seg_care.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_SART_50_seg_care.csv",
+      "sha256": "98745762a221c1d5e7d05f34a3565c4e457d6bc9c86b4a67517d78ed621b306b",
+      "bytes": 11715
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_ASD_POCS_50_pixel.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_ASD_POCS_50_pixel.csv",
+      "sha256": "0167700ed1d3971a6f090376a917ea38e8b2a4b4f65afba0bc2b5af9480bc1b4",
+      "bytes": 3222
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_ASD_POCS_50_seg.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_ASD_POCS_50_seg.csv",
+      "sha256": "b1b465dceda3debdc6a6efd2e98a7df48064f0d55254ea1e96f1b8c7b6e9e04f",
+      "bytes": 19869
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_ASD_POCS_50_pixel_care.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_ASD_POCS_50_pixel_care.csv",
+      "sha256": "8dda4cc54b5f686ac74ad87f6da40218f4f22ff686fb79394c190cde09af370a",
+      "bytes": 1915
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_ASD_POCS_50_seg_care.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_ASD_POCS_50_seg_care.csv",
+      "sha256": "29c69ab1d907c0c0fe85a4f7a4e40e03b17b520ef6a068eff5a9fb320a507fa3",
+      "bytes": 11889
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_Lineformer_50_pixel.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_Lineformer_50_pixel.csv",
+      "sha256": "3c7e74b07fd571b8be6b87fbb39aae46dd6eb802a8993bcef04f6c676b7c98e8",
+      "bytes": 3229
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_Lineformer_50_seg.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_Lineformer_50_seg.csv",
+      "sha256": "63787276b1d3a55c53a6ed61133ddcb564bac4b5235db3bc1efaa51f8bcf2c90",
+      "bytes": 19522
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_Lineformer_50_pixel_care.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_Lineformer_50_pixel_care.csv",
+      "sha256": "96fc2d4931a94b58b7d21734f160203bb8481f2bd6c91d71201cb759d04d3bdc",
+      "bytes": 1915
+    },
+    "ReconstructionPipeline/resultsCSVcldice/BDMAP_O_Lineformer_50_seg_care.csv": {
+      "url": "https://raw.githubusercontent.com/MrGiovanni/CARE/2443d490c59eebaac9e8420d56b45bffed113feb/ReconstructionPipeline/resultsCSVcldice/BDMAP_O_Lineformer_50_seg_care.csv",
+      "sha256": "4c82457e40cef3747eee8fcfe63b1b2c921aff7aecb5f9468d2f9bdaf8966067",
+      "bytes": 11486
+    },
+    "paper.pdf": {
+      "url": "https://papers.nips.cc/paper_files/paper/2025/file/307f375e35616bbc2861033966b44976-Paper-Conference.pdf",
+      "sha256": "2696d3024e9ba286bea606825188d1dd48d305f3de97a35c615dca157f148cc4",
+      "bytes": 25309288
+    }
+  }
+}
