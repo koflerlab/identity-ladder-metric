@@ -292,8 +292,9 @@ box statistics being recomputed for the new box; no fill made or scored on any b
 - A box added after any result has been seen is labelled post hoc and does not replace this one.
 - Relation to the frozen design (Amendment 1: "reported as written"). Kate was asked, with the cost stated (about
   40 minutes of CPU, 32 of 244 scans lost to D7 on that box), whether the frozen parietal box is also scored, and
-  answered "Да, оба бокса" (2026-11-02, about 08:50 +04). Frozen scoring on the A2.1 box had started, but no score of
-  any box had been reported to her or to the protocol session. So:
+  answered "Да, оба бокса" (2026-11-02, about 08:50 +04), and gave the run session the same answer ("Yes, both
+  boxes"). A first scoring job on the A2.1 box had been started and was stopped after about 10 minutes, before any
+  target finished; no score of any box existed or had been read. So:
   - the frozen parietal box is scored as written: C1 to C8, D7 as written (A2.2), white-matter peak with the parietal
     box excluded, its own mirror x [13, 45). It runs right after the frozen scoring of the A2.1 box, before A1.1;
   - C1 and C2 carry their prespecified labels on both boxes, reported side by side; neither replaces the other. That
@@ -312,8 +313,12 @@ Reported apart, never replacing the primary.
 
 **A2.2 Box coverage rule of D7.** D7 holds as written: a box less than 95% inside the scan's own brain mask excludes
 the scan. On the A2.1 box every scan has 100% coverage (part A), so nothing is excluded and no decision is needed. On
-the frozen parietal box 32 of 244 scans fall below 95% (minimum 91.4%); if that box is scored, the rule applies to it
-as written.
+the frozen parietal box 32 of 244 scans fall below 95% (median 97.0%, 5th percentile 94.4%, minimum 91.4%); the rule
+applies to it as written. Losses by role: set S targets 6, set S siblings 7, set R targets 5, set R repeats 3,
+strangers 6, mean pool 5. Parietal n after D7: set S 37 of 49 (C1, C2), set R 17 of 23, stranger pool 34, mean pool
+55. A2.1 box: no losses (49, 23, 40, 60). D7 names the box; the mirror is only the donor region of the other-hemisphere row. So a scan
+is excluded by its evaluation box, and a target whose mirror falls below 95% (parietal: 6 of 244, median 97.4%; A2.1
+mirror: none) keeps its other rows and loses only the other-hemisphere row (C5), counted.
 
 **A2.3 Label-space budget, a check, no change.** D9 gives n_L = floor(budget / (24 x time per volume)). At the
 measured 215 s per SynthSeg volume, the frozen C9 (28,800 s) gets n_L = 5, the minimum. Each A1.2 box (9,600 s) gets
