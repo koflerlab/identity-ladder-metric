@@ -1,7 +1,7 @@
 # Protocol: the identity ladder on real 2D images (bilateral, repeat and ageing rungs)
 
-Status: DRAFT 2, 2 Nov 2026. Not frozen. No pixel has been read and no distance or score has been computed on real
-data under this protocol. It is frozen by a commit after Kate's approval; any later change is a dated amendment, and
+Status: FROZEN 2 Nov 2026 on Kate's approval of draft 2 ("Approve, freeze it"), before any pixel was read
+or any distance or score was computed on real data under this protocol. Any later change is a dated amendment, and
 results computed before an amendment are never relabelled. Git commit and file hashes give provenance, not external
 preregistration. Scope: the next paper (the identity ladder). Nothing here goes into the ISBI 2027 paper.
 
@@ -36,7 +36,7 @@ Open 2D data with twins do not exist (every twin set is by request), so this pro
 | UTIRIS near-infrared images (registry `utiris`, 778 images, 78 people; 15 files with conflicting eye labels excluded by the existing loader) | per-file, as above | iris, bilateral and same-sitting repeat |
 | `selection_grape.json` (private, data root) | `d3c236d60d125f886ea93ed2804a815b0007e12ccc1082c01b36c2d1a7a4708a` | GRAPE pairs, references, mean pools |
 | `selection_iris.json` (private, data root) | `c3a41f09ac7d622c8215788b99c2d67ce1ecfc729d05ba33aab1b319240e107c` | iris pairs, references, mean pools |
-| DINOv2 ViT-S/14, Hugging Face `facebook/dinov2-small`, revision `ed25f3a31f01632728cabb09d1542f84ab7b0056` (Apache-2.0), `model.safetensors` | `[filled at freezing]` | general-purpose representation D |
+| DINOv2 ViT-S/14, Hugging Face `facebook/dinov2-small`, revision `ed25f3a31f01632728cabb09d1542f84ab7b0056` (Apache-2.0), `model.safetensors` (88,249,960 bytes; matches the Hugging Face LFS record) | `ae1e99fcefd534ed978cdeb8326f08030c96e28b7a81ffcbc98a857c84d14be1`; `config.json` `1809f83e3bdb1609a501a610ad4a742f4fd8ae44d72ca4aa0df52d1f2ac8628d` | general-purpose representation D |
 
 The selection files hold image names and person IDs and stay in the data root. They were produced by
 `src/ladder2d_select.py` from metadata and file names only (seed 20261101). The run script refuses to start if the
