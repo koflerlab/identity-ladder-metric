@@ -19,8 +19,8 @@ CLOSEST = {"GRAPE": "same_camera_<1y", "UTIRIS": "same_eye_same_sitting", "UPOL"
 
 
 def held_out(method: str, frame: str = "") -> tuple:
-    """I5 and iris H1 inherit from their frame (I1 or I2)."""
-    if method in ("I5", "H1i"):
+    """I5 and iris H1 inherit the held-out structure of their frame (I1 or I2)."""
+    if frame:
         return HELD_OUT[frame]
     return HELD_OUT[method]
 
