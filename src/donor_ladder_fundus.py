@@ -253,7 +253,7 @@ def boot_ratio(tab: pd.DataFrame, col: str, ref: pd.Series, n_boot=2000, seed=SE
     return float(est), [float(np.percentile(bs, 2.5)), float(np.percentile(bs, 97.5))], int(len(d)), int(len(up))
 
 
-def summarize(r: pd.DataFrame, **counts) -> dict:
+def summarize(r: pd.DataFrame, seed: int = SEED, **counts) -> dict:
     res = {"counts": counts, "regions": {}}
     for region, rr in r.groupby("region"):
         per = rr.groupby(["target", "person", "cohort", "k"])[["err", "spread"]].mean()
@@ -261,8 +261,8 @@ def summarize(r: pd.DataFrame, **counts) -> dict:
         reg = {"V_mean_error_of_population_mean": float(ref.mean()), "cohorts": {}}
         for (c, k), tab in per.groupby(level=["cohort", "k"]):
             tab = tab.droplevel(["cohort", "k"])
-            e, ci, nt, npers = boot_ratio(tab, "err", ref)
-            sp, sci, _, _ = boot_ratio(tab, "spread", ref)
+            e, ci, nt, npers = boot_ratio(tab, "err", ref, seed=seed)
+            sp, sci, _, _ = boot_ratio(tab, "spread", ref, seed=seed)
             reg["cohorts"].setdefault(c, {})[k] = {"err_over_V": e, "ci95": ci, "spread_over_V": sp,
                                                    "spread_ci95": sci, "n_targets": nt, "n_persons": npers}
         for c, d in reg["cohorts"].items():
