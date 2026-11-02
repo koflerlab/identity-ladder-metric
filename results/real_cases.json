@@ -1,4 +1,5 @@
 {
+ "status": "WITHDRAWN 2026-11-02: white-matter-peak scaling picked the grey-matter peak in 77 of 244 scans (Amendment 3); every c, rho and label in this file is invalid. Kept for the record.",
  "claims": {
   "C1": {
    "delta_c_rmse_mean_minus_sibling": {
