@@ -113,10 +113,10 @@
    "n": 244
   },
   "p01_rel": {
-   "flagged_3mad": 15,
-   "max": 0.17587998675199146,
-   "median": 0.10012905801954772,
-   "min": 0.05197473513136962,
+   "flagged_3mad": 18,
+   "max": 0.12790697674418605,
+   "median": 0.0684931506849315,
+   "min": 0.03508771929824561,
    "n": 244
   },
   "p05": {
@@ -127,10 +127,10 @@
    "n": 244
   },
   "p05_rel": {
-   "flagged_3mad": 26,
-   "max": 0.43250656317659936,
-   "median": 0.2599730023421092,
-   "min": 0.1575166529111932,
+   "flagged_3mad": 12,
+   "max": 0.36046511627906974,
+   "median": 0.1864406779661017,
+   "min": 0.12962962962962962,
    "n": 244
   },
   "p50": {
@@ -141,10 +141,17 @@
    "n": 244
   },
   "p50_rel": {
-   "flagged_3mad": 81,
-   "max": 1.2247316295322568,
-   "median": 0.7249392882303574,
-   "min": 0.6326082590044673,
+   "flagged_3mad": 15,
+   "max": 0.7857142857142857,
+   "median": 0.5974025974025974,
+   "min": 0.5333333333333333,
+   "n": 244
+  },
+  "p90_native_raw": {
+   "flagged_3mad": 12,
+   "max": 293.0,
+   "median": 69.5,
+   "min": 45.0,
    "n": 244
   },
   "p95": {
@@ -155,10 +162,10 @@
    "n": 244
   },
   "p95_rel": {
-   "flagged_3mad": 81,
-   "max": 2.3057090852869666,
-   "median": 1.0588494824505958,
-   "min": 1.0347583290432998,
+   "flagged_3mad": 21,
+   "max": 1.1111111111111112,
+   "median": 1.082191780821918,
+   "min": 1.0232558139534884,
    "n": 244
   },
   "p99": {
@@ -169,17 +176,17 @@
    "n": 244
   },
   "p99_rel": {
-   "flagged_3mad": 81,
-   "max": 2.5669966324029603,
-   "median": 1.1300035645056337,
-   "min": 1.0873067930639901,
+   "flagged_3mad": 19,
+   "max": 1.3055555555555556,
+   "median": 1.2058823529411764,
+   "min": 1.0813953488372092,
    "n": 244
   },
   "snr_proxy": {
-   "flagged_3mad": 36,
-   "max": 56.82038776321174,
-   "median": 43.958214738700676,
-   "min": 12.814266840049111,
+   "flagged_3mad": 10,
+   "max": 56.947805436655464,
+   "median": 45.985362326908145,
+   "min": 23.98895009886027,
    "n": 244
   },
   "template_corr": {
@@ -200,9 +207,9 @@
  "design": "frozen selection (244 scans)",
  "generated": "2026-11-02",
  "nonfinite_scans": 0,
- "note": "descriptive only; no exclusion beyond D7; flags are 3 MAD from the median or departures from the most common acquisition value",
+ "note": "descriptive only; no exclusion beyond D7; flags are 3 MAD from the median or departures from the most common acquisition value; regenerated 2026-11-02 (Amendment 3): relative percentiles and the SNR white-matter level use the native P90 level instead of the white-matter peak, which picked grey matter in 77 scans",
  "prep_errors": 0,
  "scans": 244,
- "scans_with_any_flag": 117,
+ "scans_with_any_flag": 85,
  "sidecars_found": 244
 }
