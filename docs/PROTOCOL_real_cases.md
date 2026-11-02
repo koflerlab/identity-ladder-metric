@@ -410,6 +410,12 @@ targets 11, repeats 11, strangers 10, mean pool 12.
   affected by the error) is reported next to it for C1 and C2 on both boxes. The acceptance checks are (a), (b) and
   the visual check of the 77 histograms; nothing is scored before they pass.
 
+**A3.1 A1.1 on both boxes (Kate, 2026-11-02, "Both boxes", after the withdrawn frozen results, before any A1.1
+result).** A1.1 (C1-all, C2-all, C11, C12) is scored on the A2.1 box and on the frozen parietal box, the box A1.1
+named when Amendment 1 was written. Both are reported whatever they show. The decision came after the withdrawn
+frozen results had been seen, and it is labelled so. Same scale as Amendment 3 (P90, with z-scores next to it), D7
+and the A2.2 mirror rule on the parietal box.
+
 ### Amendment 2 (planned, before any fill is scored)
 
 Scan manifest hashes after download (the original 244 and the expanded 826); the expanded selection file and its
