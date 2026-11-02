@@ -280,8 +280,8 @@ def normalized(i, meta, kind="wm", raw=None):
     import nibabel as nib
     _, brain, _, _ = space()
     v = nib.load(os.path.join(RUN, "prep", f"scan_{i:03d}.nii.gz")).get_fdata(dtype=np.float32) if raw is None else raw
-    meta = meta.get("parietal", meta) if BOX_NAME == "parietal" else meta  # stats with this box excluded
-    v = v / meta["wm_peak"] if kind == "wm" else (v - meta["brain_mean"]) / meta["brain_sd"] + Z_OFFSET
+    sc = meta["scale"][BOX_NAME]  # this box excluded; "wm" is the P90 scale of Amendment 3 (post hoc)
+    v = v / sc["p90"] if kind == "wm" else (v - sc["brain_mean"]) / sc["brain_sd"] + Z_OFFSET
     v[~brain] = 0
     return v.astype(np.float32)
 
@@ -519,33 +519,38 @@ def box_search(size=(32, 32, 24), min_inside=0.99):
 
 
 def rescale():
-    """Recompute the box-dependent scan statistics for the current BOX (white-matter peak and z-score moments with
-    the box excluded, box and mirror coverage in the scan's own mask); the parietal values are kept under 'parietal'."""
+    """Per scan and per box (Amendment 3): the P90 scale, i.e. the 90th percentile of intensities inside the
+    template brain mask with that box excluded (a post hoc deviation from the Definitions, which named the
+    white-matter peak), the z-score moments with the box excluded, box and mirror coverage in the scan's own
+    mask; the white-matter peak of Amendment 2 part A is kept for the record (it picked grey matter in 77 scans)."""
     import nibabel as nib
-    _, brain, box, mirror = space()
+    ni, brain, _, _ = space()
     n = len(read_json(INPUTS["selection.json"][0])["scans"])
+    boxes = {k: (box_mask(ni.shape, ni.affine, b), box_mask(ni.shape, ni.affine, m)) for k, (b, m) in BOXES.items()}
     for i in range(n):
         path = os.path.join(RUN, "prep", f"scan_{i:03d}.json")
         m = read_json(path)
-        if "error" in m or m.get("box") == list(map(list, BOX)):
+        if "error" in m or "scale" in m:
             continue
-        keys = ("wm_peak", "brain_mean", "brain_sd", "box_in_own_brain", "mirror_in_own_brain")
-        m.setdefault("parietal", {k: m[k] for k in keys})
         v = nib.load(os.path.join(RUN, "prep", f"scan_{i:03d}.nii.gz")).get_fdata(dtype=np.float32)
         own = nib.load(os.path.join(RUN, "prep", f"scan_{i:03d}_brain.nii.gz")).get_fdata() > 0
-        visible = v[brain & ~box]
-        m.update(wm_peak=wm_peak(visible), brain_mean=float(visible.mean()), brain_sd=float(visible.std()),
-                 box_in_own_brain=float(own[box].mean()), mirror_in_own_brain=float(own[mirror].mean()),
-                 box=list(map(list, BOX)))
+        m["scale"] = {}
+        for name, (box, mirror) in boxes.items():
+            visible = v[brain & ~box]
+            m["scale"][name] = {"p90": float(np.percentile(visible, 90)), "wm_peak_amendment2": wm_peak(visible),
+                                "brain_mean": float(visible.mean()), "brain_sd": float(visible.std()),
+                                "box_in_own_brain": float(own[box].mean()), "mirror_in_own_brain": float(own[mirror].mean())}
+        m.update(box_in_own_brain=m["scale"]["deep"]["box_in_own_brain"],
+                 mirror_in_own_brain=m["scale"]["deep"]["mirror_in_own_brain"])
         write_json(path, m)
-    print({"rescaled": n, "box": BOX})
+    print({"rescaled": n})
 
 
 # ---------------------------------------------------------------------------------------------------- data QC report
 
 ACQ_FIELDS = {"RepetitionTime": "tr_s", "EchoTime": "te_s", "InversionTime": "ti_s", "FlipAngle": "flip_deg",
               "MagneticFieldStrength": "field_t", "ManufacturersModelName": "scanner", "SoftwareVersions": "software"}
-QC_CONTINUOUS = ("mask_ml", "wm_peak_native", "p01", "p05", "p50", "p95", "p99", "p01_rel", "p05_rel", "p50_rel",
+QC_CONTINUOUS = ("mask_ml", "wm_peak_native", "p90_native_raw", "p01", "p05", "p50", "p95", "p99", "p01_rel", "p05_rel", "p50_rel",
                  "p95_rel", "p99_rel", "snr_proxy", "template_corr", "box_in_own_brain", "mirror_in_own_brain")
 QC_CATEGORICAL = ("tr_s", "te_s", "ti_s", "flip_deg", "field_t", "scanner", "software", "acq_orientation",
                   "voxel_mm", "matrix", "orientation", "dtype")
@@ -593,13 +598,14 @@ def qc_table():
             img = np.asarray(data, np.float64)
             mask = np.asanyarray(nib.load(mpath).dataobj) > 0.5
             inside = img[mask]
-            pk = wm_peak(inside)
+            pk = float(np.percentile(inside, 90))  # Amendment 3: P90 level, not the white-matter peak
+            nq.update({f"{q}_rel": float(np.percentile(inside, int(q[1:]))) / pk for q in ("p01", "p05", "p50", "p95", "p99")})
+            nq["p90_native_raw"] = pk
             far = ~ndimage.binary_dilation(mask, iterations=max(1, int(round(10 / min(ni.header.get_zooms()[:3])))))
             bg = img[far & (img > 0) & (img < threshold_otsu(img[img > 0]))]
             nq["snr_proxy"] = snr_robust(inside[np.abs(inside - pk) < 0.1 * pk], bg)
         row.update(nq)
-        if nq:
-            row.update({f"{q}_rel": nq[q] / nq["wm_peak_native"] for q in ("p01", "p05", "p50", "p95", "p99")})
+
         row.update({k: meta.get(k) for k in ("template_corr", "box_in_own_brain", "mirror_in_own_brain")})
         row["prep_error"] = meta.get("error")
         rows.append(row)
@@ -743,7 +749,7 @@ def score_target(job):
     _, brain, box, mirror = space()
     bb = brain[box]
     m = metas[t["target"]]
-    mirror_cov = (m.get("parietal", m) if BOX_NAME == "parietal" else m)["mirror_in_own_brain"]
+    mirror_cov = m["scale"][BOX_NAME]["mirror_in_own_brain"]
     row = {"id": job["id"], "set": set_name, "order": job["order"], "box_voxels": int(box.sum()),
            "box_in_template_brain": float(bb.mean()), "target_scan": t["target"], "donor_scan": t["donor"],
            "mirror_dropped": mirror_cov < 0.95}  # A2.2: a weak mirror drops only the other-hemisphere row
@@ -780,8 +786,9 @@ def excluded_scans():
         for f in sorted(os.listdir(os.path.join(RUN, "prep"))):
             if f.endswith(".json"):
                 m = read_json(os.path.join(RUN, "prep", f))
-                if m.get("parietal", {}).get("box_in_own_brain", 1) < 0.95:
-                    out[m["scan"]] = f"parietal box {100 * m['parietal']['box_in_own_brain']:.1f}% inside own brain mask"
+                cov = m.get("scale", {}).get("parietal", {}).get("box_in_own_brain", 1)
+                if cov < 0.95:
+                    out[m["scan"]] = f"parietal box {100 * cov:.1f}% inside own brain mask"
     return out
 
 

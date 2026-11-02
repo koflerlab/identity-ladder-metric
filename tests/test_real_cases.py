@@ -210,7 +210,7 @@ def test_score_target_and_analysis_run_end_to_end_on_a_toy_grid(tmp_path, monkey
     rows = []
     for t in range(4):  # targets 0-3, siblings 4-7, stranger pool 8-23, mean pool 24-29
         st = [int(j) for j in rng.permutation(range(8, 24))]
-        job = {"id": f"S{t:02d}", "order": t, "set": "S", "metas": [{"mirror_in_own_brain": 0.9 if t == 1 else 1.0}] * 30, "mean_pool": list(range(24, 30)),
+        job = {"id": f"S{t:02d}", "order": t, "set": "S", "metas": [{"scale": {"deep": {"mirror_in_own_brain": 0.9 if t == 1 else 1.0}}}] * 30, "mean_pool": list(range(24, 30)),
                "stranger_pool": list(range(8, 24)),
                "target": {"target": t, "donor": 4 + t, "strangers": st, "strangers_sex": st[:8]}}
         assert rc.score_target(job) == f"S{t:02d}"
