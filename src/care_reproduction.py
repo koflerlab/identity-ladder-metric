@@ -43,6 +43,14 @@ def digest(data):
     return hashlib.sha256(data).hexdigest()
 
 
+def validate_inputs(data, frozen):
+    if set(data) != set(frozen["inputs"]):
+        raise ValueError("Source inventory changed after freeze")
+    for name, content in data.items():
+        if frozen["inputs"][name]["sha256"] != digest(content):
+            raise ValueError(f"Source changed after freeze: {name}")
+
+
 def csv_path(method, care, kind):
     return f"ReconstructionPipeline/resultsCSVcldice/BDMAP_O_{method}_50_{kind}{'_care' if care else ''}.csv"
 
@@ -147,11 +155,7 @@ def execute(data, selection="author_venous"):
     frozen = json.loads(FREEZE.read_text(encoding="utf-8"))
     if frozen["protocol_sha256"] != digest(PROTOCOL.read_bytes()):
         raise ValueError("Protocol changed after input freeze")
-    for name, content in data.items():
-        if frozen["inputs"][name]["sha256"] != digest(content):
-            raise ValueError(f"Source changed after freeze: {name}")
-    if set(data) != set(frozen["inputs"]):
-        raise ValueError("Source inventory changed after freeze")
+    validate_inputs(data, frozen)
     amendment = json.loads(AMENDMENT_FREEZE.read_text(encoding="utf-8"))
     if amendment["amendment_sha256"] != digest(AMENDMENT.read_bytes()):
         raise ValueError("Amendment changed after freeze")
@@ -265,6 +269,8 @@ def main():
     action.add_argument("--run", action="store_true")
     action.add_argument("--freeze-amendment", action="store_true")
     args = parser.parse_args()
+    if args.run and OUTPUT.exists():
+        raise SystemExit("Historical R1 outputs already exist; preserve them and run care_iteration2.py")
     if args.freeze_inputs and FREEZE.exists():
         raise SystemExit("Input manifest already exists; preserve it and use a dated amendment for changes")
     if args.freeze_amendment:
