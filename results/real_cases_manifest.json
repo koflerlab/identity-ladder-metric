@@ -1,0 +1,38 @@
+{
+ "code_sha256": {
+  "atlas_common.py": "8826231ab9ab474f82b570201522f3e7c272076fed710861634a26a9b83d4ef9",
+  "population_null.py": "ac98a2dc1e0e01bff15d9bf1c070b869ac02ac60cecb341e3708931e86cfb627",
+  "real_cases.py": "d97e0c8b16e36cbdd0e37e3ccd630ae5c6b976da0acdbf3c0b6e421084e5a958",
+  "toy_ladder.py": "34f39144499ee902c67420057daef38df5c109b6085377222c12daaea921f6ff"
+ },
+ "generated": "2026-11-02T05:42:47+00:00",
+ "git_commit": "4d7302f019b7731454edaa651a9aac80463f6bbf",
+ "input_sha256": {
+  "dataset_description.json": "0f1dc04f0d8e777ae3ce9e264fb621c4227c9b6c842d5a4898e85a8a9f5ecc61",
+  "participants.tsv": "a013daf4672804d4f5a837ce75f2b0a52b67270c7ce4d09d1d01dc2c5aeff582",
+  "scan_manifest": "4016dcf4a30ab95c76170ba714598c435792a260d70a39780dd6701928b0dcb8",
+  "selection.json": "cb264436a1346f6a83b17e7d3abd8f3bc27ac10174ad89c8d7339eec421f7f31",
+  "template_gm": "97a5ca69bd24db37a9cb7b32525e1733a209af904129bf1cd36da06d24243bed",
+  "template_t1": "421a10e872fd6cadae7f61d358dffbcc1795a497d61ee76c5dda2503e1a1e9e6",
+  "template_wm": "382d92812de4744f9c86c7a0e4f680dc317a0a50e4da1f0153618a6798c7b7db"
+ },
+ "n_bootstrap": 2000,
+ "protocol_commit": "f46892069d2d58206dddcb199160242b669ce64a",
+ "protocol_sha256": "cb783e185288e6096638e05f90314e766e241b2727a70b50d26cd5c603679c6c",
+ "seed": 20261101,
+ "segmenters": {
+  "fastsurfer": "deepmi/fastsurfer@sha256:8aa18bae0a287a8925cb26c8903e77043880f21911f2e08821253e41a54f8e7f",
+  "synthseg": "freesurfer/freesurfer@sha256:f3e22b472afd9ca2b269d1b40c061ac891efaec070d09e387f4b024ea681e266"
+ },
+ "versions": {
+  "antspyx": "0.6.3",
+  "inpainting": "0.0.12",
+  "nibabel": "5.4.2",
+  "nilearn": "0.13.1",
+  "numpy": "1.26.4",
+  "python": "3.11.9",
+  "scipy": "1.15.3",
+  "torch": "2.10.0",
+  "torchmetrics": "1.9.0"
+ }
+}
