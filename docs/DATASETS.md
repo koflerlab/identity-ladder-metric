@@ -169,6 +169,16 @@ The tree's batch: 2D, low domain shift, open without an account, sizes checked 2
 | MUCT | face 2D | about 276 people, five fixed cameras in one sitting | 276 MB | registered (`muct`) |
 | Notre Dame FACE Features Set | face features | feature patterns including twin photographs (features only) | 0.2 MB | download failed; not registered |
 
+## Masked and occluded faces (not yet in the tree)
+
+Added 2026-11-02 for the occlusion lessons in [FACE_ID_LESSONS.md](FACE_ID_LESSONS.md) and theme 8 of the backlog. These rows are not in the Dataset Tree or the registry (changing those needs the maintenance lock in `data/AGENTS.md`), so the counts below do not include them. Nothing was downloaded.
+
+| Dataset | Dim | Axes | Status | Notes |
+|---|---|---|---|---|
+| [RMFRD (Real-world Masked Face Recognition Dataset), Wang et al. 2023](https://github.com/X-zhangyang/Real-World-Masked-Face-Dataset) | 2D image | S | download now (Google Drive or Baidu link in the repo README) | README: 525 people, 5 thousand masked and 90 thousand unmasked faces, crawled from the web and labelled. GitHub API reports no licence (checked 2026-11-02): do not re-host. Paper: doi:10.1109/TBIOM.2023.3242085 (R16 in FACE_ID_LESSONS.md). |
+| [SMFRD (Simulated Masked Face Recognition Dataset), same repo](https://github.com/X-zhangyang/Real-World-Masked-Face-Dataset) | 2D image | S | download now (same README) | README: masks drawn onto public face sets, 10 thousand people and 500 thousand faces. Same licence situation. Synthetic masks are the closest 2D analogue of an inpainting mask with known ground truth. |
+| [MFR challenge InsightFace track test sets](https://doi.org/10.1109/ICCVW54120.2021.00165) | 2D image | S | cut: test images not released | Abstract: 7K-identity masked set plus children and multi-racial sets, evaluated only through an online system (T8-12). |
+
 ## Catalogue
 
 Every row of the tree, grouped by kind of data. Twins and notes are shortened; the full verification notes stay in the tree. "Local" names the registry entry when the data are in the data root.
