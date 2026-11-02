@@ -742,16 +742,22 @@ def score_target(job):
         return job["id"]
     _, brain, box, mirror = space()
     bb = brain[box]
+    m = metas[t["target"]]
+    mirror_cov = (m.get("parietal", m) if BOX_NAME == "parietal" else m)["mirror_in_own_brain"]
     row = {"id": job["id"], "set": set_name, "order": job["order"], "box_voxels": int(box.sum()),
-           "box_in_template_brain": float(bb.mean())}
-    for kind in ("wm", "z"):
+           "box_in_template_brain": float(bb.mean()), "target_scan": t["target"], "donor_scan": t["donor"],
+           "mirror_dropped": mirror_cov < 0.95}  # A2.2: a weak mirror drops only the other-hemisphere row
+    primary = BOX_NAME == "deep"  # sensitivities 2, 3 and 5 run on the A2.1 box only
+    for kind in ("wm", "z") if primary else ("wm",):
         c = _CACHE[f"box_{kind}"]
         x = normalized(t["target"], metas[t["target"]], kind)
         xb = x[box]
         mu = c[job["mean_pool"]].mean(0)
         named = fills(xb, mu, c[t["strangers"][0]], c[t["donor"]], mirrored_values(x, box, mirror), bb)
         named = {("sibling" if set_name == "S" else "repeat") if k == "relative" else k: v for k, v in named.items()}
-        if kind == "wm":
+        if row["mirror_dropped"]:
+            named.pop("other_hemisphere")
+        if kind == "wm" and primary:
             named["mean20"] = c[job["mean_pool"][:MEAN20]].mean(0)
             pool = sorted(set(job["stranger_pool"]))
         else:
@@ -1050,6 +1056,24 @@ def restore_inf(obj):
     return float(obj) if obj in ("Infinity", "-Infinity") else obj
 
 
+def without_scans(rows, drop):
+    """Sensitivity 8 (A2.4): drop a target whose own, sibling or repeat scan is in `drop`; remove dropped strangers
+    from a target's 16 (c uses the rest, no redraw)."""
+    out = []
+    for r in rows:
+        if r["target_scan"] in drop or r["donor_scan"] in drop:
+            continue
+        out.append({**r, "strangers": [j for j in r["strangers"] if j not in drop],
+                    "strangers_sex": [j for j in r["strangers_sex"] if j not in drop]})
+    return out
+
+
+def trio_scans():
+    """Scan indices from the Siemens Trio in the data-QC table (A2.4)."""
+    with open(os.path.join(RUN, "data_qc", "qc_table.csv"), encoding="utf-8") as f:
+        return {int(r["scan"][5:]) for r in csv.DictReader(f) if r["scanner"] == "Trio"}
+
+
 def analyse(rows):
     """Claims C1 to C8 and sensitivity analyses 2, 3 and 5 from the private per-target rows."""
     rows = restore_inf(rows)
@@ -1060,13 +1084,15 @@ def analyse(rows):
             continue
         idx = boot_index(len(rs))
         tabs = [per_target(r) for r in rs]
-        fills_ = [k for k in tabs[0][0]]
-        block = {"n_targets": len(rs),
-                 "c": {k: {m: summary([t[0][k]["c"][m] for t in tabs], idx) for m in METRICS} for k in fills_},
-                 "rho": {k: summary([t[0][k]["rho"] for t in tabs], idx) for k in fills_},
+        fills_ = sorted({k for t in tabs for k in t[0]})
+        have = {k: [i for i, t in enumerate(tabs) if k in t[0]] for k in fills_}  # a dropped mirror row is absent
+        by = lambda k, get: summary([get(i) for i in have[k]], boot_index(len(have[k])))  # noqa: E731
+        block = {"n_targets": len(rs), "n_per_fill": {k: len(v) for k, v in have.items()},
+                 "c": {k: {m: by(k, lambda i: tabs[i][0][k]["c"][m]) for m in METRICS} for k in fills_},
+                 "rho": {k: by(k, lambda i: tabs[i][0][k]["rho"]) for k in fills_},
                  "kendall_tau_vs_rmse": {m: summary([t[1][m] for t in tabs], idx) for m in METRICS}}
-        diag = {k: {d: summary([r["diagnostics"][k][d] for r in rs], idx) for d in ("residual_ratio", "target_projection")}
-                for k in rs[0]["diagnostics"] if not k.startswith("stranger_")}
+        diag = {k: {d: by(k, lambda i: rs[i]["diagnostics"][k][d]) for d in ("residual_ratio", "target_projection")}
+                for k in fills_}
         diag["strangers"] = {d: summary([np.mean([r["diagnostics"][f"stranger_{j}"][d] for j in r["strangers"]])
                                          for r in rs], idx) for d in ("residual_ratio", "target_projection")}
         block["distance_to_mean"] = diag
@@ -1078,8 +1104,12 @@ def analyse(rows):
         block["restored_minus_mean_c_rmse"] = summary(
             [t[0]["mean_restored"]["c"]["rmse"] - t[0]["mean"]["c"]["rmse"] for t in tabs], idx)
         sens = {}
+        if "z" not in rs[0]:  # parietal box: C1 to C8 only (A2.1)
+            res[set_name] = block
+            continue
         tabs_sex = [per_target(r, "strangers_sex")[0] for r in rs]
-        sens["2_sex_matched_strangers"] = {k: summary([t[k]["c"]["rmse"] for t in tabs_sex], idx)
+        part = lambda vals: summary(vals, boot_index(len(vals)))  # noqa: E731
+        sens["2_sex_matched_strangers"] = {k: part([t[k]["c"]["rmse"] for t in tabs_sex if k in t])
                                            for k in (rel, "mean", "other_hemisphere")}
         sens["2_sex_matched_strangers"]["n_strangers_min"] = min(len(r["strangers_sex"]) for r in rs)
         sens["3_mean_pool_20"] = {"c_rmse": summary([t[0]["mean20"]["c"]["rmse"] for t in tabs], idx),
@@ -1089,7 +1119,7 @@ def analyse(rows):
             z = r["z"]
             refs = [z["strangers"][str(j)] for j in r["strangers"]]
             ztabs.append({k: c_scores(v, refs)["rmse"] for k, v in z["fills"].items()})
-        sens["5_z_scored"] = {k: summary([t[k] for t in ztabs], idx) for k in ztabs[0]}
+        sens["5_z_scored"] = {k: part([t[k] for t in ztabs if k in t]) for k in sorted({k for t in ztabs for k in t})}
         sens["5_z_scored"]["mean_minus_relative"] = summary([t["mean"] - t[rel] for t in ztabs], idx)
         block["sensitivity"] = sens
         res[set_name] = block
@@ -1216,12 +1246,12 @@ def segtime(batch=8):
         if not os.path.exists(dst):
             shutil.copy(src, dst)
     names = [f"copy{k}" for k in range(batch)]
-    for parallel in (1, 2):
+    for parallel in (1, 2, 4):
         res, secs = run_segmenter(tool, os.path.join(d, "in"), os.path.join(d, f"{tool}_p{parallel}"), names,
                                   parallel=parallel)
         out[tool][f"throughput_seconds_per_volume_p{parallel}"] = secs / batch
         out[tool][f"failed_p{parallel}"] = sum(p is None for p in res.values())
-    best = min((1, 2), key=lambda p: out[tool][f"throughput_seconds_per_volume_p{p}"])
+    best = min((1, 2, 4), key=lambda p: out[tool][f"throughput_seconds_per_volume_p{p}"])
     t = out[tool][f"throughput_seconds_per_volume_p{best}"]
     out.update(parallel=best, seconds_per_volume=t, n_L=int(LABEL_BUDGET_S // (LABEL_VOLUMES * t)))
     out["label_space_runs"] = out["n_L"] >= 5
@@ -1318,7 +1348,14 @@ def report():
     lab_dir = os.path.join(RUN, "label")
     lab_rows = [read_json(os.path.join(lab_dir, d, "label.json")) for d in sorted(os.listdir(lab_dir))
                 if os.path.exists(os.path.join(lab_dir, d, "label.json"))] if os.path.isdir(lab_dir) else []
+    lab_rows = lab_rows if BOX_NAME == "parietal" else []  # C9 runs on the parietal box (A2.1)
     claims["C9"] = analyse_labels(lab_rows)
+    if BOX_NAME == "deep":
+        kept = without_scans(rows, trio_scans())
+        res8, claims8 = analyse(kept)
+        claims["sensitivity_8_without_trio"] = {"n_targets": {k: v["n_targets"] for k, v in res8.items()},
+                                                **{k: claims8[k] for k in ("C1", "C2", "C3", "C4", "C5", "C6", "C7")
+                                                   if k in claims8}}
     reasons = {}
     for r in qcs["excluded"].values():
         key = "unreadable or failed preparation" if ":" in r and "inside own brain" not in r else r.split(" ")[0]
@@ -1379,7 +1416,7 @@ def main():
     ap.add_argument("stage", choices=["seed", "strip", "prepare", "rescale", "qc", "dataqc", "segtime", "score", "label",
                                       "report"])
     ap.add_argument("--design", choices=list(DESIGNS), default="frozen")
-    ap.add_argument("--box", choices=["deep", "parietal"], default="deep")
+    ap.add_argument("--box", choices=["deep", "parietal"], help="default: deep; parietal for label (C9, A2.1)")
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--limit", type=int)
     ap.add_argument("--visual-fail", default="", help="comma-separated flagged scans with a visible failure (D7)")
@@ -1387,7 +1424,7 @@ def main():
     ap.add_argument("--n-l", type=int)
     a = ap.parse_args()
     use_design(a.design)
-    use_box(a.box)
+    use_box(a.box or ("parietal" if a.stage == "label" else "deep"))
     guard(a.stage)
     if DESIGN == "expanded" and a.stage in ("seed", "strip", "prepare"):
         start = os.path.join(RUN, "a11_start.json")  # the 12-hour A1.1 budget runs from the first preparation step

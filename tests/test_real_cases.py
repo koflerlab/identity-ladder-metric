@@ -210,7 +210,7 @@ def test_score_target_and_analysis_run_end_to_end_on_a_toy_grid(tmp_path, monkey
     rows = []
     for t in range(4):  # targets 0-3, siblings 4-7, stranger pool 8-23, mean pool 24-29
         st = [int(j) for j in rng.permutation(range(8, 24))]
-        job = {"id": f"S{t:02d}", "order": t, "set": "S", "metas": [{}] * 30, "mean_pool": list(range(24, 30)),
+        job = {"id": f"S{t:02d}", "order": t, "set": "S", "metas": [{"mirror_in_own_brain": 0.9 if t == 1 else 1.0}] * 30, "mean_pool": list(range(24, 30)),
                "stranger_pool": list(range(8, 24)),
                "target": {"target": t, "donor": 4 + t, "strangers": st, "strangers_sex": st[:8]}}
         assert rc.score_target(job) == f"S{t:02d}"
@@ -219,10 +219,14 @@ def test_score_target_and_analysis_run_end_to_end_on_a_toy_grid(tmp_path, monkey
     assert set(row["wm"]["fills"]) == {"sibling", "other_hemisphere", "mean", "mean_restored", "shrink_0.75",
                                        "shrink_0.5", "shrink_0.25", "wrong_detail", "mean20"}
     assert len(row["wm"]["strangers"]) == len(row["z"]["strangers"]) == rc.K
+    assert rows[1]["mirror_dropped"] and "other_hemisphere" not in rows[1]["wm"]["fills"]  # A2.2 mirror rule
     assert abs(row["diagnostics"]["shrink_0.5"]["target_projection"] - 0.5) < 1e-6
     rows[0]["wm"]["strangers"][str(st[0])]["psnr"] = "Infinity"  # an exact copy, as JSON spells it
     res, claims = rc.analyse(rows)
     assert res["S"]["n_targets"] == 4 and "C1" in claims and "C4" not in claims
+    assert res["S"]["n_per_fill"]["other_hemisphere"] == 3 and res["S"]["n_per_fill"]["sibling"] == 4
+    kept = rc.without_scans(rows, {4, st[0]})  # sibling of target 0 and one stranger
+    assert [r["id"] for r in kept] == ["S01", "S02", "S03"] and all(st[0] not in r["strangers"] for r in kept)
 
 
 def test_expanded_design_drops_rows_not_targets_and_labels_each_relative():
