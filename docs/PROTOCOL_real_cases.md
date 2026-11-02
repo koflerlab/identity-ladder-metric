@@ -427,3 +427,53 @@ Any other change is a dated amendment made before the affected results are seen;
 post hoc and does not replace the prespecified analysis.
 
 Approved by Kate: 2026-11-01, "Approve as is" (freezing commit: see Status).
+
+### Amendment 4: nonlinear registration and raw metrics first (2026-11-02, before the SyN rerun)
+
+Kate requested this change on 2 November. The affine results on both boxes were already computed, seen and
+reported (93de63d) before this decision. They were withdrawn for the intensity-scale error in Amendment 3.
+This is a post hoc registration and reporting change, not a new preregistration. The original protocol and
+affine files remain intact as historical results and a sensitivity analysis; the withdrawn scale is never
+presented as a valid sensitivity result.
+
+- Registration: N4 bias correction in native space, SynthStrip on the N4-corrected image, then ANTs rigid,
+  affine and SyN registration to the same hash-pinned MNI ICBM152 2009a symmetric template. Registration uses
+  brain-masked images and masks at every stage. Optimisation uses the 2 mm template; the composed transforms
+  resample the native corrected intensities once to the 1 mm template grid (linear interpolation), and the
+  native brain mask with nearest-neighbour interpolation. The rigid and affine stages use Mattes MI,
+  iterations 1000/500/250/50, shrink factors 8/4/2/1, smoothing 3/2/1/0; SyN uses CC radius 4,
+  iterations 100/70/50, step 0.2, flow sigma 3, total sigma 0. Seed 123; software versions as above.
+- Record whole-brain and within-box template correlations before and after SyN, runtime and transform hashes.
+  Review every target, not only correlation outliers, on axial, coronal and sagittal slices through each box.
+  Review any additional D7 correlation outliers among donors and pools. Save views and explicit review decisions
+  privately, before scoring. D7 coverage and exclusion rules stay in force, independently for each box;
+  a failed mirror coverage drops only the other-hemisphere row. No score-based exclusion or replacement.
+- Other hemisphere: after SyN, flip the entire registered volume along the left-right axis on the symmetric
+  template grid, then extract the evaluation box. Verify that the grid reflection maps physical x to -x.
+  Derive the reflected mask the same way. This supersedes manually chosen mirror bounds where half-open
+  coordinate intervals differ by a voxel from the exact grid reflection.
+- Intensity: P90 inside the template brain mask with the evaluated box excluded (Amendment 3), and z-score
+  alongside on both boxes and both designs. Retain the protocol's +10 offset for the package's nonnegative
+  interface; record any clipping and do not silently clip a negative in-brain z-score. Scale separately per scan
+  and box. Report native/template P90 agreement and inspect the previously affected histograms before scoring.
+- Same targets, seeded order, disjoint mean pools and equal family weights as the frozen selection and A1.1.
+  Both boxes: deep (A2.1) and frozen parietal. Same available repeat, sibling and co-twin (zygosity unknown)
+  rows, exact mirrored hemisphere, 16 seeded strangers, population mean, mean with restored spread,
+  shrinkage lambda 0.75/0.5/0.25 and wrong detail. No assumption about co-twin zygosity. Missing or excluded
+  donors are counted; no replacement or merging of frozen and expanded designs as independent targets.
+- First deliverable: all nine unmodified outputs of official inpainting 0.0.12, on the full 3D template grid,
+  target outside the box as normalization_tensor. Raw per-target, per-fill values remain private. Publish only
+  aggregates, separately by design, box, scale, fill and metric: n targets, median, Q1, Q3, IQR and percentile
+  bootstrap 95% intervals for the median and IQR, 2000 target resamples, seed 20261101. Preserve the 16 stranger
+  values privately; also report their within-target median before aggregating over targets, so 16 donors are
+  not treated as 16 independent targets. Nonfinite metric outputs are counted explicitly, never silently dropped.
+- Only after the raw tables have been written and checked, calculate c against the same strangers. Preserve the
+  target bootstrap's known limitation: reused strangers in A1.1 create dependence that it ignores. Show affine
+  sensitivity outputs separately, recomputed with valid P90 and z-score scales, never overwritten by SyN.
+- A1.1 retains its 12-hour wall budget, counted anew from the first preparation step of this corrective rerun
+  and recorded separately from the earlier attempt. Frozen results are completed first; unfinished expanded
+  families are reported with counts and reasons. No segmentation or BraTS-model inference is added to this run.
+- Use a separate private SyN run directory and cache namespace. Record protocol, code, selection, scan manifest,
+  source image, template, transform and output hashes, package versions, seed, QC decisions and timestamps.
+  A completed cache from the affine run is never accepted as a SyN result. Participant identifiers, selection
+  lists, per-target values and real-image QC views never enter the repository or chat.
