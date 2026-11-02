@@ -1,5 +1,21 @@
 # Handoff: identity-ladder-metric (updated 2026-11-02)
 
+## SyN implementation checkpoint (2026-11-02, Codex)
+- Amendment 4 committed as 6a533b2 before this rerun. No SyN metric results exist yet.
+- Added `src/real_cases_syn.py`, isolated preparation pilot using the frozen inputs and version/hash guards:
+  N4, SynthStrip on corrected native data, rigid, affine, SyN, one resampling to 1 mm, transformed masks,
+  correlations before/after, per-box P90 statistics, exact physical reflection and private output hashes.
+- Two new tests verify physical reflection (including the parietal half-open-bound mismatch) and box-excluded
+  intensity scales. Full suite: 153 passed, 10 existing torchmetrics warnings. Real registration remains unverified.
+- Launched `python -u src/real_cases_syn.py --limit 1 --wait-for-storage`, execution session 6688.
+  Last observed state: waiting for the data-root maintenance lock held by another session. It is a one-scan
+  preparation pilot, not a full run; no scoring or automatic visual acceptance occurs. Do not launch a duplicate.
+- Pilot outputs will be private under `real-cases-run/syn_amendment4/`; check `complete.json` and private
+  SynthStrip logs after the lock clears. Next: verify the transform chain and pilot images, measure runtime,
+  implement all-target visual-QC records and raw-metric aggregation, then run the frozen design before A1.1.
+- Existing uncommitted `real_cases.py`, `test_real_cases.py`, and untracked `real_cases_brats.py` belong to the
+  concurrent work and were not included in this checkpoint. Historical affine data remain intact.
+
 ## Handoff to Codex (2 Nov): raw BraTS metrics on QTIM with correct registration
 Kate's decision (2 Nov): first a plain table of the official BraTS inpainting metrics on real QTIM brains, then the calibrated score; Codex redoes the registration.
 
