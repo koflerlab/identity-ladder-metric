@@ -382,8 +382,18 @@ targets 11, repeats 11, strangers 10, mean pool 12.
   run stays in the repository, marked withdrawn, and is not cited as a result.
 - The protocol's definition (Definitions: "upper mode of the intensity histogram inside the template brain mask, box
   excluded") is unchanged. The implementation did not meet it.
-- Fix: to be approved by Kate before any rescoring, and recorded here. The corrected run is labelled a post hoc
-  correction of an implementation error.
+- Fix, approved by Kate before any rescoring ("Одобряю", 2026-11-02, about 10:15 +04): the white-matter peak is the
+  mode of the voxels above the two-class Otsu threshold of the brain histogram, inside the template brain mask, box
+  excluded; same histogram binning and smoothing as part A. Fixed now, before any rescoring.
+- Acceptance, on QC quantities only, never on c, rho or labels: (a) native and template estimates agree; (b) the
+  distribution of box means over the 244 scans is no longer bimodal; (c) on every scan, the ratio of the new peak to
+  the median intensity inside the template white-matter probability above 0.9 (box excluded) is reported, and every
+  scan off by more than 10% is inspected and listed. If a check fails, nothing is scored and the failure goes to Kate
+  before any other rule is chosen.
+- Then both boxes are rescored, with every arm that uses the white-matter scale (C1 to C8; sensitivities 2, 3 and
+  8; the A1.6 values relative to the white-matter peak). The corrected run is labelled a post hoc correction of an
+  implementation error, and the withdrawn run is reported as such, with this paragraph. The A2.1 box search and D7
+  coverage do not depend on intensity scale and stand.
 
 ### Amendment 2 (planned, before any fill is scored)
 
