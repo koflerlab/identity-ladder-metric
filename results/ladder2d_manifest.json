@@ -1,0 +1,52 @@
+{
+ "protocol_sha256": "906fd4009c90a0e262e9e3cadbde9e51aad307ab110442ea6875e49fdb4b6435",
+ "code_sha256": {
+  "ladder2d.py": "8c36481734c0f51fec2b066a9c1bb8f586abdd3d0bb549ec700afa1677cc91e0",
+  "ladder2d_select.py": "f063e9c043ec78c5be1c22c3faf3acca57a87cedd2e3e8b090c3c88c1430bd31",
+  "grape_calibration.py": "f8793aa76a884ab8c2ffaecb673cf33caf3676b6c1d3998f03cfe57342db8e79",
+  "iris_calibration.py": "728d48aad6714f6a58492d02db7ca8a72692e8b892dc24a2037230ab88a35e3e"
+ },
+ "inputs_sha256": {
+  "grape_metadata": "bc79566f4687f7512628ee26959eca0fdb11dd859d217ebf82be99035fd2e02e",
+  "selection_grape": "d3c236d60d125f886ea93ed2804a815b0007e12ccc1082c01b36c2d1a7a4708a",
+  "selection_iris": "c3a41f09ac7d622c8215788b99c2d67ce1ecfc729d05ba33aab1b319240e107c",
+  "dinov2_weights": "ae1e99fcefd534ed978cdeb8326f08030c96e28b7a81ffcbc98a857c84d14be1",
+  "dinov2_config": "1809f83e3bdb1609a501a610ad4a742f4fd8ae44d72ca4aa0df52d1f2ac8628d"
+ },
+ "retfound_dir_sha256": {
+  "features_0.pkl": "cf0f91e99dc9b8ffc09da8b7df26af33cd7394725920e859183e04f516723bed",
+  "features_1.pkl": "67f704ddcff464f5ce4d6da1286819fe8e0068b0163d85fa698f52bfd8cfbc5d",
+  "features_2.pkl": "bfb8c2f6dc786529076a05ed2547daf91560926157638b1e0b4ce79545a89621",
+  "features_3.pkl": "7592c9e26bc729c4622f9f1529cacd8eb7f65b8f5abf0eafe9a548fb57e06e03"
+ },
+ "image_set_sha256": {
+  "GRAPE": "40f4453cbf4862354c63ae478f40f8822502ce482caa6072d327be988a30aa32",
+  "UPOL": "4dcc1be9f74bbd79cfa1cd63694416afd7c8bc7f72f74a033301fc09ed68c3fd",
+  "UTIRIS": "a0499d6807c3f0519f7e6d60071b2255915cfe9f8dd9d6914cccca5e6c4b76ab"
+ },
+ "n_images": {
+  "GRAPE": 631,
+  "UPOL": 384,
+  "UTIRIS": 778
+ },
+ "git_commit": "8e72dd99a3ec4e727bbfa41c2ea6deffff347c0a",
+ "seed": 20261101,
+ "threads": 4,
+ "run_seconds": 2857,
+ "versions": {
+  "python": "3.11.9",
+  "numpy": "1.26.4",
+  "pandas": "2.3.3",
+  "scikit-image": "0.26.0",
+  "torch": "2.10.0+cpu",
+  "transformers": "5.0.0",
+  "Pillow": "11.3.0"
+ },
+ "private_outputs": "data root, projects/identity-ladder-metric/run-2026-11-02-2d-ladder",
+ "aggregation": {
+  "note": "labels regenerated from the saved per-pair scores after the C3 labelling fix; distances and scores unchanged",
+  "code_sha256": "81a9a42973c5351e2988592b7c581193a49a5626cbf07527328dcdf5de20aeee",
+  "git_commit": "9f906ee5040d48c2d5152d1eb3b222a71be62b06"
+ },
+ "scoring_run_note": "git_commit is HEAD at scoring time (another session had pushed on top of 9ae6651, which holds the scoring code); code_sha256 identifies the exact scoring code"
+}
