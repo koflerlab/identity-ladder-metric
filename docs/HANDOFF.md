@@ -1,5 +1,10 @@
 # Handoff: identity-ladder-metric (updated 2026-11-02)
 
+## Split of the literature work between Codex and Claude (2026-11-02, Kate's request)
+- Codex owns execution: `src/care_reproduction.py`, its tests, `docs/PROTOCOL_care_reproduction*.md`, `results/care_reproduction*`, `docs/REPRODUCTION_BACKLOG.md`, and LS-01/LS-03 feasibility. Claude does not edit these.
+- Claude owns read-only review and citation checking: `docs/REVIEW_care_reproduction.md` (independent review of R1) and a bib-verified note on the seven closest papers (separate docs file). No code, no runs, no backlog edits.
+- Before Codex's next step: the review already computed the 36-case aggregates as a diagnostic (pixel 36/36 triplets match Table 2, anatomy 0/72). This is seen evidence, so the per-method 36-case diagnosis is post hoc; record that in the next amendment and do not repeat it as if blind. Read the review's findings 3 and 5 before changing coverage handling.
+
 ## Literature reproduction queue (2026-11-02, Codex)
 - Kate accepted the seven ranked recent papers and requested backlog entries and reproduction work. `docs/REPRODUCTION_BACKLOG.md` now has LS-01 to LS-11: seven accepted papers plus four secondary candidates already discussed.
 - Start with CARE Table 2 reaggregation, then separately image-level reproduction and the population-mean H19 extension. Protocol: `docs/PROTOCOL_care_reproduction.md`. Code: `src/care_reproduction.py`; tests: `tests/test_care_reproduction.py`. Inputs frozen without aggregation in `results/care_reproduction_inputs.json` (42 sources, official CARE commit `2443d490c59eebaac9e8420d56b45bffed113feb`). `python src/care_reproduction.py --run` refuses source/protocol drift.
