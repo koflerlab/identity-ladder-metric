@@ -1,4 +1,27 @@
-# Handoff: identity-ladder-metric (updated 2026-11-01, evening)
+# Handoff: identity-ladder-metric (updated 2026-11-02)
+
+## Handoff to Codex (2 Nov): raw BraTS metrics on QTIM with correct registration
+Kate's decision (2 Nov): first a plain table of the official BraTS inpainting metrics on real QTIM brains, then the calibrated score; Codex redoes the registration.
+
+Why: the current QTIM results (`results/real_cases.json`, `results/real_cases_parietal.json`, commit 93de63d) are not usable as they stand.
+- Registration is affine only (`src/real_cases.py`, stage `prepare`: N4, SynthStrip mask, affine ANTs to the nilearn MNI 2009a symmetric template, 1 mm). With affine alone, a box in a sibling, a stranger or the mirrored hemisphere does not cover the same anatomy voxel for voxel.
+- Intensity scale bug (protocol Amendment 3): the white-matter-peak rule took the grey-matter peak in 77 of 244 scans. Kate chose the P90 scale with z-scores alongside (80bbcc2, post hoc, labelled so). Results have not been recomputed with it.
+- The tables so far report c (rank against 16 strangers), not raw metric values.
+
+Task:
+1. Registration: N4, SynthStrip mask, then rigid + affine + SyN (ANTs) to the MNI 2009 symmetric template, brain-masked; visual QC of every target on three slices; record template correlation before and after SyN. Mirror rows need the symmetric template: flip left-right on the template grid after SyN. Keep the affine version as a sensitivity, do not delete it.
+2. Intensity: P90 scale inside the brain mask (Amendment 3), z-score as a second scale.
+3. Fills per target, unchanged from the protocol: repeat (set R), other hemisphere (mirror), sibling, co-twin of unknown zygosity (A1.1), 16 strangers, population mean (equal family weights), mean with restored spread, shrink path lambda 0.75/0.5/0.25, wrong detail. Boxes: the deep box (A2.1) and the frozen parietal box.
+4. Score with the official `inpainting` 0.0.12 package, all nine outputs (RMSE, MSE, MAE, MSLE, PSNR, PSNR_eps, PSNR_01, PSNR_01_eps, SSIM). First deliverable: raw values per fill, median and IQR plus bootstrap 95% CI over targets, per box. Then c against strangers as before.
+5. Write a dated Amendment 4 in `docs/PROTOCOL_real_cases.md` BEFORE recomputing (registration change, raw-metric table first), state that earlier affine results were seen.
+
+Where things are:
+- Protocol and history: `docs/PROTOCOL_real_cases.md` (frozen 19e47a7, Amendments 1 to 3), `docs/DECISION_TREES.md`.
+- Code: `src/real_cases.py` (stages strip, prepare, qc, score), `src/real_cases_select.py`, `src/real_cases_fetch.py`; BraTS model arm `src/real_cases_brats.py` (untracked, from the Claude run session).
+- Data: QTIM OpenNeuro ds004169 v1.0.8 (CC0) in `C:\Projects\data\brain_images\siblings`; selection files and private outputs in `C:\Projects\data\projects\identity-ladder-metric\real-cases-run\` (they hold participant IDs: never into the repo or into chat).
+- Docker images: `freesurfer/freesurfer:8.0.0` (SynthStrip, SynthSeg), `deepmi/fastsurfer`, BraTS23_1 and BraTS24_1 inpainting images. No GPU; 8 CPU, 16 GB.
+
+Rules: public repo, aggregates only, no IDs; commit with explicit paths and check `git diff --cached` (other sessions share this checkout); tests `python -m pytest tests/ -q` before commits; no em dashes in text.
 
 ## Real-case protocol: status at the move to a new chat (2 Nov, early)
 - `docs/PROTOCOL_real_cases.md`: frozen 19e47a7; Amendment 1 (a7348b5) with A1.1 expanded intensity on 287 families (co-twin and sibling rows, mean pool 179, 826 scans), A1.2 label space by structure, A1.3 blur asymmetry, A1.4 paper note, A1.5 budget clarification and expanded selection hash (e563024), A1.6 data-QC report (05663d6), A1.7 run order and C10 with BraTS23_1 and BraTS24_1 only (5b1fa68). Amendment 2 (scan manifests, timings, segmenter, QC, box coordinates, implementation details) is planned and written by the run session before scoring.
