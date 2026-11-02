@@ -288,6 +288,21 @@ changes a method, metric or decision rule; it settles what the frozen text left 
 - N is standardised with the mean and SD over the anchors' outputs of the method. Four worker processes, OpenCV one
   thread each.
 
+## Amendment 2 (2 Nov 2026): fairness on identity-free geometry only (Kate), before any quality metric was computed
+
+Found while writing the evaluator: the vessel pattern is individual, so vessel-map Dice between the same eye's images
+is high once aligned and between strangers' images is low under any registration, including none. Used as a fairness
+criterion, it would mark every method as biased. Kate chose "geometry-only parity":
+
+- Q3b uses only structures that carry no identity: Q1a (known-transform error) and the landmark position errors of Q1b
+  (disc and fovea for fundus; pupil and limbus centres for iris; facial landmarks for faces). Where a landmark was used
+  to fit the method (disc and fovea for G1, H1, H2; limbus for I1; pupil for I2), its error is zero by construction
+  and only Q1a enters Q3b.
+- The vessel Dice own-minus-stranger gap is reported descriptively and is not an eligibility criterion.
+- Ranking (R4) uses Q1b on own same-eye pairs: vessel ring Dice for fundus (higher is better), pupil or limbus centre
+  distance for iris (lower is better), whichever is held out for the method; methods without a held-out structure are
+  ranked on Q1a.
+
 ## References
 
 1. Hernandez-Matas C, Zabulis X, Triantafyllou A, Anyfanti P, Douma S, Argyros AA. FIRE: fundus image registration dataset. Model Artif Intell Ophthalmol. 2017;1(4):16-28. doi:10.35119/maio.v1i4.42
